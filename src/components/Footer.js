@@ -57,7 +57,7 @@ const Footer = () => {
 
         <Box sx={{ mt: 8, textAlign: 'center' }}>
           <Typography variant="body2" color="text.secondary">
-            © 2024 Kaicension. All rights reserved.
+            © {new Date().getFullYear()} Kaicension. All rights reserved.
           </Typography>
         </Box>
       </Container>
