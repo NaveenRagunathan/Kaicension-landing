@@ -1,7 +1,15 @@
+import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import { Box, Button, Container, Grid, Paper, Typography } from '@mui/material';
 import React from 'react';
 
 const PricingSection = () => {
+  const handleWhatsAppClick = () => {
+    const number = "+2347055432421";
+    const message = encodeURIComponent("Hello, I'm interested in your service.");
+    const url = `https://api.whatsapp.com/send?phone=${number}&text=${message}`;
+    window.open(url, '_blank');
+  };
+
   return (
     <Box id="pricing-section" sx={{ py: 8, bgcolor: 'background.default' }}>
       <Container maxWidth="md">
@@ -81,14 +89,20 @@ const PricingSection = () => {
             <Button
               variant="contained"
               size="large"
+              onClick={handleWhatsAppClick}
+              startIcon={<RocketLaunchIcon sx={{ fontSize: '1.5rem' }} />}
               sx={{
                 py: 2,
                 px: 6,
                 fontSize: '1.2rem',
                 borderRadius: 2,
+                '&:hover': {
+                  transform: 'translateY(-2px)',
+                  transition: 'transform 0.3s ease',
+                }
               }}
             >
-              Claim Your Spot →
+              Claim Your Spot
             </Button>
           </Box>
         </Paper>
