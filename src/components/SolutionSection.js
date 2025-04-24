@@ -331,10 +331,10 @@ const SolutionSection = () => {
 
         <Box sx={{ mt: 8 }}>
           <WhatsAppCTA 
-            text="Discover Your Solution" 
+            text="See Our Process" 
             section="solution"
             message="Hi, I'd like to explore how your solutions can help my startup grow."
-            subtitle="Click to discuss custom strategies for your business"
+            subtitle="Learn our 4-month transformation method"
           />
         </Box>
       </Container>

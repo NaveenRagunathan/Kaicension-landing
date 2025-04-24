@@ -191,10 +191,10 @@ const ProblemSection = () => {
         
         <Box sx={{ mt: 8 }}>
           <WhatsAppCTA 
-            text="Get Unstuck Now" 
+            text="Find Your Solution" 
             section="problem"
             message="Hi, I'm experiencing these startup challenges and need your expertise."
-            subtitle="Click to discuss your specific challenges"
+            subtitle="Discover how to overcome these challenges"
           />
         </Box>
       </Container>

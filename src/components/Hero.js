@@ -412,10 +412,10 @@ const Hero = () => {
             
           <Box sx={{ mt: 5, display: 'flex', justifyContent: { xs: 'center', md: 'flex-start' } }}>
             <WhatsAppCTA 
-              text="Begin Your Transformation" 
+              text="Discover Your Challenges" 
               section="hero"
               message="Hi, I'm ready to transform my startup and achieve sustainable growth."
-              subtitle="Instant response via WhatsApp"
+              subtitle="Explore the founder's challenges"
             />
           </Box>
             

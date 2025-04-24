@@ -390,10 +390,10 @@ const ProcessSection = () => {
 
         <Box sx={{ mt: 8 }}>
           <WhatsAppCTA 
-            text="Start Your 4-Month Journey" 
+            text="See Success Stories" 
             section="process"
             message="Hi, I want to begin the 4-month transformation process for my startup."
-            subtitle="Click to discuss how we can tailor our process to your needs"
+            subtitle="Discover real transformation results"
           />
         </Box>
       </Container>

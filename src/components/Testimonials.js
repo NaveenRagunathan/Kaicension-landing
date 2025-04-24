@@ -218,10 +218,11 @@ const Testimonials = () => {
               </Typography>
               
               <WhatsAppCTA 
-                text="Transform Your Business Like Austin" 
+                text="Start Your 4-Month Transformation Now" 
                 section="testimonial"
-                message="Hi, I saw Austin's amazing results and would like to achieve something similar with my startup."
-                subtitle="Message us to start your transformation journey"
+                message="Hi, I'd like to start my 4-month transformation journey to fix my startup's foundations and make it investor-ready. Please send me more information."
+                subtitle="Direct WhatsApp contact - Get immediate response"
+                isFinal={true}
               />
             </Box>
           </motion.div>
