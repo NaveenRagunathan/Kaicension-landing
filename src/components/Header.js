@@ -1,5 +1,4 @@
 import CloseIcon from '@mui/icons-material/Close';
-import MenuIcon from '@mui/icons-material/Menu';
 import { AppBar, Box, Container, IconButton, Toolbar, Typography, useScrollTrigger } from '@mui/material';
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
@@ -113,7 +112,7 @@ const Header = () => {
               <Box sx={{ flexGrow: 1 }} />
 
               {/* Desktop Menu */}
-              <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 2 }}>
+              <Box sx={{ display: 'none' }}>
                 {navItems.map((item) => (
                   <motion.div
                     key={item.label}
@@ -141,52 +140,10 @@ const Header = () => {
                     </motion.button>
                   </motion.div>
                 ))}
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <motion.button
-                    onClick={() => scrollToSection('pricing-section')}
-                    style={{
-                      background: 'linear-gradient(135deg, #8A4FFF 0%, #A375FF 100%)',
-                      border: 'none',
-                      cursor: 'pointer',
-                      padding: '12px 24px',
-                      borderRadius: '30px',
-                      color: 'white',
-                      fontWeight: 600,
-                      fontSize: '1rem',
-                    }}
-                    whileHover={{
-                      background: 'linear-gradient(135deg, #A375FF 0%, #8A4FFF 100%)',
-                    }}
-                  >
-                    Get Started
-                  </motion.button>
-                </motion.div>
               </Box>
 
               {/* Mobile Menu Button */}
-              <IconButton
-                sx={{ 
-                  display: { xs: 'flex', md: 'none' },
-                  color: isScrolled ? '#1A1A1A' : '#8A4FFF',
-                  zIndex: 2000
-                }}
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              >
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={isMobileMenuOpen ? "close" : "menu"}
-                    initial={{ rotate: 0, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: 180, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    {isMobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
-                  </motion.div>
-                </AnimatePresence>
-              </IconButton>
+              <IconButton sx={{ display: 'none' }} />
             </Toolbar>
           </Container>
         </AppBar>

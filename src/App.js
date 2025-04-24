@@ -26,6 +26,7 @@ const theme = createTheme({
   typography: {
     fontFamily: '"Inter", "Helvetica", "Arial", sans-serif',
     h1: {
+      fontFamily: '"Inter", "Helvetica", "Arial", sans-serif',
       fontWeight: 800,
       fontSize: '4rem',
       lineHeight: 1.2,
@@ -34,22 +35,25 @@ const theme = createTheme({
       WebkitTextFillColor: 'transparent',
     },
     h2: {
+      fontFamily: '"Inter", "Helvetica", "Arial", sans-serif',
       fontWeight: 700,
       fontSize: '3rem',
       lineHeight: 1.3,
     },
     h3: {
+      fontFamily: '"Inter", "Helvetica", "Arial", sans-serif',
       fontWeight: 700,
       fontSize: '2.5rem',
       lineHeight: 1.4,
     },
     h4: {
-      fontWeight: 600,
+      fontFamily: '"Inter", "Helvetica", "Arial", sans-serif',
+      fontWeight: 400,
       fontSize: '2rem',
       lineHeight: 1.4,
     },
     button: {
-      textTransform: 'none',
+      fontFamily: '"Inter", "Helvetica", "Arial", sans-serif',
       fontWeight: 600,
     },
   },
