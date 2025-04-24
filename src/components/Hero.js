@@ -415,7 +415,6 @@ const Hero = () => {
               text="Discover Your Challenges" 
               section="hero"
               message="Hi, I'm ready to transform my startup and achieve sustainable growth."
-              subtitle="Explore the founder's challenges"
             />
           </Box>
             

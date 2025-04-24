@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import { Box, Container, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
 import React from 'react';
-import WhatsAppCTA from './WhatsAppCTA';
 
 // Styled components for spotlight testimonial
 const TestimonialCard = styled(motion.div)`
@@ -195,35 +194,6 @@ const Testimonials = () => {
                 border: '1px solid rgba(138,43,226,0.2)',
               }}
             >
-              <Typography
-                variant="h4"
-                component="p"
-                sx={{ 
-                  fontWeight: 700,
-                  mb: 3,
-                  fontSize: { xs: '1.75rem', md: '2.2rem' }
-                }}
-              >
-                Ready to Transform Your Startup?
-              </Typography>
-              <Typography
-                variant="body1"
-                sx={{ 
-                  color: 'rgba(255,255,255,0.9)',
-                  lineHeight: 1.8,
-                  fontSize: { xs: '1rem', md: '1.2rem' }
-                }}
-              >
-                Your startup has the potential to transform its industry - but potential isn't enough. You need a strategic partner who can help you fix your foundations, build distribution equity, and position your business as a "must-invest" opportunity.
-              </Typography>
-              
-              <WhatsAppCTA 
-                text="Start Your 4-Month Transformation Now" 
-                section="testimonial"
-                message="Hi, I'd like to start my 4-month transformation journey to fix my startup's foundations and make it investor-ready. Please send me more information."
-                subtitle="Direct WhatsApp contact - Get immediate response"
-                isFinal={true}
-              />
             </Box>
           </motion.div>
         </Box>

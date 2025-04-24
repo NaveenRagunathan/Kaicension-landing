@@ -62,8 +62,7 @@ const WhatsAppCTA = ({
       }
       
       // Format the phone number properly for WhatsApp API
-      const phoneNumber = "6382641449";
-      const formattedPhone = phoneNumber.replace(/[^\d+]/g, ""); // Remove any non-digit chars
+      const phoneNumber = "+2347055432421";      const formattedPhone = phoneNumber.replace(/[^\d+]/g, ""); // Remove any non-digit chars
       const whatsappURL = `https://api.whatsapp.com/send?phone=${formattedPhone}&text=${encodeURIComponent(customMessage)}`;
       
       // Open WhatsApp in a new tab

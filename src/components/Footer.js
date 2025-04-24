@@ -1,5 +1,6 @@
-import { Box, Button, Container, Grid, Typography } from '@mui/material';
+import { Box, Container, Grid, Typography } from '@mui/material';
 import React from 'react';
+import WhatsAppCTA from './WhatsAppCTA';
 
 const Footer = () => {
   return (
@@ -41,18 +42,13 @@ const Footer = () => {
           >
             Let's make your startup impossible to ignore.
           </Typography>
-          <Button
-            variant="contained"
-            size="large"
-            sx={{
-              py: 2,
-              px: 6,
-              fontSize: '1.2rem',
-              borderRadius: 2,
-            }}
-          >
-            Start Your 4-Month Transformation →
-          </Button>
+          <WhatsAppCTA
+            text="Start Your 4-Month Transformation"
+            section="footer"
+            message="Hi, I'd like to start my 4-month transformation journey and make my startup investor-ready."
+            subtitle="Contact us on WhatsApp to get started"
+            isFinal={true}
+          />
         </Box>
 
         <Box sx={{ mt: 8, textAlign: 'center' }}>

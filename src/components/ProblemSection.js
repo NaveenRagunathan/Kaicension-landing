@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import { Box, Container, Grid, Paper, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
 import React from 'react';
-import WhatsAppCTA from './WhatsAppCTA';
 
 // Styled components for enhanced visual elements
 const GradientText = styled(Typography)`
@@ -189,14 +188,6 @@ const ProblemSection = () => {
           </ZigzagContainer>
         ))}
         
-        <Box sx={{ mt: 8 }}>
-          <WhatsAppCTA 
-            text="Find Your Solution" 
-            section="problem"
-            message="Hi, I'm experiencing these startup challenges and need your expertise."
-            subtitle="Discover how to overcome these challenges"
-          />
-        </Box>
       </Container>
     </Box>
   );
