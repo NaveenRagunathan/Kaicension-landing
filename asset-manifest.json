@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/Kaicension-landing/static/css/main.af252139.css",
-    "main.js": "/Kaicension-landing/static/js/main.f042993a.js",
+    "main.js": "/Kaicension-landing/static/js/main.8798def7.js",
     "static/js/488.5c5bcf31.chunk.js": "/Kaicension-landing/static/js/488.5c5bcf31.chunk.js",
     "index.html": "/Kaicension-landing/index.html",
     "main.af252139.css.map": "/Kaicension-landing/static/css/main.af252139.css.map",
-    "main.f042993a.js.map": "/Kaicension-landing/static/js/main.f042993a.js.map",
+    "main.8798def7.js.map": "/Kaicension-landing/static/js/main.8798def7.js.map",
     "488.5c5bcf31.chunk.js.map": "/Kaicension-landing/static/js/488.5c5bcf31.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.af252139.css",
-    "static/js/main.f042993a.js"
+    "static/js/main.8798def7.js"
   ]
 }
