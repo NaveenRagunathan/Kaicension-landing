@@ -77,16 +77,16 @@ const FAQ = () => {
   
   const faqs = [
     {
-      question: "What if we're too early?",
-      answer: "We work with startups that have some traction (even $2K MRR), focusing on building the foundations for exponential growth."
+      question: "\"What if we're too early?\"",
+      answer: "→ We work with startups that have some traction (even $2K MRR), focusing on building the foundations for exponential growth."
     },
     {
-      question: "What if our market is too niche?",
-      answer: "We've scaled startups in vertical SaaS, Foodtech, Fintech, and dozens of specialized markets. Niche often means better defensibility."
+      question: "\"What if our market is too niche?\"",
+      answer: "→ We've scaled startups in vertical SaaS, Foodtech, Fintech, and dozens of specialized markets. Niche often means better defensibility."
     },
     {
-      question: "Can't we just hire separate specialists?",
-      answer: "Fragmented advice creates fragmented results. We deliver an integrated approach that aligns your business model, distribution strategy, brand positioning, and investor story."
+      question: "\"Can't we just hire separate specialists?\"",
+      answer: "→ Fragmented advice creates fragmented results. We deliver an integrated approach that aligns your business model, distribution strategy, brand positioning, and investor story."
     }
   ];
   
@@ -100,6 +100,17 @@ const FAQ = () => {
   
   const handleQuestionLeave = () => {
     setActiveQuestion(null);
+  };
+
+  // Scroll to footer section when FAQ CTA is clicked
+  const scrollToFooter = () => {
+    const element = document.getElementById('footer-section');
+    if (element) {
+      const headerOffset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+    }
   };
 
   return (
@@ -151,7 +162,7 @@ const FAQ = () => {
               backgroundClip: 'text',
             }}
           >
-            FAQ
+            Got Questions?
           </Typography>
         </motion.div>
 
@@ -161,11 +172,13 @@ const FAQ = () => {
           align="center"
           sx={{ 
             mb: 6, 
-            fontStyle: 'italic',
-            color: 'text.secondary'
+            color: 'text.secondary',
+            maxWidth: '600px',
+            mx: 'auto',
+            lineHeight: 1.6
           }}
         >
-          (Ease Anxiety)
+          We're here to answer you and calm those thoughts that bother your mind.
         </Typography>
 
         <Box sx={{ mb: 6 }}>
@@ -239,6 +252,8 @@ const FAQ = () => {
                       sx={{ 
                         fontStyle: 'italic',
                         transition: 'color 0.3s ease',
+                        fontSize: '1.2rem',
+                        fontWeight: 500
                       }}
                     >
                       {faq.question}
@@ -251,7 +266,17 @@ const FAQ = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <Typography variant="body1">{faq.answer}</Typography>
+                    <Typography 
+                      variant="body1"
+                      sx={{
+                        fontSize: '1.1rem',
+                        lineHeight: 1.7,
+                        color: 'text.secondary',
+                        pl: 2
+                      }}
+                    >
+                      {faq.answer}
+                    </Typography>
                   </motion.div>
                 </AccordionDetails>
               </Accordion>
@@ -260,7 +285,7 @@ const FAQ = () => {
         </Box>
         
         <Box sx={{ display: 'flex', justifyContent: 'center', mt: 8 }}>
-          <MagneticButton>
+          <MagneticButton onClick={scrollToFooter}>
             <Button
               variant="contained"
               size="large"

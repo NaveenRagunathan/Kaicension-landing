@@ -20,6 +20,7 @@ const ScrollProgress = () => {
     { id: 'problem-section', name: 'The Problem' },
     { id: 'solution-section', name: 'Your Escape Plan' },
     { id: 'process-section', name: 'Our Process' },
+    { id: 'pricing-section', name: 'Pricing' },
     { id: 'testimonials-section', name: 'Success Stories' },
     { id: 'faq-section', name: 'FAQ' }
   ];

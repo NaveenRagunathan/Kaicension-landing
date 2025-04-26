@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import { Box, Container, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
 import React from 'react';
-import WhatsAppCTA from './WhatsAppCTA';
 
 // Styled components for enhanced visual elements
 const GradientText = styled(Typography)`
@@ -100,18 +99,18 @@ const SolutionSection = () => {
       title: "Fix the Flaws Killing Your Business",
       subtitle: "Business Model, Brand, Financials",
       items: [
-        "*Business Model Surgery*: \"Why do users try but never buy?\" → We diagnose and rebuild your value proposition, channel strategy and unit economics.",
-        "*Brand That Commands Attention*: \"Stop being 'another startup'\" → Become the category leader investors compete to back.",
+        "*Business Model Surgery*: \"Why do users try but never buy?\" → We diagnose and rebuild your systems, value proposition, sales funnel, channel strategy and unit economics.",
+        "*Brand That Commands Attention*: \"Stop being 'another startup'\" → Become the category leader investors compete to fund.",
         "*Financial Foundations*: \"Why are we burning cash with little to show?\" → Build metrics that balance aggressive growth and sustainable operations."
       ]
     },
     {
       id: 2,
-      title: "Traction That Forces Investors to Act",
+      title: "Get Traction That Forces Investors to Act",
       subtitle: "PMF, Scalable Systems",
       items: [
-        "*Product-Market Fit Breakthrough*: Finally get past the \"Is this even working?\" question → Test real demand with paying customers. Eliminate guesswork.",
-        "*Distribution Equity That Scales*: \"Find out why your CAC keeps rising and use growth hacking strategies to reduce it while getting more traction\" → Engineer viral loops and retention systems that create unstoppable momentum."
+        "*Product-Market Fit Breakthrough*: Finally get past the \"Is this even working?\" Question → Test real demand with paying customers. Eliminate guesswork.",
+        "*Distribution Equity That Scales*: \"Find out Why your CAC keep rising and use growth hacking strategies to reduce it while getting more traction\" → Engineer viral loops and retention systems that create unstoppable momentum."
       ]
     },
     {
@@ -119,8 +118,8 @@ const SolutionSection = () => {
       title: "Become a \"Must Invest\" Business",
       subtitle: "Get the Investor Magnetism your Startup deserves",
       items: [
-        "*Pitch Decks That Make VCs Eager*: \"We're not another story\" → We're the solution to a $1B+ market opportunity.",
-        "*Metrics That Scream \"10x Returns\"*: \"Traction\" isn't just users—it's compelling LTV:CAC ratios, expanding margins, and consistent MoM growth that shows you're investment-ready."
+        "*Pitch Decks and Data Rooms that Make VCs Eager*: You will confidently say to VCs \"We're not another story\" → We're the solution to a $1B+ market opportunity, here is Data to back our claims.",
+        "*Metrics and Data Room That Scream \"10x Returns\"*: \"Traction\" isn't just users—it's compelling LTV:CAC ratios, expanding margins, and consistent MoM growth that shows you're investment-ready. Professionally arranged Data Room to show all these."
       ]
     }
   ];
@@ -327,15 +326,6 @@ const SolutionSection = () => {
               </Typography>
             </Box>
           </motion.div>
-        </Box>
-
-        <Box sx={{ mt: 8 }}>
-          <WhatsAppCTA 
-            text="See Our Process" 
-            section="solution"
-            message="Hi, I'd like to explore how your solutions can help my startup grow."
-            subtitle="Learn our 4-month transformation method"
-          />
         </Box>
       </Container>
     </Box>

@@ -125,7 +125,7 @@ const ProcessSection = () => {
     {
       title: "Phase 1: Fix the Foundation",
       timing: "Weeks 1-5",
-      description: "Identify and repair the critical flaws in your business model, brand positioning, and financial structure.",
+      description: "Transform your business model, brand positioning, and financial structure for sustainable growth.",
       items: [
         "*Business Model Reimagining*: Transform \"why users won't pay\" into \"what they'll eagerly pay premium pricing for.\"",
         "*Brand Architecture*: Evolve from \"forgettable\" to \"category defining.\"",
@@ -133,9 +133,9 @@ const ProcessSection = () => {
       ]
     },
     {
-      title: "Phase 2: Build Distribution & Branding Equity",
-      timing: "Weeks 6-10",
-      description: "Establish systems that generate consistent growth and build your company's reputation and market position.",
+      title: "Phase 2: Build Distribution & Brand Equity",
+      timing: "Weeks 6-15",
+      description: "Establish systems that generate consistent growth and build your company's market position.",
       items: [
         "*PMF Acceleration*: Validate demand with actual purchasing behavior, not vanity metrics.",
         "*Growth Systems Engineering*: Build automated acquisition and retention loops that scale without proportional cost increases."
@@ -143,21 +143,11 @@ const ProcessSection = () => {
     },
     {
       title: "Phase 3: Investor Readiness & Outreach",
-      timing: "Weeks 11-16",
-      description: "Prepare and position your company to attract the right investors with a compelling narrative and proof points.",
+      timing: "Weeks 16-22",
+      description: "Position your company to attract the right investors with compelling narrative and proof points.",
       items: [
         "*Pitch Narrative Overhaul*: Replace technical jargon with a compelling story investors can't ignore.",
         "*Strategic Introductions*: Get in front of 50+ global VCs actively hunting for your specific type of opportunity."
-      ]
-    },
-    {
-      title: "Transformation Complete",
-      timing: "Week 16+",
-      description: "Your startup has evolved from 'almost there' to 'can't ignore' with systems for continued growth.",
-      items: [
-        "*Sustainable Growth Engine*: Clear path to scaling with metrics that attract investors.",
-        "*Compelling Investment Narrative*: Your story now resonates with VCs looking for opportunities in your space.",
-        "*Operational Excellence*: Systems and processes that enable efficient scaling with the right team in place."
       ]
     }
   ];
@@ -165,8 +155,8 @@ const ProcessSection = () => {
   const transformationQuotes = [
     { week: 1, quote: "\"Finally, someone understands exactly why we're stuck.\"" },
     { week: 5, quote: "\"This is why users weren't paying—and now they are.\"" },
-    { week: 10, quote: "\"Our growth finally feels systematic instead of accidental.\"" },
-    { week: 16, quote: "\"Investors are competing for our attention now.\"" }
+    { week: 15, quote: "\"Our growth finally feels systematic instead of accidental.\"" },
+    { week: 20, quote: "\"Investors are competing for our attention now.\"" }
   ];
 
   return (
@@ -220,7 +210,7 @@ const ProcessSection = () => {
             align="center" 
             sx={{ mb: 2, fontWeight: 700 }}
           >
-            Your 4-Month
+            How We Deliver
           </Typography>
           <GradientText 
             variant="h2" 
@@ -232,7 +222,7 @@ const ProcessSection = () => {
               textAlign: 'center'
             }}
           >
-            Transformation Journey
+            Your Transformation
           </GradientText>
         </motion.div>
 
@@ -311,10 +301,22 @@ const ProcessSection = () => {
           <Typography 
             variant="h3" 
             component="h3" 
-            sx={{ mb: 6 }}
+            sx={{ mb: 2, fontWeight: 700 }}
           >
-            What Founders Say
+            Here is what your
           </Typography>
+          <GradientText 
+            variant="h3" 
+            component="span" 
+            align="center" 
+            sx={{ 
+              display: 'block', 
+              mb: 6,
+              textAlign: 'center'
+            }}
+          >
+            Transformation Journey will look like
+          </GradientText>
           
           <Box 
             sx={{ 
@@ -331,7 +333,7 @@ const ProcessSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.15 }}
                 viewport={{ once: true }}
-                style={{ width: '260px' }}
+                style={{ width: '280px' }}
               >
                 <Paper
                   elevation={2}
@@ -344,7 +346,12 @@ const ProcessSection = () => {
                     background: 'linear-gradient(145deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%)',
                     border: '1px solid rgba(255,255,255,0.05)',
                     position: 'relative',
-                    overflow: 'hidden'
+                    overflow: 'hidden',
+                    transition: 'all 0.3s ease-in-out',
+                    '&:hover': {
+                      transform: 'translateY(-5px)',
+                      boxShadow: '0 20px 30px rgba(138,43,226,0.2)'
+                    }
                   }}
                 >
                   <Box
@@ -377,7 +384,8 @@ const ProcessSection = () => {
                       color: 'white',
                       fontStyle: 'italic',
                       textAlign: 'center',
-                      lineHeight: 1.6
+                      lineHeight: 1.6,
+                      fontSize: '1.1rem'
                     }}
                   >
                     {item.quote}

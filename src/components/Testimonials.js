@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { Box, Container, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
 import React from 'react';
+import WhatsAppCTA from './WhatsAppCTA';
 
 // Styled components for spotlight testimonial
 const TestimonialCard = styled(motion.div)`
@@ -176,28 +177,11 @@ const Testimonials = () => {
             </QuoteAuthor>
           </TestimonialCard>
         </motion.div>
-        
-        <Box sx={{ mt: { xs: 10, md: 16 }, textAlign: 'center' }}>
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            viewport={{ once: true }}
-          >
-            <Box
-              sx={{
-                maxWidth: '700px',
-                mx: 'auto',
-                p: { xs: 3, md: 5 },
-                borderRadius: '24px',
-                background: 'linear-gradient(145deg, rgba(138,43,226,0.1) 0%, rgba(74,0,130,0.1) 100%)',
-                border: '1px solid rgba(138,43,226,0.2)',
-              }}
-            >
-            </Box>
-          </motion.div>
-        </Box>
       </Container>
+      <WhatsAppCTA 
+        text="Start Your 4-Month Transformation Now" 
+        section="testimonial"
+      />
     </Box>
   );
 };

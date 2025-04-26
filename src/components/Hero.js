@@ -1,6 +1,6 @@
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-import { Badge, Box, Container, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Container, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import React, { useEffect, useRef, useState } from 'react';
 import WhatsAppCTA from './WhatsAppCTA';
@@ -119,9 +119,10 @@ const Hero = () => {
     <Box
       ref={ref}
       sx={{
-        minHeight: '100vh',
+        minHeight: '100vh',       // full viewport height
         display: 'flex',
-        alignItems: 'center',
+        alignItems: { xs: 'center', md: 'flex-start' },
+        pt: { xs: 4, md: 12 },    // top padding on desktop
         position: 'relative',
         overflow: 'hidden',
         background: 'linear-gradient(135deg, rgba(138, 79, 255, 0.08) 0%, rgba(163, 117, 255, 0.15) 100%)',
@@ -158,7 +159,17 @@ const Hero = () => {
         />
       </Box>
 
-      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+      <Container
+        maxWidth="lg"
+        sx={{
+          position: 'relative',
+          zIndex: 1,
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+        }}
+      >
         {/* Kaicension Brand */}
         <motion.div
           initial={{ opacity: 0, rotateX: -30 }}
@@ -172,7 +183,7 @@ const Hero = () => {
               sx={{
                 textAlign: 'center',
                 mb: 6,
-                mt: { xs: -6, md: -8 },
+                mt: { xs: -6, md: 0 },
                 fontWeight: 800,
                 fontSize: { xs: '2.4rem', sm: '3.2rem' },
                 letterSpacing: "-1px",
@@ -196,29 +207,6 @@ const Hero = () => {
             >
               Kaicension
             </Typography>
-            <motion.div 
-              initial={{ scale: 0, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 1.2 }}
-              style={{ position: 'absolute', right: { xs: '30%', sm: '35%' }, top: '0' }}
-            >
-              <Badge 
-                sx={{ 
-                  '& .MuiBadge-badge': { 
-                    backgroundColor: '#a142f5',
-                    padding: '8px 12px',
-                    borderRadius: '12px',
-                    fontSize: { xs: '0.7rem', sm: '0.85rem' },
-                    fontWeight: 600,
-                    letterSpacing: '0.5px',
-                    boxShadow: '0 4px 8px rgba(138, 79, 255, 0.3)',
-                  },
-                }}
-                badgeContent="16-WEEKS"
-                overlap="rectangular"
-                color="primary"
-              />
-            </motion.div>
           </Box>
         </motion.div>
         
@@ -244,11 +232,11 @@ const Hero = () => {
               <Typography
                 variant="h1"
                 sx={{
-                  fontSize: { xs: '2.8rem', sm: '4rem', md: '5rem' },
+                  fontSize: { xs: '2.4rem', sm: '3.5rem', md: '4rem' },
                   fontWeight: 800,
                   lineHeight: 1.1,
                   textAlign: { xs: 'center', md: 'left' },
-                  mb: 1,
+                  mb: { xs: 1, md: 1 },
                   background: 'linear-gradient(90deg, #8A4FFF, #A375FF)',
                   WebkitBackgroundClip: 'text',
                   color: 'transparent',
@@ -294,11 +282,13 @@ const Hero = () => {
               <Typography
                 variant="h2"
                 sx={{
-                  fontSize: { xs: '2rem', sm: '2.8rem', md: '3.5rem' },
+                  fontSize: { xs: '1.8rem', sm: '2.4rem', md: '3rem' },
                   fontWeight: 700,
                   lineHeight: 1.2,
                   textAlign: 'center',
-                  color: 'text.primary',
+                  background: 'linear-gradient(90deg, #8A4FFF, #A375FF)',
+                  WebkitBackgroundClip: 'text',
+                  color: 'transparent',
                   position: 'relative',
                   letterSpacing: '-0.01em',
                 }}
@@ -317,11 +307,13 @@ const Hero = () => {
               <Typography
                 variant="h2"
                 sx={{
-                  fontSize: { xs: '2rem', sm: '2.8rem', md: '3.5rem' },
+                  fontSize: { xs: '1.8rem', sm: '2.4rem', md: '3rem' },
                   fontWeight: 700,
                   lineHeight: 1.2,
                   textAlign: { xs: 'center', md: 'right' },
-                  color: 'text.primary',
+                  background: 'linear-gradient(90deg, #8A4FFF, #A375FF)',
+                  WebkitBackgroundClip: 'text',
+                  color: 'transparent',
                   letterSpacing: '-0.01em',
                 }}
               >
@@ -352,8 +344,8 @@ const Hero = () => {
               <Typography
                 variant="h2"
                 sx={{
-                  mt: 2,
-                  fontSize: { xs: '2.2rem', sm: '3rem', md: '3.8rem' },
+                  mt: { xs: 2, md: 2 },
+                  fontSize: { xs: '2rem', sm: '2.8rem', md: '3.5rem' },
                   fontWeight: 800,
                   textAlign: 'center',
                   background: 'linear-gradient(90deg, #8A4FFF, #A375FF)',
@@ -410,7 +402,7 @@ const Hero = () => {
             </Typography>
           </Box>
             
-          <Box sx={{ mt: 5, display: 'flex', justifyContent: { xs: 'center', md: 'flex-start' } }}>
+          <Box sx={{ mt: { xs: 4, md: 6 }, display: 'flex', justifyContent: { xs: 'center', md: 'flex-start' } }}>
             <WhatsAppCTA 
               text="Discover Your Challenges" 
               section="hero"

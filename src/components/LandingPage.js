@@ -1,9 +1,11 @@
 import { Box } from '@mui/material';
 import { motion } from 'framer-motion';
 import React, { useEffect } from 'react';
+import CustomizationSection from './CustomizationSection';
 import FAQ from './FAQ';
 import Footer from './Footer';
 import Hero from './Hero';
+import PricingSection from './PricingSection';
 import ProblemSection from './ProblemSection';
 import ProcessSection from './ProcessSection';
 import ScrollProgress from './ScrollProgress';
@@ -114,6 +116,20 @@ const LandingPage = () => {
           <SolutionSection />
         </Box>
       </motion.div>
+
+      {/* Customization Section with 3D entry */}
+      <motion.div
+        id="customization-section"
+        initial={{ rotateY: -15, opacity: 0 }}
+        whileInView={{ rotateY: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: 'easeOut', delay: 0.5 }}
+        viewport={{ once: true }}
+        style={{ perspective: 1000 }}
+      >
+        <Box sx={{ position: 'relative', zIndex: 2 }}>
+          <CustomizationSection />
+        </Box>
+      </motion.div>
       
       {/* Process Section with 3D entry */}
       <motion.div
@@ -126,6 +142,20 @@ const LandingPage = () => {
       >
         <Box sx={{ position: 'relative', zIndex: 2, backgroundColor: '#ffffff' }}>
           <ProcessSection />
+        </Box>
+      </motion.div>
+      
+      {/* Pricing Section with 3D entry */}
+      <motion.div
+        id="pricing-section"
+        initial={{ rotateY: -15, opacity: 0 }}
+        whileInView={{ rotateY: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: 'easeOut', delay: 0.8 }}
+        viewport={{ once: true }}
+        style={{ perspective: 1000 }}
+      >
+        <Box sx={{ position: 'relative', zIndex: 2 }}>
+          <PricingSection />
         </Box>
       </motion.div>
       
