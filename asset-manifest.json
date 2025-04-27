@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/Kaicension-landing/static/css/main.f636e207.css",
-    "main.js": "/Kaicension-landing/static/js/main.aa7eaa25.js",
+    "main.js": "/Kaicension-landing/static/js/main.cc45bfeb.js",
     "static/js/488.5c5bcf31.chunk.js": "/Kaicension-landing/static/js/488.5c5bcf31.chunk.js",
     "static/media/hero-graphic.png": "/Kaicension-landing/static/media/hero-graphic.19f64afd49242d77a7b8.png",
-    "static/media/kaicension-logo.png": "/Kaicension-landing/static/media/kaicension-logo.c549a0261beff6df6333.png",
+    "static/media/kaicension-logo.png": "/Kaicension-landing/static/media/kaicension-logo.59cfa92488b1693d21bd.png",
     "index.html": "/Kaicension-landing/index.html",
     "main.f636e207.css.map": "/Kaicension-landing/static/css/main.f636e207.css.map",
-    "main.aa7eaa25.js.map": "/Kaicension-landing/static/js/main.aa7eaa25.js.map",
+    "main.cc45bfeb.js.map": "/Kaicension-landing/static/js/main.cc45bfeb.js.map",
     "488.5c5bcf31.chunk.js.map": "/Kaicension-landing/static/js/488.5c5bcf31.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f636e207.css",
-    "static/js/main.aa7eaa25.js"
+    "static/js/main.cc45bfeb.js"
   ]
 }
