@@ -1,17 +1,16 @@
 {
   "files": {
     "main.css": "/Kaicension-landing/static/css/main.f636e207.css",
-    "main.js": "/Kaicension-landing/static/js/main.021ce6fd.js",
+    "main.js": "/Kaicension-landing/static/js/main.04c1152f.js",
     "static/js/488.5c5bcf31.chunk.js": "/Kaicension-landing/static/js/488.5c5bcf31.chunk.js",
     "static/media/hero-graphic.png": "/Kaicension-landing/static/media/hero-graphic.19f64afd49242d77a7b8.png",
-    "static/media/kaicension-logo.png": "/Kaicension-landing/static/media/kaicension-logo.59cfa92488b1693d21bd.png",
     "index.html": "/Kaicension-landing/index.html",
     "main.f636e207.css.map": "/Kaicension-landing/static/css/main.f636e207.css.map",
-    "main.021ce6fd.js.map": "/Kaicension-landing/static/js/main.021ce6fd.js.map",
+    "main.04c1152f.js.map": "/Kaicension-landing/static/js/main.04c1152f.js.map",
     "488.5c5bcf31.chunk.js.map": "/Kaicension-landing/static/js/488.5c5bcf31.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f636e207.css",
-    "static/js/main.021ce6fd.js"
+    "static/js/main.04c1152f.js"
   ]
 }
