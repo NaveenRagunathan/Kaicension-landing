@@ -4,18 +4,20 @@ import { Box, Button, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
 import React from 'react';
 
+// Modify the styled component to use a transient prop with $ prefix
+// This prevents the prop from being passed to the DOM element
 const CTAButton = styled(Button)`
   background: linear-gradient(90deg, #8a2be2 0%, #4a0082 100%);
   color: white;
   font-weight: 700;
-  padding: ${props => props.isFinal ? '14px 28px' : '12px 24px'};
+  padding: ${props => props.$isFinal ? '14px 28px' : '12px 24px'};
   border-radius: 50px;
-  font-size: ${props => props.isFinal ? '1.1rem' : '1rem'};
+  font-size: ${props => props.$isFinal ? '1.1rem' : '1rem'};
   text-transform: none;
-  box-shadow: ${props => props.isFinal ? '0 6px 20px rgba(138, 43, 226, 0.4)' : '0 4px 15px rgba(138, 43, 226, 0.3)'};
+  box-shadow: ${props => props.$isFinal ? '0 6px 20px rgba(138, 43, 226, 0.4)' : '0 4px 15px rgba(138, 43, 226, 0.3)'};
   transition: all 0.3s ease;
-  min-width: ${props => props.isFinal ? '280px' : '220px'};
-  margin-top: ${props => props.isFinal ? '24px' : '0'};
+  min-width: ${props => props.$isFinal ? '280px' : '220px'};
+  margin-top: ${props => props.$isFinal ? '24px' : '0'};
   
   &:hover {
     background: linear-gradient(90deg, #9945e8 0%, #6c14a4 100%);
@@ -62,7 +64,8 @@ const WhatsAppCTA = ({
       }
       
       // Format the phone number properly for WhatsApp API
-      const phoneNumber = "+2347055432421";      const formattedPhone = phoneNumber.replace(/[^\d+]/g, ""); // Remove any non-digit chars
+      const phoneNumber = "+2347055432421";
+      const formattedPhone = phoneNumber.replace(/[^\d+]/g, ""); // Remove any non-digit chars
       const whatsappURL = `https://api.whatsapp.com/send?phone=${formattedPhone}&text=${encodeURIComponent(customMessage)}`;
       
       // Open WhatsApp in a new tab
@@ -116,7 +119,7 @@ const WhatsAppCTA = ({
           variant="contained" 
           startIcon={<WhatsAppIcon />}
           onClick={handleWhatsAppClick}
-          isFinal={isFinal}
+          $isFinal={isFinal} /* Use $isFinal instead of isFinal to make it a transient prop */
         >
           {text}
         </CTAButton>
@@ -136,4 +139,4 @@ const WhatsAppCTA = ({
   );
 };
 
-export default WhatsAppCTA; 
+export default WhatsAppCTA;
