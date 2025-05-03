@@ -5,7 +5,7 @@ import WhatsAppCTA from './WhatsAppCTA';
 const Footer = () => {
   return (
     <Box id="footer-section" sx={{ 
-      py: 10, 
+      py: 8, 
       bgcolor: 'background.paper',
       background: 'linear-gradient(180deg, #ffffff 0%, rgba(245, 247, 250, 0.8) 100%)',
       position: 'relative',
@@ -122,7 +122,7 @@ const Footer = () => {
           component="p"
           align="center"
           sx={{ 
-            mb: 6,
+            mb: 3,
             maxWidth: '800px',
             mx: 'auto',
             color: 'text.secondary',
@@ -132,7 +132,7 @@ const Footer = () => {
           The world needs your solution to succeed. Let's build the distribution equity and brand resonance to make your startup impossible to ignore.
         </Typography>
 
-        <Box sx={{ textAlign: 'center', mb: 8 }}>
+        <Box sx={{ textAlign: 'center', mb: 4 }}>
           <WhatsAppCTA
             text="Start Your 6-Month Transformation"
             section="footer"
