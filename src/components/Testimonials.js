@@ -142,7 +142,7 @@ const Testimonials = () => {
               fontSize: { xs: '2.5rem', md: '3.5rem' }
             }}
           >
-            From Struggle to
+            Founder Success Stories
           </Typography>
           <GradientText 
             variant="h2" 
@@ -155,7 +155,7 @@ const Testimonials = () => {
               fontSize: { xs: '2.5rem', md: '3.5rem' }
             }}
           >
-            Sustainable Success
+            (Relatability + Hope)
           </GradientText>
         </motion.div>
         

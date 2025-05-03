@@ -187,7 +187,7 @@ const SolutionSection = () => {
               textAlign: 'center'
             }}
           >
-            From Stuck to Funded
+            All you have to do is Fix the Foundations, Ignite Growth, Secure Funding.
           </GradientText>
         </motion.div>
 
