@@ -1,114 +1,197 @@
-import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
-import { Box, Button, Container, Grid, Paper, Typography } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
+import { motion } from 'framer-motion';
 import React from 'react';
+import WhatsAppCTA from './WhatsAppCTA';
 
-const PricingSection = () => {
-  const handleWhatsAppClick = () => {
-    const number = "+2347055432421";
-    const message = encodeURIComponent("Hello, I'm interested in your service.");
-    const url = `https://api.whatsapp.com/send?phone=${number}&text=${message}`;
-    window.open(url, '_blank');
-  };
-
+const CustomizationSection = () => {
   return (
-    <Box id="pricing-section" sx={{ py: 8, bgcolor: 'background.default' }}>
-      <Container maxWidth="md">
-        <Typography
-          variant="h2"
-          component="h2"
-          align="center"
-          sx={{ mb: 6 }}
-        >
-          Pricing
-        </Typography>
+    <Box 
+      id="customization-section"
+      sx={{ 
+        py: 12,
+        background: 'linear-gradient(180deg, rgba(20, 18, 31, 0.95) 0%, rgba(10, 10, 24, 0.95) 100%)',
+        position: 'relative',
+        overflow: 'hidden',
+        color: 'white'
+      }}
+    >
+      {/* Background decorative elements */}
+      <Box 
+        sx={{
+          position: 'absolute',
+          width: '60%',
+          height: '60%',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(138,43,226,0.08) 0%, rgba(0,0,0,0) 70%)',
+          top: '20%',
+          right: '-30%',
+          zIndex: 0
+        }}
+      />
+      
+      <Box 
+        sx={{
+          position: 'absolute',
+          width: '40%',
+          height: '40%',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(138,43,226,0.05) 0%, rgba(0,0,0,0) 70%)',
+          bottom: '10%',
+          left: '-20%',
+          zIndex: 0
+        }}
+      />
 
-        <Paper
-          elevation={3}
-          sx={{
-            p: 6,
-            borderRadius: 2,
-            background: 'linear-gradient(135deg, #ffffff 0%, #f5f7fa 100%)',
-          }}
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
         >
-          <Typography
-            variant="h3"
-            component="h3"
-            align="center"
-            sx={{ mb: 2, color: 'primary.main' }}
+          <Typography 
+            variant="h2" 
+            component="h2" 
+            align="center" 
+            sx={{ 
+              mb: 2,
+              fontWeight: 700,
+              background: 'linear-gradient(90deg, #8A4FFF, #A375FF)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              color: 'transparent',
+            }}
           >
-            ScaleReady Accelerator
+            Your solution is Tailored to
           </Typography>
-          
-          <Typography
-            variant="h4"
-            component="div"
-            align="center"
-            sx={{ mb: 4 }}
+          <Typography 
+            variant="h2" 
+            component="span" 
+            align="center" 
+            sx={{ 
+              display: 'block',
+              mb: 8,
+              textAlign: 'center',
+              fontWeight: 700
+            }}
           >
-            $12,000 upfront
-            <Typography
-              variant="subtitle1"
-              color="text.secondary"
-              sx={{ mt: 1 }}
-            >
-              (save $1,000 vs. $3,250/month)
-            </Typography>
+            Your Unique Challenges
           </Typography>
+        </motion.div>
 
-          <Box sx={{ mb: 4 }}>
+        <Box sx={{ maxWidth: '800px', mx: 'auto', mb: 8 }}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
             <Typography
               variant="h5"
-              component="h4"
-              sx={{ mb: 2, color: 'error.main' }}
-            >
-              What's at stake if you wait?
-            </Typography>
-            <Grid container spacing={2}>
-              {[
-                "Your competitors will lock down your market",
-                "Investor FOMO will fade",
-                "Your team's hope will turn to burnout"
-              ].map((item, index) => (
-                <Grid item xs={12} key={index}>
-                  <Typography variant="body1" color="text.secondary">
-                    • {item}
-                  </Typography>
-                </Grid>
-              ))}
-            </Grid>
-          </Box>
-
-          <Box sx={{ textAlign: 'center', mb: 4 }}>
-            <Typography
-              variant="h6"
-              color="error.main"
-              sx={{ mb: 2 }}
-            >
-              Only 5 spots left for our next cohort
-            </Typography>
-            <Button
-              variant="contained"
-              size="large"
-              onClick={handleWhatsAppClick}
-              startIcon={<RocketLaunchIcon sx={{ fontSize: '1.5rem' }} />}
-              sx={{
-                py: 2,
-                px: 6,
-                fontSize: '1.2rem',
-                borderRadius: 2,
-                '&:hover': {
-                  transform: 'translateY(-2px)',
-                  transition: 'transform 0.3s ease',
-                }
+              component="p"
+              sx={{ 
+                mb: 4,
+                color: 'rgba(255,255,255,0.9)',
+                textAlign: 'center',
+                lineHeight: 1.8
               }}
             >
-              Claim Your Spot
-            </Button>
-          </Box>
-        </Paper>
+              Whether you need a complete brand overhaul, distribution channel innovation, growth system architecture, or investor preparation, we customize our approach to your specific situation.
+            </Typography>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            viewport={{ once: true }}
+          >
+            <Typography
+              variant="h5"
+              component="p"
+              sx={{ 
+                mb: 6,
+                color: 'rgba(255,255,255,0.9)',
+                textAlign: 'center',
+                lineHeight: 1.8
+              }}
+            >
+              Every startup's path is different. That's why we begin with a comprehensive diagnostic to identify your specific growth blockers and opportunities before designing your transformation roadmap.
+            </Typography>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <Box
+              sx={{
+                background: 'linear-gradient(145deg, rgba(138,43,226,0.15) 0%, rgba(74,0,130,0.08) 100%)',
+                borderRadius: '16px',
+                p: 4,
+                textAlign: 'center',
+                border: '1px solid rgba(138,43,226,0.2)',
+                backdropFilter: 'blur(10px)'
+              }}
+            >
+              <Typography
+                variant="h4"
+                component="p"
+                sx={{ 
+                  mb: 2,
+                  color: '#8A4FFF',
+                  fontWeight: 600
+                }}
+              >
+                Investment Range
+              </Typography>
+              <Typography
+                variant="h3"
+                component="p"
+                sx={{ 
+                  mb: 3,
+                  fontWeight: 700
+                }}
+              >
+                $8,500 - $20,000
+              </Typography>
+              <Typography
+                variant="h6"
+                component="p"
+                sx={{ 
+                  color: 'rgba(255,255,255,0.9)',
+                  fontStyle: 'italic'
+                }}
+              >
+                for 6 months of transformation
+              </Typography>
+              <Typography
+                variant="body1"
+                sx={{ 
+                  mt: 3,
+                  color: 'rgba(255,255,255,0.7)',
+                  fontStyle: 'italic'
+                }}
+              >
+                It all depends on what you need.
+              </Typography>
+            </Box>
+          </motion.div>
+        </Box>
+
+        <Box sx={{ textAlign: 'center' }}>
+          <WhatsAppCTA 
+            text="Discuss Your Unique Needs"
+            section="customization"
+            message="Hi, I'd like to discuss my startup's specific challenges and see how you can help."
+            subtitle="Get a customized transformation plan"
+          />
+        </Box>
       </Container>
     </Box>
   );
 };
 
-export default PricingSection; 
+export default CustomizationSection; 

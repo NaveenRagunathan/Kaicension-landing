@@ -65,18 +65,36 @@ const ZigzagContainer = styled(Box)`
 const ProblemSection = () => {
   const nightmares = [
     {
-      title: "Investors Keep Saying 'Almost'",
-      description: "You're getting meetings but keep hearing the same feedback: 'We like what you're doing, but...' Your metrics aren't compelling enough, your traction isn't quite there, or your model still has 'unknowns'."
+      title: "The Brutal Truth",
+      description: `You're facing the twin 
+  challenges that kill 90% of startups: Having weak distribution equity and underdeveloped brand equity. Without solving these foundational issues, you'll remain trapped in startup purgatory.`
     },
     {
-      title: "Growth Has Flatlined",
-      description: "After promising early traction, you've hit a wall. Customer acquisition costs are rising, retention is shaky, and you're burning cash with little to show for it. The pressure to show growth is mounting."
+      title: "The Virality Problem",
+      description: `More, you are not been able to activate virality in your product no matter what you have tried.
+  
+  This is your main problem, and it's because your users are not so raved about your product or you are not giving them enough incentives to share your product with their loved ones and network.`
     },
     {
-      title: "Time & Money Running Out",
-      description: "Your burn rate is unsustainable, but cutting costs could kill momentum. Each month without funding brings more tough decisions and conversations with co-founders, team members, and early believers."
+      title: "Why You’ve Been Stuck",
+      description: `That's why you have been stuck for so long now:`
+    },
+    {
+      title: "The Cost of Staying Stuck",
+      description: `- Your team loses faith as momentum stalls making your stress mentally, physically and financially.\n- Competitors secure funding rounds you deserve and capture your market opportunity.\n- Your runway shortens while you're stuck in endless iteration and panicking.\n- The window for category leadership closes a little more each day as you lose brand equity.`
+    },
+    {
+      title: "There Has Got to Be a Way Out",
+      description: `But you can't go through all this
+  
+  There has got to be an escape plan yes?
+  
+  The Good news is there is!
+  
+  Continue reading to find out what it is.`
     }
   ];
+  
 
   return (
     <Box 

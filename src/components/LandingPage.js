@@ -1,7 +1,6 @@
 import { Box } from '@mui/material';
 import { motion } from 'framer-motion';
 import React, { useEffect } from 'react';
-import CustomizationSection from './CustomizationSection';
 import FAQ from './FAQ';
 import Footer from './Footer';
 import Hero from './Hero';
@@ -118,7 +117,7 @@ const LandingPage = () => {
       </motion.div>
 
       {/* Customization Section with 3D entry */}
-      <motion.div
+      {/* <motion.div
         id="customization-section"
         initial={{ rotateY: -15, opacity: 0 }}
         whileInView={{ rotateY: 0, opacity: 1 }}
@@ -127,9 +126,9 @@ const LandingPage = () => {
         style={{ perspective: 1000 }}
       >
         <Box sx={{ position: 'relative', zIndex: 2 }}>
-          <CustomizationSection />
+          <{CustomizationSection} />
         </Box>
-      </motion.div>
+      </motion.div> */}
       
       {/* Process Section with 3D entry */}
       <motion.div
