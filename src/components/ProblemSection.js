@@ -491,11 +491,9 @@ const ProblemSection = () => {
             >
               The Good news is there is!
             </Typography>
-
             <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
               <motion.div animate={pulseAnimation}>
                 <PulsingButton
-                  component="a"
                   href="#solution-section"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
@@ -505,6 +503,7 @@ const ProblemSection = () => {
                 </PulsingButton>
               </motion.div>
             </Box>
+
           </Box>
         </motion.div>
       </Container>
