@@ -1,432 +1,369 @@
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-import { Box, Container, Typography, useMediaQuery, useTheme } from '@mui/material';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import React, { useEffect, useRef, useState } from 'react';
-import WhatsAppCTA from './WhatsAppCTA';
+import React, { useEffect, useState, useRef } from 'react';
+import { motion, useMotionValue, useTransform, AnimatePresence } from 'framer-motion';
+import { PlayCircle } from 'lucide-react';
 
-// Particle component for creating the 3D effect
-const Particle = ({ size, color, x, y, delay }) => {
-  return (
-    <motion.div
-      style={{
-        position: 'absolute',
-        width: size,
-        height: size,
-        borderRadius: '50%',
-        backgroundColor: color,
-        x,
-        y,
-        filter: 'blur(1px)',
-      }}
-      animate={{
-        x: [x, x + Math.random() * 80 - 40],
-        y: [y, y + Math.random() * 80 - 40],
-        opacity: [0, 0.8, 0],
-      }}
-      transition={{
-        duration: 8,
-        repeat: Infinity,
-        delay: delay,
-        ease: "easeInOut",
-      }}
-    />
-  );
-};
-
-const Hero = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const ref = useRef(null);
+// StarField component for creating an animated space background
+const StarField = ({ count = 100 }) => {
+  const stars = [];
   
-  // Mouse movement tracking for interactive background
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  
-  // Smooth spring animation for mouse movement
-  const springConfig = { damping: 30, stiffness: 150 };
-  const smoothMouseX = useSpring(mouseX, springConfig);
-  const smoothMouseY = useSpring(mouseY, springConfig);
-  
-  // Transform mouse position to parallax effect values
-  const moveX = useTransform(smoothMouseX, [0, 1], [-20, 20]);
-  const moveY = useTransform(smoothMouseY, [0, 1], [-20, 20]);
-  
-  // Generate particles for background effect
-  const particles = [];
-  const particleCount = 30; // Increased particle count for more dynamic effect
-  
-  for (let i = 0; i < particleCount; i++) {
-    const size = Math.random() * 15 + 5;
-    const x = Math.random() * 100 + "%";
-    const y = Math.random() * 100 + "%";
+  for (let i = 0; i < count; i++) {
+    const size = Math.random() * 2 + 1;
+    const x = Math.random() * 100;
+    const y = Math.random() * 100;
+    const duration = Math.random() * 20 + 10;
     const delay = Math.random() * 5;
-    const opacity = Math.random() * 0.8;
+    const opacity = Math.random() * 0.7 + 0.3;
     
-    particles.push(
-      <Particle 
-        key={i} 
-        size={size} 
-        color={`rgba(138, 79, 255, ${opacity})`} 
-        x={x} 
-        y={y} 
-        delay={delay}
+    stars.push(
+      <motion.div
+        key={i}
+        style={{
+          position: 'absolute',
+          width: size,
+          height: size,
+          borderRadius: '50%',
+          backgroundColor: 'white',
+          left: `${x}%`,
+          top: `${y}%`,
+          opacity
+        }}
+        animate={{
+          opacity: [opacity, opacity * 1.5, opacity],
+          scale: [1, 1.2, 1]
+        }}
+        transition={{
+          duration,
+          repeat: Infinity,
+          delay
+        }}
       />
     );
   }
   
-  // Update mouse position for interactive effects
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      const { clientX, clientY } = e;
-      const { innerWidth, innerHeight } = window;
-      
-      mouseX.set(clientX / innerWidth);
-      mouseY.set(clientY / innerHeight);
-      setMousePosition({ x: clientX, y: clientY });
-    };
-    
-    window.addEventListener('mousemove', handleMouseMove);
-    
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, [mouseX, mouseY]);
-  
-  const scrollToFeatured = () => {
-    const element = document.getElementById('problem-section');
-    if (element) {
-      const headerOffset = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+  return <div className="absolute w-full h-full z-0">{stars}</div>;
+};
 
-      setTimeout(() => {
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth'
-        });
-      }, 100);
-    } else {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
+// Particle effect component for rocket exhaust - FIXED BUG HERE
+const RocketExhaust = ({ active }) => {
+  const particles = [];
+  const particleCount = active ? 40 : 0;
+  
+  for (let i = 0; i < particleCount; i++) {
+    const size = Math.random() * 10 + 5;
+    const xOffset = (Math.random() - 0.5) * 40;
+    const duration = Math.random() * 1 + 0.5;
+    const delay = Math.random() * 0.2;
+    
+    particles.push(
+      <motion.div
+        key={i}
+        style={{
+          position: 'absolute',
+          width: size,
+          height: size,
+          borderRadius: '50%',
+          background: `radial-gradient(circle at center, ${
+            Math.random() > 0.7 ? '#ffcc00' : '#ff6600'
+          }, transparent)`,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          marginLeft: xOffset,
+          bottom: -10,
+          zIndex: -1
+        }}
+        animate={{
+          y: [0, 100 + Math.random() * 50],
+          opacity: [0.8, 0]
+        }}
+        transition={{
+          duration,
+          repeat: Infinity,
+          delay
+        }}
+      />
+    );
+  }
+  
+  return <>{particles}</>;
+};
+
+// Hero component
+const Hero = () => {
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [isRocketHovered, setIsRocketHovered] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
+  const videoRef = useRef(null);
+  
+  // Animation values
+  const baseY = useMotionValue(0);
+  const rocketY = useTransform(baseY, [0, 100], [0, -50]);
+  const rotation = useMotionValue(0);
+  
+  // Handle scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+      baseY.set(Math.min(window.scrollY / 5, 100));
+      
+      // Add slight rotation based on scroll
+      const newRotation = Math.sin(window.scrollY / 500) * 5;
+      rotation.set(newRotation);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [baseY, rotation]);
+  
+  // Handle video playback
+  const toggleVideo = () => {
+    if (videoRef.current) {
+      if (isVideoPlaying) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+      setIsVideoPlaying(!isVideoPlaying);
     }
   };
-
+  
   return (
-    <Box
-      ref={ref}
-      sx={{
-        minHeight: '100vh',       // full viewport height
-        display: 'flex',
-        alignItems: { xs: 'center', md: 'flex-start' },
-        pt: { xs: 4, md: 12 },    // top padding on desktop
-        position: 'relative',
-        overflow: 'hidden',
-        background: 'linear-gradient(135deg, rgba(138, 79, 255, 0.08) 0%, rgba(163, 117, 255, 0.15) 100%)',
-        '&::before': {
-          content: '""',
+    <div className="relative min-h-screen overflow-hidden flex items-center justify-center pt-4 md:pt-0" 
+         style={{background: 'linear-gradient(135deg, #0F0F1A 0%, #1A1A2E 100%)'}}>
+      {/* Animated star background */}
+      <StarField count={150} />
+      
+      {/* Purple nebula effect */}
+      <div className="absolute w-full h-full z-0" 
+           style={{background: 'radial-gradient(ellipse at center, rgba(138, 79, 255, 0.15) 0%, transparent 70%)'}} />
+      
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-8 py-4 md:py-8">
+          {/* Text Content Side */}
+          <div className="w-full md:w-1/2 text-center md:text-left">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4"
+                  style={{textShadow: '0 0 15px rgba(138, 79, 255, 0.5)'}}>
+                Finally your Startup can{' '}
+                <span className="relative" 
+                      style={{
+                        background: 'linear-gradient(90deg, #8A4FFF, #A375FF)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        position: 'relative'
+                      }}>
+                  blast off!
+                  <span className="absolute bottom-0 left-0 w-full h-1 rounded-md"
+                        style={{background: 'linear-gradient(90deg, #8A4FFF, #A375FF)'}} />
+                </span>
+              </h1>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              <p className="text-lg md:text-xl text-gray-200 mb-6 leading-relaxed">
+                Stand out, get Traction, hit PMF, go viral, make Money, secure funding and{' '}
+                <span className="font-bold text-purple-400">
+                  scale scale scale.
+                </span>
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
+              <p className="text-lg md:text-xl font-semibold text-white mb-8">
+                The World needs to feel your impact.
+                <br />
+                Get the Growth you have always desired.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="flex justify-center md:justify-start"
+            >
+              <button
+                onClick={toggleVideo}
+                className="flex items-center px-6 py-3 rounded-full font-semibold text-white text-lg"
+                style={{
+                  background: 'linear-gradient(90deg, #8A4FFF, #A375FF)',
+                  boxShadow: '0 4px 20px rgba(138, 79, 255, 0.3)'
+                }}
+              >
+                <PlayCircle className="mr-2" size={24} />
+                Watch the video
+              </button>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1.2, delay: 1 }}
+            >
+              <p className="mt-4 text-gray-400 text-sm text-center md:text-left">
+                Watch the video below to find out if this is for you.
+              </p>
+            </motion.div>
+          </div>
+
+          {/* Video and Rocket Side */}
+          <div className="w-full md:w-1/2 relative h-64 md:h-96 flex justify-center items-center">
+            {/* Interactive rocket animation */}
+            <motion.div
+              style={{ 
+                position: 'absolute',
+                y: rocketY,
+                rotate: rotation,
+                zIndex: 5
+              }}
+              onHoverStart={() => setIsRocketHovered(true)}
+              onHoverEnd={() => setIsRocketHovered(false)}
+              whileHover={{ scale: 1.05 }}
+              initial={{ opacity: 0, y: 100 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.5 }}
+            >
+              <div className="relative w-24 sm:w-32 h-40 sm:h-52 mb-3">
+                {/* Stylized rocket based on image 2 */}
+                <div className="w-full h-full relative">
+                  {/* Rocket glow effect */}
+                  <div className="absolute w-full h-full"
+                       style={{
+                         background: 'radial-gradient(ellipse at center, rgba(138, 79, 255, 0.3) 0%, transparent 70%)',
+                         filter: 'blur(15px)',
+                         transform: 'translateZ(-10px)'
+                       }} />
+                  
+                  {/* Rocket body */}
+                  <div className="absolute w-3/4 h-3/4 left-1/8 bg-purple-500 rounded-t-full"
+                       style={{
+                         left: '12.5%',
+                         background: 'linear-gradient(135deg, #8A4FFF 0%, #A375FF 100%)',
+                         borderRadius: '50% 50% 15% 15% / 60% 60% 15% 15%',
+                         boxShadow: '0 0 20px rgba(138, 79, 255, 0.5)'
+                       }} />
+                  
+                  {/* Rocket tip */}
+                  <div className="absolute w-1/2 h-1/3 left-1/4 -top-3"
+                       style={{
+                         background: 'linear-gradient(135deg, #7340D1 0%, #8A4FFF 100%)',
+                         borderRadius: '50% 50% 0 0 / 80% 80% 0 0'
+                       }} />
+                  
+                  {/* Window */}
+                  <div className="absolute w-1/3 h-1/5 top-1/4"
+                       style={{
+                         left: '33.3%',
+                         background: 'radial-gradient(ellipse at center, rgba(173, 216, 230, 0.9) 0%, rgba(110, 180, 210, 0.9) 100%)',
+                         borderRadius: '50%',
+                         boxShadow: 'inset 0 0 5px rgba(0, 0, 0, 0.2), 0 0 10px rgba(173, 216, 230, 0.5)'
+                       }} />
+                  
+                  {/* Left fin */}
+                  <div className="absolute w-1/5 h-1/3 -left-1 bottom-1/5"
+                       style={{
+                         background: 'linear-gradient(135deg, #6030B1 0%, #7340D1 100%)',
+                         borderRadius: '50% 50% 0 50% / 50% 50% 0 50%',
+                         transform: 'rotate(-20deg)'
+                       }} />
+                  
+                  {/* Right fin */}
+                  <div className="absolute w-1/5 h-1/3 -right-1 bottom-1/5"
+                       style={{
+                         background: 'linear-gradient(135deg, #6030B1 0%, #7340D1 100%)',
+                         borderRadius: '50% 50% 50% 0 / 50% 50% 50% 0',
+                         transform: 'rotate(20deg)'
+                       }} />
+                  
+                  {/* Bottom exhaust */}
+                  <div className="absolute w-2/5 h-1/6 left-3/10 bottom-0 bg-gray-600 rounded-b-full"
+                       style={{
+                         left: '30%',
+                         borderRadius: '0 0 40% 40% / 0 0 100% 100%'
+                       }} />
+                </div>
+                
+                {/* Rocket exhaust animation - position fixed */}
+                <div className="absolute bottom-0 left-0 w-full h-8 overflow-visible flex justify-center">
+                  <RocketExhaust active={isRocketHovered || scrollY > 50} />
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Video container */}
+            <div className="w-full h-full relative flex justify-center items-center overflow-hidden rounded-xl border-2 border-purple-500 border-opacity-30 z-10"
+                 style={{ boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3), 0 0 30px rgba(138, 79, 255, 0.3)' }}>
+              {/* Placeholder video - you'll replace this with your actual video */}
+              <video
+                ref={videoRef}
+                className="w-full h-full object-cover rounded-lg"
+                poster="/api/placeholder/800/450"
+                onClick={toggleVideo}
+              >
+                <source src="your-video-url.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              
+              {/* Video play overlay */}
+              <AnimatePresence>
+                {!isVideoPlaying && (
+                  <motion.div
+                    initial={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="absolute top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-30 rounded-lg cursor-pointer"
+                    onClick={toggleVideo}
+                  >
+                    <motion.div
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      className="flex justify-center items-center w-16 h-16 sm:w-20 sm:h-20 rounded-full"
+                      style={{
+                        background: 'rgba(138, 79, 255, 0.8)',
+                        boxShadow: '0 0 30px rgba(138, 79, 255, 0.5)'
+                      }}
+                    >
+                      <PlayCircle size={48} color="white" />
+                    </motion.div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {/* Animated scroll indicator */}
+      <motion.div
+        style={{
           position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z\' fill=\'%238a4fff\' fill-opacity=\'0.05\' fill-rule=\'evenodd\'/%3E%3C/svg%3E")',
-          opacity: 0.5,
-          zIndex: 0,
-        }
-      }}
-    >
-      {/* 3D Particle Background */}
-      <Box sx={{ position: 'absolute', width: '100%', height: '100%', pointerEvents: 'none' }}>
-        {particles}
-        
-        {/* 3D geometric shape that follows mouse */}
-        <motion.div
-          style={{
-            position: 'absolute',
-            width: 350,
-            height: 350,
-            borderRadius: '50%',
-            background: 'radial-gradient(circle at center, rgba(138, 79, 255, 0.18), transparent 70%)',
-            filter: 'blur(20px)',
-            x: moveX,
-            y: moveY,
-            display: isMobile ? 'none' : 'block',
-          }}
-        />
-      </Box>
-
-      <Container
-        maxWidth="lg"
-        sx={{
-          position: 'relative',
-          zIndex: 1,
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
+          bottom: '20px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          zIndex: 10
         }}
+        animate={{ y: [0, 10, 0] }}
+        transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
       >
-        {/* Kaicension Brand */}
-        <motion.div
-          initial={{ opacity: 0, rotateX: -30 }}
-          animate={{ opacity: 1, rotateX: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          style={{ transformStyle: "preserve-3d", perspective: 1000 }}
-        >
-          <Box sx={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <Typography
-              variant="h4"
-              sx={{
-                textAlign: 'center',
-                mb: 6,
-                mt: { xs: -6, md: 0 },
-                fontWeight: 800,
-                fontSize: { xs: '2.4rem', sm: '3.2rem' },
-                letterSpacing: "-1px",
-                background: 'linear-gradient(135deg, #8A4FFF 0%, #A375FF 100%)',
-                WebkitBackgroundClip: 'text',
-                color: 'transparent',
-                position: 'relative',
-                textShadow: '0 2px 10px rgba(138, 79, 255, 0.15)',
-                '&:after': {
-                  content: '""',
-                  position: 'absolute',
-                  bottom: -10,
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  width: { xs: 100, sm: 140 },
-                  height: 4,
-                  background: 'linear-gradient(90deg, #8A4FFF, #A375FF)',
-                  borderRadius: 2,
-                }
-              }}
-            >
-              Kaicension
-            </Typography>
-          </Box>
-        </motion.div>
-        
-        <Box
-          sx={{
-            textAlign: 'center',
-            maxWidth: { xs: '100%', sm: '90%', md: '900px' },
-            mx: 'auto',
-            position: 'relative',
-            zIndex: 2,
-            px: { xs: 2, sm: 4 },
-          }}
-        >
-          {/* Headline in dramatic 3D split layout - Always visible when scrolling from bottom */}
-          <Box sx={{ position: 'relative', mb: 6, opacity: 1 }}>
-            {/* Part 1: From Stuck to Fundable - Always visble */}
-            <Box
-              sx={{
-                opacity: 1,
-                transform: { xs: 'none', md: 'translateX(-20px)' },
-              }}
-            >
-              <Typography
-                variant="h1"
-                sx={{
-                  fontSize: { xs: '2.4rem', sm: '3.5rem', md: '4rem' },
-                  fontWeight: 800,
-                  lineHeight: 1.1,
-                  textAlign: { xs: 'center', md: 'left' },
-                  mb: { xs: 1, md: 1 },
-                  background: 'linear-gradient(90deg, #8A4FFF, #A375FF)',
-                  WebkitBackgroundClip: 'text',
-                  color: 'transparent',
-                  textShadow: '0 2px 15px rgba(138, 79, 255, 0.2)',
-                  letterSpacing: '-0.02em',
-                }}
-              >
-                From Stuck to Fundable
-              </Typography>
-            </Box>
-
-            {/* Transformation icon - Always visible */}
-            <Box
-              sx={{ 
-                position: 'relative',
-                display: 'flex',
-                justifyContent: 'center',
-                marginTop: '0.5rem',
-                marginBottom: '0.5rem',
-                opacity: 1
-              }}
-            >
-              <Box sx={{ 
-                display: 'inline-flex', 
-                p: 1.5,
-                borderRadius: '50%',
-                background: 'linear-gradient(135deg, rgba(138, 79, 255, 0.15), rgba(163, 117, 255, 0.05))',
-                boxShadow: '0 6px 15px rgba(138, 79, 255, 0.2)',
-              }}>
-                <TrendingUpIcon sx={{ 
-                  fontSize: { xs: '2rem', sm: '2.5rem' },
-                  color: '#8A4FFF'
-                }} />
-              </Box>
-            </Box>
-            
-            {/* Part 2: Transform Your Business - Always visible */}
-            <Box
-              sx={{
-                opacity: 1,
-              }}
-            >
-              <Typography
-                variant="h2"
-                sx={{
-                  fontSize: { xs: '1.8rem', sm: '2.4rem', md: '3rem' },
-                  fontWeight: 700,
-                  lineHeight: 1.2,
-                  textAlign: 'center',
-                  background: 'linear-gradient(90deg, #8A4FFF, #A375FF)',
-                  WebkitBackgroundClip: 'text',
-                  color: 'transparent',
-                  position: 'relative',
-                  letterSpacing: '-0.01em',
-                }}
-              >
-                Transform Your Business Model
-              </Typography>
-            </Box>
-            
-            {/* Part 3: Traction & Investor Appeal - Always visible */}
-            <Box
-              sx={{
-                opacity: 1,
-                transform: { xs: 'none', md: 'translateX(20px)' },
-              }}
-            >
-              <Typography
-                variant="h2"
-                sx={{
-                  fontSize: { xs: '1.8rem', sm: '2.4rem', md: '3rem' },
-                  fontWeight: 700,
-                  lineHeight: 1.2,
-                  textAlign: { xs: 'center', md: 'right' },
-                  background: 'linear-gradient(90deg, #8A4FFF, #A375FF)',
-                  WebkitBackgroundClip: 'text',
-                  color: 'transparent',
-                  letterSpacing: '-0.01em',
-                }}
-              >
-                <Box component="span" sx={{ 
-                  position: 'relative',
-                  '&:after': {
-                    content: '""',
-                    position: 'absolute',
-                    bottom: -4,
-                    left: 0,
-                    width: '100%',
-                    height: 3,
-                    background: 'linear-gradient(90deg, #A375FF, #8A4FFF)',
-                    borderRadius: 2,
-                  }
-                }}>
-                  Traction & Investor Appeal
-                </Box>
-              </Typography>
-            </Box>
-            
-            {/* Part 4: in 4 Months - Always visible */}
-            <Box
-              sx={{
-                opacity: 1,
-              }}
-            >
-              <Typography
-                variant="h2"
-                sx={{
-                  mt: { xs: 2, md: 2 },
-                  fontSize: { xs: '2rem', sm: '2.8rem', md: '3.5rem' },
-                  fontWeight: 800,
-                  textAlign: 'center',
-                  background: 'linear-gradient(90deg, #8A4FFF, #A375FF)',
-                  WebkitBackgroundClip: 'text',
-                  color: 'transparent',
-                  textShadow: '0 2px 15px rgba(138, 79, 255, 0.2)',
-                  letterSpacing: '-0.01em',
-                  position: 'relative',
-                  '&::after': {
-                    content: '""',
-                    position: 'absolute',
-                    bottom: -15,
-                    left: '50%',
-                    transform: 'translateX(-50%)',
-                    width: { xs: 60, sm: 80 },
-                    height: 4,
-                    background: 'linear-gradient(90deg, #8A4FFF, #A375FF)',
-                    borderRadius: 2,
-                  }
-                }}
-              >
-                in 4 Months
-              </Typography>
-            </Box>
-          </Box>
-            
-          {/* Subtitle text - Always visible */}
-          <Box>
-            <Typography 
-              variant="h5" 
-              sx={{ 
-                mb: { xs: 5, sm: 6 }, 
-                color: 'text.secondary', 
-                fontWeight: 400,
-                maxWidth: '800px',
-                mx: 'auto',
-                fontSize: { xs: '1.2rem', sm: '1.4rem' },
-                lineHeight: 1.5,
-                letterSpacing: '0.01em',
-              }}
-            >
-              A dedicated program that propels founders from being 'almost there' to building truly 
-              <Box 
-                component="span" 
-                sx={{ 
-                  fontWeight: 700, 
-                  color: '#8A4FFF',
-                  mx: 0.5,
-                }}
-              >
-                investor-ready startups
-              </Box> 
-              with compelling metrics.
-            </Typography>
-          </Box>
-            
-          <Box sx={{ mt: { xs: 4, md: 6 }, display: 'flex', justifyContent: { xs: 'center', md: 'flex-start' } }}>
-            <WhatsAppCTA 
-              text="Discover Your Challenges" 
-              section="hero"
-              message="Hi, I'm ready to transform my startup and achieve sustainable growth."
-            />
-          </Box>
-            
-          {/* Scroll hint arrow */}
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
-            style={{ marginTop: '3.5rem', display: 'flex', justifyContent: 'center' }}
-          >
-            <ArrowForwardIcon sx={{ 
-              transform: 'rotate(90deg)', 
-              color: 'rgba(138, 79, 255, 0.6)', 
-              fontSize: '2.2rem',
-              filter: 'drop-shadow(0 2px 4px rgba(138, 79, 255, 0.3))'
-            }} />
-          </motion.div>
-        </Box>
-      </Container>
-    </Box>
+        <div className="w-8 h-12 border-2 border-white border-opacity-30 rounded-full flex justify-center pt-1 pb-1">
+          <div className="w-2 h-2 bg-white rounded-full"></div>
+        </div>
+      </motion.div>
+    </div>
   );
 };
 
-export default Hero; 
+export default Hero;

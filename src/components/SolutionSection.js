@@ -178,7 +178,7 @@ const SolutionSection = () => {
             Your Escape Plan
           </Typography>
           <GradientText 
-            variant="h3" 
+            variant="h4" 
             component="span" 
             align="center" 
             sx={{ 
