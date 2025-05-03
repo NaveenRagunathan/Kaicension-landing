@@ -1,16 +1,15 @@
 {
   "files": {
-    "main.css": "/Kaicension-landing/static/css/main.268af1ac.css",
-    "main.js": "/Kaicension-landing/static/js/main.15c9fcc0.js",
+    "main.css": "/Kaicension-landing/static/css/main.af252139.css",
+    "main.js": "/Kaicension-landing/static/js/main.c6ad7069.js",
     "static/js/488.5c5bcf31.chunk.js": "/Kaicension-landing/static/js/488.5c5bcf31.chunk.js",
-    "static/media/hero-graphic.png": "/Kaicension-landing/static/media/hero-graphic.19f64afd49242d77a7b8.png",
     "index.html": "/Kaicension-landing/index.html",
-    "main.268af1ac.css.map": "/Kaicension-landing/static/css/main.268af1ac.css.map",
-    "main.15c9fcc0.js.map": "/Kaicension-landing/static/js/main.15c9fcc0.js.map",
+    "main.af252139.css.map": "/Kaicension-landing/static/css/main.af252139.css.map",
+    "main.c6ad7069.js.map": "/Kaicension-landing/static/js/main.c6ad7069.js.map",
     "488.5c5bcf31.chunk.js.map": "/Kaicension-landing/static/js/488.5c5bcf31.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.268af1ac.css",
-    "static/js/main.15c9fcc0.js"
+    "static/css/main.af252139.css",
+    "static/js/main.c6ad7069.js"
   ]
 }
