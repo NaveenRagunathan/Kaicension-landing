@@ -387,7 +387,11 @@ const ProblemSection = () => {
                           fontSize: '1.1rem',
                           lineHeight: 1.8,
                           position: 'relative',
-                          whiteSpace: 'pre-line'
+                          whiteSpace: 'pre-line',
+                          letterSpacing: '0.02em',
+                          fontWeight: 300,
+                          textShadow: '0 1px 2px rgba(0,0,0,0.2)',
+                          fontFamily: "'Montserrat', 'Arial', sans-serif"
                         }}
                       >
                         {nightmare.description}
