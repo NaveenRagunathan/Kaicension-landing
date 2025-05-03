@@ -164,10 +164,10 @@ const Particles = () => {
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    
+
     const particles = [];
     const particleCount = 50;
-    
+
     for (let i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * canvas.width,
@@ -178,43 +178,43 @@ const Particles = () => {
         speedY: Math.random() * 0.5 - 0.25
       });
     }
-    
+
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
+
       particles.forEach(particle => {
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
         ctx.fillStyle = particle.color;
         ctx.fill();
-        
+
         particle.x += particle.speedX;
         particle.y += particle.speedY;
-        
+
         if (particle.x < 0 || particle.x > canvas.width) particle.speedX *= -1;
         if (particle.y < 0 || particle.y > canvas.height) particle.speedY *= -1;
       });
-      
+
       requestAnimationFrame(animate);
     };
-    
+
     animate();
-    
+
     const handleResize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     };
-    
+
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-  
+
   return <ParticleCanvas id="particles" />;
 };
 
 const ProblemSection = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
-  
+
   const nightmares = [
     {
       title: "The Brutal Truth",
@@ -229,10 +229,10 @@ const ProblemSection = () => {
     },
     {
       title: "The Cost of Staying Stuck",
-      description: `- Your team loses faith as momentum stalls making your stress mentally, physically and financially.\n- Competitors secure funding rounds you deserve and capture your market opportunity.\n- Your runway shortens while you're stuck in endless iteration and panicking.\n- The window for category leadership closes a little more each day as you lose brand equity.`
+      description: `Your team loses faith as momentum stalls making your stress mentally, physically and financially.\nCompetitors secure funding rounds you deserve and capture your market opportunity.\nYour runway shortens while you're stuck in endless iteration and panicking.\nThe window for category leadership closes a little more each day as you lose brand equity.`
     }
   ];
-  
+
   const cardVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: (i) => ({
@@ -252,7 +252,7 @@ const ProblemSection = () => {
       }
     }
   };
-  
+
   const titleVariants = {
     hidden: { opacity: 0, y: -30 },
     visible: {
@@ -264,7 +264,7 @@ const ProblemSection = () => {
       }
     }
   };
-  
+
   const pulseAnimation = {
     scale: [1, 1.05, 1],
     transition: {
@@ -275,10 +275,10 @@ const ProblemSection = () => {
   };
 
   return (
-    <Box 
+    <Box
       id="problem-section"
-      sx={{ 
-        py: 12, 
+      sx={{
+        py: 12,
         position: 'relative',
         background: 'linear-gradient(180deg, #0a0a18 0%, #14121F 100%)',
         color: 'white',
@@ -286,9 +286,9 @@ const ProblemSection = () => {
       }}
     >
       <Particles />
-      
+
       {/* Background design elements */}
-      <Box 
+      <Box
         sx={{
           position: 'absolute',
           width: '70%',
@@ -301,8 +301,8 @@ const ProblemSection = () => {
           filter: 'blur(40px)'
         }}
       />
-      
-      <Box 
+
+      <Box
         sx={{
           position: 'absolute',
           width: '50%',
@@ -323,12 +323,12 @@ const ProblemSection = () => {
           viewport={{ once: true }}
           variants={titleVariants}
         >
-          <Typography 
-            variant="h2" 
-            component="h2" 
-            align="center" 
-            sx={{ 
-              mb: 1, 
+          <Typography
+            variant="h2"
+            component="h2"
+            align="center"
+            sx={{
+              mb: 1,
               fontWeight: 700,
               fontSize: { xs: '2.5rem', md: '3.5rem' },
               textShadow: '0 2px 10px rgba(0,0,0,0.3)'
@@ -336,13 +336,13 @@ const ProblemSection = () => {
           >
             The Founder's
           </Typography>
-          <GlowingGradientText 
+          <GlowingGradientText
             data-text="Nightmare Scenario"
-            variant="h2" 
-            component="span" 
-            align="center" 
-            sx={{ 
-              display: 'block', 
+            variant="h2"
+            component="span"
+            align="center"
+            sx={{
+              display: 'block',
               mb: 8,
               textAlign: 'center',
               fontSize: { xs: '2.5rem', md: '3.5rem' },
@@ -380,10 +380,10 @@ const ProblemSection = () => {
                       </CardTitle>
                     </Grid>
                     <Grid item xs={12} md={8}>
-                      <Typography 
-                        variant="body1" 
-                        sx={{ 
-                          color: 'rgba(255,255,255,0.9)', 
+                      <Typography
+                        variant="body1"
+                        sx={{
+                          color: 'rgba(255,255,255,0.9)',
                           fontSize: '1.1rem',
                           lineHeight: 1.8,
                           position: 'relative',
@@ -403,7 +403,8 @@ const ProblemSection = () => {
             </Grid>
           ))}
         </Grid>
-        
+
+
         {/* Escape Way Out Section */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -436,7 +437,7 @@ const ProblemSection = () => {
                 filter: 'blur(20px)',
               }}
             />
-            
+
             <Typography
               variant="h3"
               sx={{
@@ -449,19 +450,22 @@ const ProblemSection = () => {
             >
               There Has Got to Be a Way Out
             </Typography>
-            
+
             <Typography
               variant="body1"
               sx={{
                 color: 'rgba(255,255,255,0.9)',
                 fontSize: '1.15rem',
                 lineHeight: 1.8,
-                mb: 2
+                mb: 2,
+                letterSpacing: '0.02em',
+                fontWeight: 300,
+                textShadow: '0 1px 2px rgba(0,0,0,0.2)'
               }}
             >
               But you can't go through all this
             </Typography>
-            
+
             <Typography
               variant="body1"
               sx={{
@@ -473,19 +477,21 @@ const ProblemSection = () => {
             >
               There has got to be an escape plan yes?
             </Typography>
-            
+
             <Typography
               variant="body1"
               sx={{
                 color: 'white',
                 fontSize: '1.25rem',
-                fontWeight: 600,
-                mb: 3
+                fontWeight: 500,
+                mb: 3,
+                letterSpacing: '0.03em',
+                textShadow: '0 1px 3px rgba(138,43,226,0.3)'
               }}
             >
               The Good news is there is!
             </Typography>
-            
+
             <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
               <motion.div animate={pulseAnimation}>
                 <PulsingButton

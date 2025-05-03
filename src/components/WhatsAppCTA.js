@@ -34,7 +34,6 @@ const WhatsAppCTA = ({
   text = "Start Your Transformation",
   message = "Hi, I need your service",
   section = "general",
-  subtitle = "Click to message us directly on WhatsApp",
   isFinal = false
 }) => {
   const handleWhatsAppClick = () => {
@@ -123,7 +122,7 @@ const WhatsAppCTA = ({
         >
           {text}
         </CTAButton>
-        <Typography
+        {/* <Typography
           variant="body2"
           sx={{ 
             mt: 2, 
@@ -133,7 +132,7 @@ const WhatsAppCTA = ({
           }}
         >
           {subtitle}
-        </Typography>
+        </Typography> */}
       </motion.div>
     </Box>
   );
