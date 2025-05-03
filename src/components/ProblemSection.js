@@ -491,18 +491,40 @@ const ProblemSection = () => {
             >
               The Good news is there is!
             </Typography>
-            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
-              <motion.div animate={pulseAnimation}>
-                <PulsingButton
+
+            <Box sx={{ mt: 12, textAlign: 'center' }}>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7 }}
+                viewport={{ once: true }}
+              >
+                <Box
+                  component="a"
                   href="#solution-section"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.98 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  sx={{
+                    display: 'inline-block',
+                    p: 3,
+                    borderRadius: '50px',
+                    background: 'linear-gradient(90deg, #8a2be2, #4a0082)',
+                    color: 'white',
+                    textDecoration: 'none',
+                    fontWeight: 'bold',
+                    boxShadow: '0 10px 20px rgba(138,43,226,0.3)',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      transform: 'translateY(-5px)',
+                      boxShadow: '0 15px 30px rgba(138,43,226,0.5)',
+                    }
+                  }}
                 >
-                  Continue Reading This →
-                </PulsingButton>
+                  <Typography variant="h6" component="span">
+                    Continue Reading This →
+                  </Typography>
+                </Box>
               </motion.div>
             </Box>
+
 
           </Box>
         </motion.div>
