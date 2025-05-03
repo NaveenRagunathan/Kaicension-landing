@@ -122,17 +122,6 @@ const WhatsAppCTA = ({
         >
           {text}
         </CTAButton>
-        {/* <Typography
-          variant="body2"
-          sx={{ 
-            mt: 2, 
-            color: 'rgba(255,255,255,0.7)',
-            fontSize: isFinal ? '1rem' : '0.9rem',
-            maxWidth: isFinal ? '280px' : '220px'
-          }}
-        >
-          {subtitle}
-        </Typography> */}
       </motion.div>
     </Box>
   );

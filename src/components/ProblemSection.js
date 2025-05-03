@@ -495,6 +495,8 @@ const ProblemSection = () => {
             <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
               <motion.div animate={pulseAnimation}>
                 <PulsingButton
+                  component="a"
+                  href="#solution-section"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
                   transition={{ type: "spring", stiffness: 400, damping: 10 }}
