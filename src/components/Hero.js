@@ -1,690 +1,494 @@
-import React, { useState, useRef, useEffect } from "react";
-import { motion, useMotionValue, useTransform, AnimatePresence } from "framer-motion";
-import { PlayCircle } from "lucide-react";
+import React, { useRef, useState, useEffect, Suspense } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { OrbitControls, useGLTF, MeshWobbleMaterial, Sparkles, Stars, Environment } from "@react-three/drei";
+import { motion } from "framer-motion";
+import * as THREE from "three";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import { styled, keyframes } from "@mui/system";
 
-/**
- * GradientText component with optional underline
- */
-const GradientText = ({ text, underlined }) => (
-  <span className="relative">
-    <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-purple-400">
-      {text}
-    </span>
-    {underlined && (
-      <span className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-purple-400 rounded" />
-    )}
-  </span>
-);
+// =============== STYLED COMPONENTS ===============
 
-/**
- * StarField component creates an animated space background with stars
- */
-const StarField = ({ count = 100 }) => (
-  <div className="absolute w-full h-full z-0">
-    {[...Array(count)].map((_, i) => {
-      const size = Math.random() * 2 + 1;
-      const x = Math.random() * 100;
-      const y = Math.random() * 100;
-      const duration = Math.random() * 20 + 10;
-      const delay = Math.random() * 5;
-      const opacity = Math.random() * 0.7 + 0.3;
+const glowPulse = keyframes`
+  0% { text-shadow: 0 0 10px rgba(197, 158, 249, 0.3), 0 0 20px rgba(197, 158, 249, 0.2); }
+  50% { text-shadow: 0 0 15px rgba(197, 158, 249, 0.8), 0 0 30px rgba(197, 158, 249, 0.5), 0 0 40px rgba(197, 158, 249, 0.3); }
+  100% { text-shadow: 0 0 10px rgba(197, 158, 249, 0.3), 0 0 20px rgba(197, 158, 249, 0.2); }`;
 
-      return (
-        <motion.div
+const heroTextGlow = keyframes`
+  0% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.1); }
+  50% { text-shadow: 0 0 30px rgba(255, 255, 255, 0.3), 0 0 50px rgba(153, 60, 255, 0.5); }
+  100% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.1); }`;
+
+const GradientBackground = styled(Box)(({ theme }) => ({
+  minHeight: "100vh",
+  width: "100%",
+  background: "radial-gradient(ellipse at center, #f8faff 0%, #eef1fa 100%)",
+  color: "#333",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  padding: "0 5%",
+  position: "relative",
+  overflow: "hidden",
+  flexWrap: "wrap",
+  "&::before": {
+    content: '""',
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background: "url('/noise.png')",
+    opacity: 0.05,
+    mixBlendMode: "overlay",
+    pointerEvents: "none",
+  }
+}));
+
+const HeroText = styled(motion.div)(({ theme }) => ({
+  maxWidth: "600px",
+  zIndex: 5,
+  position: "relative",
+  "@media (max-width: 900px)": {
+    maxWidth: "100%",
+    textAlign: "center",
+    marginBottom: "40px",
+  }
+}));
+
+const MainHeading = styled(motion.h1)({
+  fontSize: "clamp(2.5rem, 5vw, 4rem)",
+  fontWeight: 900,
+  lineHeight: 1.1,
+  margin: 0,
+  letterSpacing: "-0.02em",
+  backgroundImage: "linear-gradient(135deg, #333 30%, #993cff 100%)",
+  backgroundClip: "text",
+  WebkitBackgroundClip: "text",
+  color: "transparent",
+  animation: `${heroTextGlow} 3s ease-in-out infinite`,
+  "@media (max-width: 600px)": {
+    fontSize: "2.5rem",
+  }
+});
+
+const BlastText = styled("span")({
+  position: "relative",
+  display: "inline-block",
+  "&::after": {
+    content: '""',
+    position: "absolute",
+    bottom: "-5px",
+    left: 0,
+    width: "100%",
+    height: "2px",
+    background: "linear-gradient(90deg, transparent, #993cff, transparent)",
+  }
+});
+
+const Highlight = styled("span")({
+  color: "#993cff",
+  fontWeight: 700,
+  animation: `${glowPulse} 2s infinite ease-in-out`,
+});
+
+const SubText = styled(Typography)({
+  marginTop: "20px",
+  fontSize: "1.1rem",
+  color: "#444",
+  lineHeight: 1.6,
+  letterSpacing: "0.01em",
+});
+
+const WatchButton = styled(motion.button)({
+  marginTop: "30px",
+  padding: "14px 28px",
+  borderRadius: "30px",
+  background: "linear-gradient(90deg, #993cff 0%, #bb6aff 100%)",
+  color: "#fff",
+  textTransform: "none",
+  fontWeight: 600,
+  fontSize: "1rem",
+  display: "flex",
+  alignItems: "center",
+  gap: "10px",
+  border: "none",
+  cursor: "pointer",
+  position: "relative",
+  overflow: "hidden",
+  boxShadow: "0 5px 15px rgba(153, 60, 255, 0.4)",
+  "&::before": {
+    content: '""',
+    position: "absolute",
+    top: 0,
+    left: "-100%",
+    width: "100%",
+    height: "100%",
+    background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)",
+    transition: "0.5s",
+  },
+  "&:hover::before": {
+    left: "100%",
+  }
+});
+
+const VideoContainer = styled(motion.div)({
+  position: "relative",
+  zIndex: 10,
+  width: "100%",
+  maxWidth: "560px",
+  height: "315px",
+  borderRadius: "20px",
+  overflow: "hidden",
+  boxShadow: "0 20px 40px rgba(0,0,0,0.15), 0 0 30px rgba(153, 60, 255, 0.2)",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  background: "#fff",
+  perspective: "1000px",
+  transform: "rotate3d(1, 1, 0, -5deg)",
+  "&::before": {
+    content: '""',
+    position: "absolute",
+    top: -2,
+    left: -2,
+    right: -2,
+    bottom: -2,
+    zIndex: -1,
+    borderRadius: "22px",
+    background: "linear-gradient(45deg, #993cff, transparent, #bb6aff)",
+    animation: "rotate 6s linear infinite",
+  },
+  "@media (max-width: 900px)": {
+    maxWidth: "90%",
+    margin: "0 auto",
+    height: "auto",
+    aspectRatio: "16/9",
+  }
+});
+
+const CanvasContainer = styled(Box)({
+  position: "absolute",
+  top: 0,
+  left: 0,
+  width: "100%",
+  height: "100%",
+  zIndex: 1,
+});
+
+const ScrollIndicator = styled(motion.div)({
+  position: "absolute",
+  bottom: "30px",
+  left: "50%",
+  transform: "translateX(-50%)",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  color: "#555",
+  fontSize: "12px",
+  letterSpacing: "2px",
+  opacity: 0.7,
+  zIndex: 5,
+});
+
+const ArrowDown = styled(motion.div)({
+  width: "20px",
+  height: "20px",
+  border: "2px solid #555",
+  borderLeft: "none",
+  borderTop: "none",
+  transform: "rotate(45deg)",
+  marginTop: "8px",
+});
+
+// =============== 3D COMPONENTS ===============
+
+// Custom animation function
+function animate(obj, prop, opts) {
+  let start = null;
+  const startValues = {};
+  const propKeys = Object.keys(prop);
+
+  propKeys.forEach(key => {
+    startValues[key] = obj[key];
+  });
+
+  function loop(timestamp) {
+    if (!start) start = timestamp;
+    const progress = Math.min(1, (timestamp - start) / (opts.duration * 1000));
+
+    propKeys.forEach(key => {
+      const startVal = startValues[key];
+      const endVal = prop[key];
+      obj[key] = startVal + (endVal - startVal) * progress;
+    });
+
+    opts.onUpdate && opts.onUpdate();
+
+    if (progress < 1) {
+      window.requestAnimationFrame(loop);
+    }
+  }
+
+  window.requestAnimationFrame(loop);
+}
+
+// Rocket Component
+function Rocket({ isLaunching, launchProgress }) {
+  const rocketRef = useRef();
+  const { viewport } = useThree();
+
+  useFrame((state, delta) => {
+    if (!rocketRef.current) return;
+
+    // Idle floating animation
+    if (!isLaunching) {
+      rocketRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.1;
+      rocketRef.current.rotation.z = Math.sin(state.clock.elapsedTime * 0.3) * 0.05;
+    } 
+    // Launch animation
+    else {
+      rocketRef.current.position.y += delta * 5 * launchProgress.get();
+      rocketRef.current.rotation.z = 0;
+      
+      // If rocket goes out of view, reset its position for the next launch
+      if (rocketRef.current.position.y > viewport.height) {
+        rocketRef.current.position.y = -2;
+      }
+    }
+  });
+
+  return (
+    <group ref={rocketRef} position={[2, 0, 0]} scale={[0.4, 0.4, 0.4]}>
+      <mesh castShadow>
+        <coneGeometry args={[0.5, 2, 16]} />
+        <meshStandardMaterial color="#bb6aff" metalness={0.6} roughness={0.2} />
+      </mesh>
+      <mesh castShadow position={[0, -1.25, 0]}>
+        <cylinderGeometry args={[0.5, 0.5, 0.5, 16]} />
+        <meshStandardMaterial color="#993cff" metalness={0.6} roughness={0.2} />
+      </mesh>
+      <mesh castShadow position={[0, -1.75, 0]}>
+        <cylinderGeometry args={[0.25, 0.5, 0.5, 16]} />
+        <meshStandardMaterial color="#f44336" metalness={0.5} roughness={0.5} />
+      </mesh>
+
+      {/* Rocket Fins */}
+      <mesh castShadow position={[0.5, -1.5, 0]} rotation={[0, 0, Math.PI / 2]}>
+        <coneGeometry args={[0.2, 0.5, 16]} />
+        <meshStandardMaterial color="#f1f1f1" metalness={0.5} roughness={0.5} />
+      </mesh>
+      <mesh castShadow position={[-0.5, -1.5, 0]} rotation={[0, 0, -Math.PI / 2]}>
+        <coneGeometry args={[0.2, 0.5, 16]} />
+        <meshStandardMaterial color="#f1f1f1" metalness={0.5} roughness={0.5} />
+      </mesh>
+      
+      {/* Rocket Flames - only shown when launching */}
+      {isLaunching && (
+        <group position={[0, -2, 0]}>
+          <mesh>
+            <coneGeometry args={[0.3, 1, 16]} />
+            <meshBasicMaterial color="#ff9800" transparent opacity={0.8} />
+          </mesh>
+          <Sparkles count={30} scale={[0.5, 1, 0.5]} size={5} speed={0.5} color="#ff9800" />
+        </group>
+      )}
+    </group>
+  );
+}
+
+// Floating Elements Component
+function FloatingElements() {
+  const floatingRefs = useRef([]);
+
+  useFrame((state) => {
+    floatingRefs.current.forEach((mesh, i) => {
+      if (!mesh) return;
+      const t = state.clock.elapsedTime + i * 100;
+      mesh.position.y = Math.sin(t * 0.2) * 0.5;
+      mesh.rotation.x = Math.sin(t * 0.2) * 0.2;
+      mesh.rotation.z = Math.sin(t * 0.2) * 0.2;
+    });
+  });
+
+  return (
+    <group>
+      {[...Array(8)].map((_, i) => (
+        <mesh
           key={i}
-          style={{
-            position: 'absolute',
-            width: size,
-            height: size,
-            borderRadius: '50%',
-            backgroundColor: 'white',
-            left: `${x}%`,
-            top: `${y}%`,
-            opacity,
-          }}
-          animate={{
-            opacity: [opacity, opacity * 1.5, opacity],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{
-            duration,
-            repeat: Infinity,
-            delay,
-          }}
-        />
-      );
-    })}
-  </div>
-);
-
-/**
- * Rocket exhaust particle effect
- */
-const RocketExhaust = ({ active }) => {
-  const particleCount = active ? 40 : 0;
-  
-  return (
-    <>
-      {[...Array(particleCount)].map((_, i) => {
-        const size = Math.random() * 10 + 5;
-        const xOffset = (Math.random() - 0.5) * 40;
-        const duration = Math.random() * 1 + 0.5;
-        const delay = Math.random() * 0.2;
-        
-        return (
-          <motion.div
-            key={i}
-            style={{
-              position: 'absolute',
-              width: size,
-              height: size,
-              borderRadius: '50%',
-              background: `radial-gradient(circle at center, ${
-                Math.random() > 0.7 ? '#ffcc00' : '#ff6600'
-              }, transparent)`,
-              left: '50%',
-              transform: 'translateX(-50%)',
-              marginLeft: xOffset,
-              bottom: -10,
-              zIndex: -1
-            }}
-            animate={{
-              y: [0, 100 + Math.random() * 50],
-              opacity: [0.8, 0]
-            }}
-            transition={{
-              duration,
-              repeat: Infinity,
-              delay
-            }}
-          />
-        );
-      })}
-    </>
-  );
-};
-
-/**
- * 3D Rocket Component with animations
- */
-const Rocket3D = () => {
-  const [isHovered, setIsHovered] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
-  
-  // Animation values
-  const baseY = useMotionValue(0);
-  const rocketY = useTransform(baseY, [0, 100], [0, -50]);
-  const rotation = useMotionValue(0);
-  
-  // Handle scroll effect
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-      baseY.set(Math.min(window.scrollY / 5, 100));
-      
-      // Add slight rotation based on scroll
-      const newRotation = Math.sin(window.scrollY / 500) * 5;
-      rotation.set(newRotation);
-    };
-    
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [baseY, rotation]);
-
-  // Create metal rivets in a cleaner way
-  const rivets = Array.from({ length: 8 }).map((_, i) => (
-    <div
-      key={i}
-      className="absolute w-1 h-1 rounded-full bg-gray-300"
-      style={{
-        left: '50%',
-        top: `${30 + i * 6}%`,
-        transform: `translateX(-50%) translateZ(15px) rotate(${i * 45}deg)`,
-        boxShadow: '0 0 2px rgba(255, 255, 255, 0.8)',
-      }}
-    />
-  ));
-
-  return (
-    <motion.div
-      style={{ 
-        position: 'absolute',
-        y: rocketY,
-        rotate: rotation,
-        zIndex: 5,
-        width: '100%',
-        height: '100%',
-      }}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
-      whileHover={{ scale: 1.05 }}
-      initial={{ opacity: 0, y: 100 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1, delay: 0.5 }}
-    >
-      <div className="relative w-full h-full">
-        {/* 3D Rocket with CSS transforms for depth */}
-        <div className="absolute top-1/4 left-1/4 w-1/2 h-1/2 transform-gpu preserve-3d">
-          {/* Rocket glow effect */}
-          <div
-            className="absolute w-full h-full rounded-full"
-            style={{
-              background: 'radial-gradient(ellipse at center, rgba(138, 79, 255, 0.4) 0%, transparent 70%)',
-              filter: 'blur(20px)',
-              transform: 'translateZ(-20px) scale(1.5)',
-            }}
-          />
-          
-          {/* Rocket body */}
-          <div
-            className="absolute w-3/4 h-3/4"
-            style={{
-              left: '12.5%',
-              background: 'linear-gradient(135deg, #9b87f5 0%, #A375FF 100%)',
-              borderRadius: '50% 50% 15% 15% / 60% 60% 15% 15%',
-              boxShadow: '0 0 30px rgba(138, 79, 255, 0.5), inset 0 10px 20px rgba(255, 255, 255, 0.4), inset 0 -5px 15px rgba(0, 0, 0, 0.3)',
-              transform: 'translateZ(10px)',
-            }}
-          />
-          
-          {/* Rocket tip with 3D effect */}
-          <div
-            className="absolute w-1/2 h-1/3"
-            style={{
-              left: '25%',
-              top: '-10%',
-              background: 'linear-gradient(135deg, #7340D1 0%, #8A4FFF 100%)',
-              borderRadius: '50% 50% 0 0 / 80% 80% 0 0',
-              boxShadow: 'inset 0 5px 10px rgba(255, 255, 255, 0.4), inset 0 -2px 5px rgba(0, 0, 0, 0.2)',
-              transform: 'translateZ(15px)',
-            }}
-          />
-          
-          {/* Window with 3D glass effect */}
-          <div
-            className="absolute w-1/3 h-1/5"
-            style={{
-              left: '33.3%',
-              top: '25%',
-              background: 'radial-gradient(ellipse at center, rgba(210, 235, 255, 0.9) 0%, rgba(120, 190, 255, 0.9) 100%)',
-              borderRadius: '50%',
-              boxShadow: 'inset 0 0 8px rgba(255, 255, 255, 0.8), 0 0 15px rgba(173, 216, 230, 0.6)',
-              transform: 'translateZ(20px)',
-            }}
-          >
-            {/* Window reflection */}
-            <div
-              className="absolute w-1/2 h-1/3 rounded-full bg-white/60"
-              style={{
-                top: '20%',
-                left: '25%',
-                transform: 'rotate(-30deg)',
-              }}
-            />
-          </div>
-          
-          {/* Left fin with 3D effect */}
-          <div
-            className="absolute w-1/5 h-1/3"
-            style={{
-              left: '-5%',
-              bottom: '20%',
-              background: 'linear-gradient(135deg, #6030B1 0%, #7340D1 100%)',
-              borderRadius: '50% 50% 0 50% / 50% 50% 0 50%',
-              boxShadow: 'inset 0 5px 10px rgba(255, 255, 255, 0.2), inset 0 -2px 5px rgba(0, 0, 0, 0.3), -5px 5px 15px rgba(0, 0, 0, 0.2)',
-              transform: 'translateZ(5px) rotate(-20deg)',
-            }}
-          />
-          
-          {/* Right fin with 3D effect */}
-          <div
-            className="absolute w-1/5 h-1/3"
-            style={{
-              right: '-5%',
-              bottom: '20%',
-              background: 'linear-gradient(135deg, #6030B1 0%, #7340D1 100%)',
-              borderRadius: '50% 50% 50% 0 / 50% 50% 50% 0',
-              boxShadow: 'inset 0 5px 10px rgba(255, 255, 255, 0.2), inset 0 -2px 5px rgba(0, 0, 0, 0.3), 5px 5px 15px rgba(0, 0, 0, 0.2)',
-              transform: 'translateZ(5px) rotate(20deg)',
-            }}
-          />
-          
-          {/* Bottom exhaust */}
-          <div
-            className="absolute w-2/5 h-1/6 bg-gradient-to-b from-gray-700 to-gray-900"
-            style={{
-              left: '30%',
-              bottom: '0',
-              borderRadius: '0 0 40% 40% / 0 0 100% 100%',
-              boxShadow: 'inset 0 -5px 10px rgba(255, 165, 0, 0.5)',
-              transform: 'translateZ(5px)',
-            }}
-          />
-
-          {/* Metal details - rivets around the body */}
-          {rivets}
-          
-          {/* Holographic details - slight shimmer effect */}
-          <div
-            className="absolute w-full h-full opacity-30"
-            style={{
-              background: 'linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.1), transparent)',
-              animation: 'shimmer 3s infinite linear',
-              transform: 'translateZ(12px)',
-            }}
-          />
-        </div>
-        
-        {/* Rocket exhaust animation */}
-        <div className="absolute bottom-1/4 left-1/2 -translate-x-1/2 w-full h-8 overflow-visible flex justify-center">
-          <RocketExhaust active={isHovered || scrollY > 50} />
-        </div>
-        
-        {/* CSS styles */}
-        <style>
-          {`
-            @keyframes shimmer {
-              0% { background-position: -100% 0; }
-              100% { background-position: 200% 0; }
-            }
-            
-            .preserve-3d {
-              transform-style: preserve-3d;
-              perspective: 1000px;
-            }
-          `}
-        </style>
-      </div>
-    </motion.div>
-  );
-};
-
-/**
- * Space background with WebGL nebula effect
- */
-const SpaceBg = () => {
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    const gl = canvas.getContext("webgl", { alpha: true });
-    if (!gl) return;
-
-    // Vertex shader program
-    const vsSource = `
-      attribute vec4 aVertexPosition;
-      attribute vec2 aTextureCoord;
-      varying highp vec2 vTextureCoord;
-      void main(void) {
-        gl_Position = aVertexPosition;
-        vTextureCoord = aTextureCoord;
-      }
-    `;
-
-    // Fragment shader program for nebula effect
-    const fsSource = `
-      precision mediump float;
-      varying highp vec2 vTextureCoord;
-      uniform float uTime;
-      
-      // Noise function
-      float noise(vec2 p) {
-        return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453);
-      }
-      
-      // Simplex-like noise
-      float fbm(vec2 p) {
-        float f = 0.0;
-        float w = 0.5;
-        for (int i = 0; i < 5; i++) {
-          f += w * noise(p);
-          p *= 2.0;
-          w *= 0.5;
-        }
-        return f;
-      }
-
-      void main(void) {
-        vec2 uv = vTextureCoord * 2.0 - 1.0;
-        
-        // Create nebula-like pattern
-        float time = uTime * 0.05;
-        vec2 moveDir = vec2(time * 0.1, time * 0.05);
-        float d = fbm(uv + moveDir);
-        
-        // Purple nebula colors
-        vec3 color1 = vec3(0.34, 0.15, 0.5); // Deep purple
-        vec3 color2 = vec3(0.4, 0.2, 0.6);   // Medium purple
-        vec3 color3 = vec3(0.65, 0.3, 1.0);  // Light purple
-        
-        // Mix colors based on noise
-        vec3 color = mix(color1, color2, fbm(uv * 2.0 + vec2(time * -0.1, 0.0)));
-        color = mix(color, color3, fbm(uv * 3.0 + vec2(0.0, time * 0.1)) * 0.6);
-        
-        // Fade out towards edges for vignette effect
-        float vignetteAmount = 1.5;
-        float vignette = 1.0 - pow(length(uv * 0.8), vignetteAmount);
-        color *= vignette;
-        
-        // Add stars
-        float stars = step(0.98, noise(uv * 500.0)) * vignette;
-        color += vec3(stars * 0.5);
-        
-        // Apply opacity for subtle effect
-        gl_FragColor = vec4(color, 0.3);
-      }
-    `;
-
-    // Initialize shaders
-    const loadShader = (gl, type, source) => {
-      const shader = gl.createShader(type);
-      if (!shader) return null;
-      
-      gl.shaderSource(shader, source);
-      gl.compileShader(shader);
-
-      if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-        console.error('An error occurred compiling the shaders: ' + gl.getShaderInfoLog(shader));
-        gl.deleteShader(shader);
-        return null;
-      }
-
-      return shader;
-    };
-
-    const initShaderProgram = (gl, vsSource, fsSource) => {
-      const vertexShader = loadShader(gl, gl.VERTEX_SHADER, vsSource);
-      const fragmentShader = loadShader(gl, gl.FRAGMENT_SHADER, fsSource);
-
-      const shaderProgram = gl.createProgram();
-      if (!shaderProgram || !vertexShader || !fragmentShader) return null;
-      
-      gl.attachShader(shaderProgram, vertexShader);
-      gl.attachShader(shaderProgram, fragmentShader);
-      gl.linkProgram(shaderProgram);
-
-      if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-        console.error('Unable to initialize the shader program: ' + gl.getProgramInfoLog(shaderProgram));
-        return null;
-      }
-
-      return shaderProgram;
-    };
-
-    const shaderProgram = initShaderProgram(gl, vsSource, fsSource);
-    if (!shaderProgram) return;
-
-    const programInfo = {
-      program: shaderProgram,
-      attribLocations: {
-        vertexPosition: gl.getAttribLocation(shaderProgram, 'aVertexPosition'),
-        textureCoord: gl.getAttribLocation(shaderProgram, 'aTextureCoord'),
-      },
-      uniformLocations: {
-        uTime: gl.getUniformLocation(shaderProgram, 'uTime'),
-      },
-    };
-
-    // Create buffers for positions (quad) and texture coordinates
-    const createBuffer = (data) => {
-      const buffer = gl.createBuffer();
-      gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(data), gl.STATIC_DRAW);
-      return buffer;
-    };
-
-    const positionBuffer = createBuffer([
-      -1.0, -1.0,  // Bottom left
-       1.0, -1.0,  // Bottom right
-      -1.0,  1.0,  // Top left
-       1.0,  1.0,  // Top right
-    ]);
-
-    const textureCoordBuffer = createBuffer([
-      0.0, 0.0,  // Bottom left
-      1.0, 0.0,  // Bottom right
-      0.0, 1.0,  // Top left
-      1.0, 1.0,  // Top right
-    ]);
-
-    // Animation loop
-    let startTime = Date.now();
-    
-    const render = () => {
-      const currentTime = Date.now();
-      const elapsedTime = (currentTime - startTime) / 1000; // seconds
-
-      gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
-      gl.clearColor(0.0, 0.0, 0.0, 0.0);
-      gl.clear(gl.COLOR_BUFFER_BIT);
-
-      // Use shader program
-      gl.useProgram(programInfo.program);
-
-      // Set time uniform
-      gl.uniform1f(programInfo.uniformLocations.uTime, elapsedTime);
-
-      // Set up position attribute
-      gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-      gl.vertexAttribPointer(
-        programInfo.attribLocations.vertexPosition,
-        2, // 2 components per vertex
-        gl.FLOAT,
-        false,
-        0,
-        0
-      );
-      gl.enableVertexAttribArray(programInfo.attribLocations.vertexPosition);
-
-      // Set up texture coordinate attribute
-      gl.bindBuffer(gl.ARRAY_BUFFER, textureCoordBuffer);
-      gl.vertexAttribPointer(
-        programInfo.attribLocations.textureCoord,
-        2, // 2 components per vertex
-        gl.FLOAT,
-        false,
-        0,
-        0
-      );
-      gl.enableVertexAttribArray(programInfo.attribLocations.textureCoord);
-
-      // Enable blending
-      gl.enable(gl.BLEND);
-      gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-
-      // Draw
-      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-
-      requestAnimationFrame(render);
-    };
-
-    render();
-
-    // Handle window resize
-    const handleResize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  return (
-    <div className="absolute inset-0 overflow-hidden z-[1]">
-      {/* WebGL nebula effect */}
-      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
-      
-      {/* Dark overlay gradient for better text readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-transparent" />
-    </div>
-  );
-};
-
-/**
- * VideoPlayer component for handling YouTube video
- */
-const VideoPlayer = ({ showVideo, onToggle }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 40 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ delay: 0.3, duration: 0.8 }}
-    className="relative z-[2] rounded-2xl overflow-hidden shadow-[0_0_40px_rgba(138,79,255,0.3)] border border-purple-500/20"
-  >
-    <div className="aspect-w-16 aspect-h-9">
-      {showVideo ? (
-        <iframe
-          className="w-full h-full"
-          src="https://www.youtube.com/embed/Wleby2uqYDE?si=Fvy6mwT5_zt3CaqH&autoplay=1"
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        />
-      ) : (
-        <div 
-          className="w-full h-full bg-cover bg-center cursor-pointer"
-          style={{ backgroundImage: "url('https://img.youtube.com/vi/Wleby2uqYDE/maxresdefault.jpg')" }}
-          onClick={onToggle}
-        />
-      )}
-    </div>
-
-    {/* Video Play Overlay */}
-    <AnimatePresence>
-      {!showVideo && (
-        <motion.div
-          initial={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
-          className="absolute inset-0 bg-black/40 backdrop-blur-sm flex justify-center items-center cursor-pointer"
-          onClick={onToggle}
+          ref={(el) => (floatingRefs.current[i] = el)}
+          position={[
+            (Math.random() - 0.5) * 10,
+            (Math.random() - 0.5) * 5,
+            (Math.random() - 0.5) * 5 - 5
+          ]}
         >
-          <motion.div
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            className="w-20 h-20 flex items-center justify-center rounded-full bg-purple-600/80 shadow-[0_0_30px_rgba(138,79,255,0.6)]"
-          >
-            <PlayCircle size={36} className="text-white" />
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+          <sphereGeometry args={[0.1, 16, 16]} />
+          <MeshWobbleMaterial
+            color={i % 2 === 0 ? "#993cff" : "#bb6aff"}
+            factor={0.2}
+            speed={0.5}
+            emissive={i % 2 === 0 ? "#993cff" : "#bb6aff"}
+            emissiveIntensity={0.3}
+            transparent
+            opacity={0.7}
+          />
+        </mesh>
+      ))}
+    </group>
+  );
+}
 
-    {/* Decorative Corner Elements */}
-    <div className="absolute top-0 left-0 w-12 h-12 border-t-2 border-l-2 border-purple-500/60 rounded-tl-2xl" />
-    <div className="absolute top-0 right-0 w-12 h-12 border-t-2 border-r-2 border-purple-500/60 rounded-tr-2xl" />
-    <div className="absolute bottom-0 left-0 w-12 h-12 border-b-2 border-l-2 border-purple-500/60 rounded-bl-2xl" />
-    <div className="absolute bottom-0 right-0 w-12 h-12 border-b-2 border-r-2 border-purple-500/60 rounded-br-2xl" />
-  </motion.div>
-);
+// =============== MAIN COMPONENT ===============
 
-/**
- * Main HeroSection component
- */
-const HeroSection = () => {
-  const [showYouTubeVideo, setShowYouTubeVideo] = useState(false);
+export default function Hero() {
+  const [showVideo, setShowVideo] = useState(false);
+  const [isLaunching, setIsLaunching] = useState(false);
+  const launchProgress = { get: () => rocketAnimationProgress };
+  const [rocketAnimationProgress, setRocketAnimationProgress] = useState(0);
+
+  const handleWatchClick = () => {
+    setIsLaunching(true);
+    setTimeout(() => {
+      setShowVideo(true);
+    }, 2000); // Show video after rocket launch animation
+  };
+
+  useEffect(() => {
+    if (isLaunching) {
+      const controls = {
+        progress: 0
+      };
+      const animation = {
+        progress: 1
+      };
+      
+      const tween = {
+        duration: 2,
+        ease: "easeOut",
+        onUpdate: () => {
+          setRocketAnimationProgress(controls.progress);
+        }
+      };
+      
+      // Animate launch progress
+      animate(controls, animation, tween);
+    }
+  }, [isLaunching]);
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#0A0A18] via-[#12121E] to-[#1A1A2E]">
-      {/* 3D Space Background */}
-      <SpaceBg />
+    <GradientBackground>
+      <CanvasContainer>
+        <Canvas
+          camera={{ position: [0, 0, 10], fov: 60 }}
+          style={{ background: "transparent" }}
+        >
+          <ambientLight intensity={0.6} />
+          <pointLight position={[10, 10, 10]} intensity={0.5} />
+          <pointLight position={[-10, -10, -10]} color="#993cff" intensity={0.2} />
 
-      <div className="absolute inset-0 bg-gradient-radial from-purple-500/5 to-transparent opacity-80 z-[1]" />
+          <Suspense fallback={null}>
+            <Rocket isLaunching={isLaunching} launchProgress={launchProgress} />
+            <FloatingElements />
+            <Stars radius={100} depth={50} count={300} factor={4} fade speed={1} />
+            <Environment preset="sunset" />
+          </Suspense>
+        </Canvas>
+      </CanvasContainer>
 
-      <div className="container relative mx-auto px-4 py-12 md:py-20 z-[2]">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center min-h-[80vh]">
-          {/* Content Section */}
-          <div className="flex flex-col space-y-8">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7 }}
-              className="space-y-6"
-            >
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight">
-                Finally your Startup can <GradientText text="blast off!" underlined />
-              </h1>
-              <p className="text-xl text-gray-200 leading-relaxed">
-                Stand out, get Traction, hit PMF, go viral, make Money, secure funding and{" "}
-                <span className="font-bold text-purple-400">scale scale scale.</span>
-              </p>
-              <p className="text-xl font-semibold text-white">
-                The World needs to feel your impact.<br />
-                Get the Growth you have always desired.
-              </p>
-            </motion.div>
-            
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.7 }}
-            >
-              <motion.button
-                onClick={() => setShowYouTubeVideo(true)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="group flex items-center px-8 py-4 rounded-full bg-gradient-to-r from-purple-700 to-purple-500 text-white font-medium text-lg relative overflow-hidden"
-              >
-                <span className="absolute inset-0 bg-gradient-to-r from-purple-600 to-purple-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <span className="relative flex items-center">
-                  <PlayCircle className="mr-3" size={28} />
-                  <span>Watch the video</span>
-                </span>
-                <span className="absolute inset-0 rounded-full border border-white/20" />
-              </motion.button>
-              <p className="mt-4 text-gray-400 text-sm">
-                Watch the video below to find out if this is for you.
-              </p>
-            </motion.div>
-          </div>
-
-          {/* 3D Rocket & Video Section */}
-          <div className="relative">
-            {/* 3D Rocket */}
-            <div className="absolute -top-20 -right-12 md:-right-28 z-10 h-64 w-64 md:h-96 md:w-96">
-              <Rocket3D />
-            </div>
-
-            {/* Video Container */}
-            <VideoPlayer 
-              showVideo={showYouTubeVideo} 
-              onToggle={() => setShowYouTubeVideo(true)} 
-            />
-
-            {/* Glow Effects */}
-            <div 
-              className="absolute -z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full bg-purple-600/10 blur-[100px] rounded-full" 
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* Scroll Indicator */}
-      <motion.div
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10 flex flex-col items-center"
-        animate={{ y: [0, 10, 0] }}
-        transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+      <HeroText
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
       >
-        <div className="w-10 h-14 border-2 border-white/30 rounded-full flex justify-center pt-2">
+        <MainHeading>
+          <motion.span
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.8 }}
+          >
+            Finally your Startup{" "}
+          </motion.span>
+          <br />
           <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-            className="w-2 h-2 bg-white rounded-full"
-          />
-        </div>
-        <span className="mt-2 text-white/50 text-xs font-medium uppercase tracking-widest">
-          Scroll
-        </span>
-      </motion.div>
-    </div>
-  );
-};
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6, duration: 0.8 }}
+          >
+            <BlastText>can blast off!</BlastText>
+          </motion.div>
+        </MainHeading>
 
-export default HeroSection;
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.9, duration: 0.8 }}
+        >
+          <SubText> <strong>
+            Stand Out, Get Traction, Go Viral, Hit PMF, Make Money, Secure Funding and{" "}</strong>
+            <Highlight>scale scale scale.</Highlight>
+          </SubText>
+
+          <Typography variant="body1" fontWeight={600} mt={3} color="#333">
+            The World needs to feel your impact. <br />
+            Get the Growth you have always desired.
+          </Typography>
+
+          <WatchButton
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={handleWatchClick}
+            disabled={isLaunching}
+          >
+            <PlayArrowIcon />
+            Watch the video
+          </WatchButton>
+
+          <Typography variant="caption" display="block" mt={2} color="#666">
+            Watch the video below to find out if this is for you.
+          </Typography>
+        </motion.div>
+      </HeroText>
+
+      {showVideo && (
+        <VideoContainer
+          initial={{ opacity: 0, y: 100, rotateX: 30 }}
+          animate={{ opacity: 1, y: 0, rotateX: 0 }}
+          exit={{ opacity: 0, scale: 0.8 }}
+          transition={{ 
+            type: "spring", 
+            stiffness: 100, 
+            damping: 20 
+          }}
+        >
+          <iframe
+            width="100%"
+            height="100%"
+            src="https://www.youtube.com/embed/Wleby2uqYDE?autoplay=1&mute=0&controls=1"
+            title="Startup Video"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            style={{ borderRadius: "18px" }}
+          ></iframe>
+        </VideoContainer>
+      )}
+
+      <ScrollIndicator
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.7 }}
+        transition={{ delay: 2, duration: 1 }}
+      >
+        <Typography variant="caption" component="span">
+          SCROLL
+        </Typography>
+        <ArrowDown
+          animate={{ y: [0, 10, 0] }}
+          transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+        />
+      </ScrollIndicator>
+    </GradientBackground>
+  );
+}

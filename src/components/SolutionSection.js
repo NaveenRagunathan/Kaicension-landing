@@ -3,7 +3,7 @@ import { Box, Container, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
 import React from 'react';
 
-// Styled components for enhanced visual elements
+// Styled components
 const GradientText = styled(Typography)`
   background: linear-gradient(90deg, #8a2be2 0%, #4a0082 100%);
   -webkit-background-clip: text;
@@ -14,21 +14,21 @@ const GradientText = styled(Typography)`
 const SolutionCard = styled(motion.div)`
   padding: 2.5rem;
   border-radius: 16px;
-  background: linear-gradient(145deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+  background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+  border: 1px solid rgba(138, 43, 226, 0.2);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
   position: relative;
   overflow: hidden;
   height: 100%;
   transition: all 0.3s ease-in-out;
   z-index: 1;
-  
+
   &:hover {
     transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
   }
-  
+
   &::before {
     content: '';
     position: absolute;
@@ -36,17 +36,17 @@ const SolutionCard = styled(motion.div)`
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(45deg, rgba(138,43,226,0.05) 0%, rgba(74,0,130,0.05) 100%);
+    background: linear-gradient(45deg, rgba(138, 43, 226, 0.03), rgba(74, 0, 130, 0.03));
     z-index: -1;
   }
 `;
 
 const SolutionTitle = styled(Typography)`
   font-weight: 700;
-  color: #fff;
+  color: #222;
   margin-bottom: 1rem;
   position: relative;
-  
+
   &::after {
     content: '';
     position: absolute;
@@ -60,7 +60,7 @@ const SolutionTitle = styled(Typography)`
 `;
 
 const SolutionSubtitle = styled(Typography)`
-  color: #8a2be2;
+  color: #4a0082;
   font-weight: 500;
   margin-bottom: 1.5rem;
 `;
@@ -69,7 +69,7 @@ const SolutionItem = styled(Box)`
   margin-bottom: 1.5rem;
   position: relative;
   padding-left: 1.5rem;
-  
+
   &::before {
     content: '';
     position: absolute;
@@ -86,7 +86,7 @@ const ConnectorLine = styled(Box)`
   position: absolute;
   background: linear-gradient(90deg, #8a2be2, #4a0082);
   z-index: 0;
-  
+
   @media (max-width: 900px) {
     display: none;
   }
@@ -130,32 +130,31 @@ const SolutionSection = () => {
       sx={{ 
         py: 10, 
         position: 'relative',
-        background: 'linear-gradient(180deg, #14121F 0%, #0a0a18 100%)',
-        color: 'white',
+        backgroundColor: '#f4f0fa',
+        color: '#222',
         overflow: 'hidden'
       }}
     >
-      {/* Background design elements */}
+      {/* Background glows */}
       <Box 
         sx={{
           position: 'absolute',
           width: '60%',
           height: '60%',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(138,43,226,0.15) 0%, rgba(0,0,0,0) 70%)',
+          background: 'radial-gradient(circle, rgba(138,43,226,0.1), rgba(0,0,0,0))',
           top: '20%',
           right: '-30%',
           zIndex: 0
         }}
       />
-      
       <Box 
         sx={{
           position: 'absolute',
           width: '40%',
           height: '40%',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(138,43,226,0.1) 0%, rgba(0,0,0,0) 70%)',
+          background: 'radial-gradient(circle, rgba(138,43,226,0.08), rgba(0,0,0,0))',
           bottom: '10%',
           left: '-20%',
           zIndex: 0
@@ -173,7 +172,7 @@ const SolutionSection = () => {
             variant="h2" 
             component="h2" 
             align="center" 
-            sx={{ mb: 2, fontWeight: 700 }}
+            sx={{ mb: 2, fontWeight: 700, color: '#4a0082' }}
           >
             Your Escape Plan
           </Typography>
@@ -192,23 +191,9 @@ const SolutionSection = () => {
         </motion.div>
 
         <Box sx={{ position: 'relative' }}>
-          {/* Connector lines between steps */}
-          <ConnectorLine sx={{ 
-            top: '25%', 
-            left: '33%', 
-            width: '33%', 
-            height: '4px',
-            borderRadius: '4px'
-          }} />
-          
-          <ConnectorLine sx={{ 
-            top: '50%', 
-            left: '66%', 
-            width: '4px', 
-            height: '25%',
-            borderRadius: '4px'
-          }} />
-          
+          <ConnectorLine sx={{ top: '25%', left: '33%', width: '33%', height: '4px', borderRadius: '4px' }} />
+          <ConnectorLine sx={{ top: '50%', left: '66%', width: '4px', height: '25%', borderRadius: '4px' }} />
+
           <Box sx={{ 
             display: 'grid',
             gridTemplateColumns: { xs: '1fr', md: '1fr 1fr 1fr' },
@@ -221,29 +206,17 @@ const SolutionSection = () => {
                 sx={{ 
                   position: 'relative',
                   zIndex: 2,
-                  ...(index === 1 ? { mt: { md: 12, xs: 0 } } : {}),
-                  ...(index === 2 ? { mt: { md: 0, xs: 0 } } : {})
+                  ...(index === 1 ? { mt: { md: 12, xs: 0 } } : {})
                 }}
               >
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ 
-                    duration: 0.7, 
-                    delay: index * 0.2,
-                    ease: "easeOut"
-                  }}
+                  transition={{ duration: 0.7, delay: index * 0.2, ease: "easeOut" }}
                   viewport={{ once: true, margin: "-50px" }}
                 >
-                  <Box 
-                    sx={{ 
-                      display: 'flex', 
-                      alignItems: 'center', 
-                      justifyContent: 'center',
-                      mb: 3
-                    }}
-                  >
-                    <Box 
+                  <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 3 }}>
+                    <Box
                       sx={{
                         width: '50px',
                         height: '50px',
@@ -261,7 +234,7 @@ const SolutionSection = () => {
                       {solution.id}
                     </Box>
                   </Box>
-                  
+
                   <SolutionCard>
                     <SolutionTitle variant="h4" component="h3">
                       {solution.title}
@@ -275,12 +248,12 @@ const SolutionSection = () => {
                           <Typography
                             variant="body1"
                             sx={{ 
-                              color: 'rgba(255,255,255,0.9)',
+                              color: '#333',
                               lineHeight: 1.7,
                               '& em': {
-                                color: '#a168e3',
+                                color: '#6e3fc4',
                                 fontStyle: 'italic',
-                                fontWeight: 'medium'
+                                fontWeight: 600
                               }
                             }}
                             dangerouslySetInnerHTML={{ __html: item.replace(/\*([^*]+)\*/g, '<em>$1</em>') }}
@@ -294,7 +267,7 @@ const SolutionSection = () => {
             ))}
           </Box>
         </Box>
-        
+
         <Box sx={{ mt: 12, textAlign: 'center' }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -332,4 +305,4 @@ const SolutionSection = () => {
   );
 };
 
-export default SolutionSection; 
+export default SolutionSection;

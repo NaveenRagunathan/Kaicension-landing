@@ -9,35 +9,34 @@ const CustomizationSection = () => {
       id="customization-section"
       sx={{ 
         py: 12,
-        background: 'linear-gradient(180deg, rgba(20, 18, 31, 0.95) 0%, rgba(10, 10, 24, 0.95) 100%)',
+        background: 'linear-gradient(180deg, #F9F6FF 0%, #EEE9FB 40%, #E6DAFA 100%)',
         position: 'relative',
         overflow: 'hidden',
-        color: 'white'
+        color: '#2E1A47'
       }}
     >
-      {/* Background decorative elements */}
+      {/* Decorative glows */}
       <Box 
         sx={{
           position: 'absolute',
-          width: '60%',
-          height: '60%',
+          width: '80%',
+          height: '80%',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(138,43,226,0.08) 0%, rgba(0,0,0,0) 70%)',
-          top: '20%',
+          background: 'radial-gradient(circle, rgba(192,146,255,0.25) 0%, rgba(255,255,255,0) 70%)',
+          top: '-10%',
           right: '-30%',
           zIndex: 0
         }}
       />
-      
       <Box 
         sx={{
           position: 'absolute',
-          width: '40%',
-          height: '40%',
+          width: '50%',
+          height: '50%',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(138,43,226,0.05) 0%, rgba(0,0,0,0) 70%)',
-          bottom: '10%',
-          left: '-20%',
+          background: 'radial-gradient(circle, rgba(192,146,255,0.2) 0%, rgba(255,255,255,0) 70%)',
+          bottom: '-5%',
+          left: '-15%',
           zIndex: 0
         }}
       />
@@ -56,7 +55,7 @@ const CustomizationSection = () => {
             sx={{ 
               mb: 2,
               fontWeight: 700,
-              background: 'linear-gradient(90deg, #8A4FFF, #A375FF)',
+              background: 'linear-gradient(90deg, #A47CFF, #C8ADFF)',
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
               color: 'transparent',
@@ -72,7 +71,8 @@ const CustomizationSection = () => {
               display: 'block',
               mb: 8,
               textAlign: 'center',
-              fontWeight: 700
+              fontWeight: 700,
+              color: '#4B2D7A'
             }}
           >
             Your Unique Challenges
@@ -91,7 +91,7 @@ const CustomizationSection = () => {
               component="p"
               sx={{ 
                 mb: 4,
-                color: 'rgba(255,255,255,0.9)',
+                color: '#4B2D7A',
                 textAlign: 'center',
                 lineHeight: 1.8
               }}
@@ -111,7 +111,7 @@ const CustomizationSection = () => {
               component="p"
               sx={{ 
                 mb: 6,
-                color: 'rgba(255,255,255,0.9)',
+                color: '#4B2D7A',
                 textAlign: 'center',
                 lineHeight: 1.8
               }}
@@ -128,12 +128,14 @@ const CustomizationSection = () => {
           >
             <Box
               sx={{
-                background: 'linear-gradient(145deg, rgba(138,43,226,0.15) 0%, rgba(74,0,130,0.08) 100%)',
+                background: 'linear-gradient(145deg, rgba(255,255,255,0.7), rgba(245,235,255,0.85))',
                 borderRadius: '16px',
                 p: 4,
                 textAlign: 'center',
-                border: '1px solid rgba(138,43,226,0.2)',
-                backdropFilter: 'blur(10px)'
+                border: '1px solid rgba(175,140,255, 0.4)',
+                boxShadow: '0 4px 30px rgba(170,130,255,0.1)',
+                backdropFilter: 'blur(10px)',
+                WebkitBackdropFilter: 'blur(10px)'
               }}
             >
               <Typography
@@ -141,7 +143,7 @@ const CustomizationSection = () => {
                 component="p"
                 sx={{ 
                   mb: 2,
-                  color: '#8A4FFF',
+                  color: '#A47CFF',
                   fontWeight: 600
                 }}
               >
@@ -152,7 +154,8 @@ const CustomizationSection = () => {
                 component="p"
                 sx={{ 
                   mb: 3,
-                  fontWeight: 700
+                  fontWeight: 700,
+                  color: '#4B2D7A'
                 }}
               >
                 $8,500 - $20,000
@@ -161,7 +164,7 @@ const CustomizationSection = () => {
                 variant="h6"
                 component="p"
                 sx={{ 
-                  color: 'rgba(255,255,255,0.9)',
+                  color: '#6C4FA3',
                   fontStyle: 'italic'
                 }}
               >
@@ -171,7 +174,7 @@ const CustomizationSection = () => {
                 variant="body1"
                 sx={{ 
                   mt: 3,
-                  color: 'rgba(255,255,255,0.7)',
+                  color: '#8D70BA',
                   fontStyle: 'italic'
                 }}
               >
@@ -194,4 +197,4 @@ const CustomizationSection = () => {
   );
 };
 
-export default CustomizationSection; 
+export default CustomizationSection;
