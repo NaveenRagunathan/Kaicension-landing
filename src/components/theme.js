@@ -21,9 +21,9 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: "'IBM Plex Sans', sans-serif", // matches --font-primary
+    fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
     h1: {
-      fontFamily: "'Manrope', sans-serif",     // matches --font-display
+      fontFamily: "'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
       fontWeight: 800,
       fontSize: '4rem',
       lineHeight: 1.2,
@@ -32,25 +32,25 @@ const theme = createTheme({
       WebkitTextFillColor: 'transparent',
     },
     h2: {
-      fontFamily: "'Manrope', sans-serif",
+      fontFamily: "'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
       fontWeight: 800,
       fontSize: '3rem',
       lineHeight: 1.3,
     },
     h3: {
-      fontFamily: "'Manrope', sans-serif",
+      fontFamily: "'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
       fontWeight: 700,
       fontSize: '2.5rem',
       lineHeight: 1.4,
     },
     h4: {
-      fontFamily: "'Manrope', sans-serif'",
+      fontFamily: "'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
       fontWeight: 400,
       fontSize: '2rem',
       lineHeight: 1.4,
     },
     button: {
-      fontFamily: "'Barlow', sans-serif",      // matches --font-accent
+      fontFamily: "'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
       fontWeight: 600,
     },
   },
@@ -64,6 +64,7 @@ const theme = createTheme({
           borderRadius: 30,
           padding: '12px 30px',
           fontSize: '1.1rem',
+          fontFamily: "'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
           boxShadow: '0 4px 14px 0 rgba(138, 79, 255, 0.2)',
           transition: 'all 0.3s ease',
           '&:hover': {

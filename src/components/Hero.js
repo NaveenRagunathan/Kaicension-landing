@@ -269,7 +269,7 @@ export default function Hero() {
         <iframe
           width="100%"
           height="100%"
-          src={showVideo ? "https://www.youtube.com/embed/Wleby2uqYDE?autoplay=1&mute=0&controls=1" : "https://www.youtube.com/embed/Wleby2uqYDE?controls=1"}
+          src={showVideo ? "https://www.youtube.com/embed/xZqT3E3-POk" : ""}
           title="Startup Video"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
