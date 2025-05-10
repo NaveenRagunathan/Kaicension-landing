@@ -20,7 +20,7 @@ export default function Hero() {
         px: 3,
         position: "relative",
         overflow: "hidden",
-        background: "#ffffff", // Light theme
+        background: "#f6f7fb", // Softer light theme
         color: "#121212",
       }}
     >
@@ -55,7 +55,7 @@ export default function Hero() {
           sx={{ 
             display: "flex",
             flexDirection: { xs: "column", md: "row" },
-            alignItems: { xs: "center", md: "flex-start" },
+            alignItems: { xs: "stretch", md: "flex-start" },
             justifyContent: "space-between",
             gap: { xs: 5, md: 6 },
           }}
@@ -68,7 +68,9 @@ export default function Hero() {
               maxWidth: { xs: "100%", md: "50%" },
               display: "flex",
               flexDirection: "column",
+              justifyContent: "flex-start",
               mb: { xs: 4, md: 0 },
+              gap: { xs: 0, md: 3 },
             }}
           >
             {/* Hero heading - always first in both layouts */}
@@ -98,7 +100,8 @@ export default function Hero() {
             {/* Subheading and paragraph - order changes in mobile */}
             <Box sx={{ 
               order: { xs: 3, md: 2 }, 
-              mb: 4 
+              mb: 4,
+              px: { xs: 0, md: 1 }
             }}>
               <Typography 
                 variant="body1" 
@@ -138,6 +141,10 @@ export default function Hero() {
               order: { xs: 4, md: 3 },
               width: "100%",
               mt: 2,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: { xs: "center", md: "flex-start" },
+              pb: { xs: 2, md: 0 },
             }}>
               {/* Video Thumbnail with Play Button Overlay */}
               <Box
@@ -147,11 +154,12 @@ export default function Hero() {
                   width: "100%",
                   maxWidth: { xs: "100%", md: "90%" },
                   pt: "56.25%", // 16:9 aspect ratio
-                  borderRadius: "12px",
+                  borderRadius: "16px",
                   overflow: "hidden",
                   cursor: "pointer",
-                  boxShadow: "0 8px 30px rgba(0, 0, 0, 0.1)",
-                  backgroundColor: "#f3f3f3",
+                  boxShadow: "0 4px 24px rgba(153,60,255,0.07)",
+                  backgroundColor: "#f7f2ff",
+                  border: "1.5px solid #e4d7fa",
                 }}
               >
                 {/* Play button overlay */}
@@ -192,26 +200,31 @@ export default function Hero() {
           <Box 
             sx={{ 
               flex: 1,
-              maxWidth: { xs: "80%", md: "50%" },
-              height: { xs: "300px", md: "400px" },
+              maxWidth: { xs: "100%", md: "46%" },
+              minHeight: { xs: "220px", md: "400px" },
               position: "relative",
-              // For mobile view ordering - image appears immediately after heading
               order: { xs: 2, md: 2 },
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              backgroundColor: "rgba(153, 60, 255, 0.1)",
-              borderRadius: "12px",
+              backgroundColor: "#f7f2ff",
+              border: "2px dashed #c9a9f7",
+              borderRadius: "16px",
               mb: { xs: 4, md: 0 },
+              boxShadow: "0 2px 16px rgba(153,60,255,0.05)",
+              p: { xs: 2, md: 3 },
+              overflow: "hidden"
             }}
           >
             {/* Placeholder for the image that will be uploaded */}
             <Typography 
               variant="body2" 
               sx={{ 
-                color: "rgba(0, 0, 0, 0.5)",
+                color: "#a48be2",
                 textAlign: "center",
-                px: 2 
+                px: 2,
+                fontWeight: 500,
+                fontSize: { xs: "1rem", md: "1.1rem" },
               }}
             >
               Image placeholder
@@ -271,6 +284,15 @@ export default function Hero() {
           )}
         </Box>
       </Dialog>
+      {/* Got questions CTA */}
+      <Box sx={{ mt: { xs: 6, md: 10 }, width: "100%", textAlign: "center" }}>
+        <Typography variant="h6" sx={{ color: "#7c4cff", fontWeight: 600, mb: 1 }}>
+          Got questions?
+        </Typography>
+        <Button variant="outlined" sx={{ borderColor: "#bb6aff", color: "#993cff", ':hover': { borderColor: "#993cff", background: "#f3eaff" } }}>
+          Contact Us
+        </Button>
+      </Box>
     </Box>
   );
 }
