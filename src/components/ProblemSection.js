@@ -124,37 +124,6 @@ const ParticleCanvas = styled.canvas`
   opacity: 0.5;
 `;
 
-const PulsingButton = styled(motion.button)`
-  background: linear-gradient(45deg, #8a2be2, #4a0082);
-  color: white;
-  border: none;
-  border-radius: 30px;
-  padding: 12px 32px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-top: 3rem;
-  cursor: pointer;
-  box-shadow: 0 6px 15px rgba(138, 43, 226, 0.3);
-  position: relative;
-  overflow: hidden;
-  
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, #8a2be2, #4a0082);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-  
-  &:hover::after {
-    opacity: 0.2;
-  }
-`;
-
 // Component for particles animation
 const Particles = () => {
   React.useEffect(() => {
@@ -213,7 +182,7 @@ const Particles = () => {
 };
 
 const ProblemSection = () => {
-  const [hoveredCard, setHoveredCard] = useState(null);
+  const [setHoveredCard] = useState(null);
 
   const nightmares = [
     {
@@ -264,16 +233,6 @@ const ProblemSection = () => {
       }
     }
   };
-
-  const pulseAnimation = {
-    scale: [1, 1.05, 1],
-    transition: {
-      duration: 2,
-      repeat: Infinity,
-      repeatType: "reverse"
-    }
-  };
-
   return (
     <Box
       id="problem-section"
