@@ -18,12 +18,12 @@ export default function Hero() {
   return (
     <Box
       sx={{
-        minHeight: "90vh", // Reduced to ensure it fits on one page
+        minHeight: "100vh",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        px: 3,
-        py: { xs: 4, md: 6 }, // Reduced padding
+        px: 2,
+        py: 2,
         backgroundColor: "#fff",
         color: "#121212",
         fontFamily: `'Inter', 'Poppins', 'Montserrat', 'Roboto', sans-serif`,
@@ -31,7 +31,7 @@ export default function Hero() {
         overflow: "hidden",
       }}
     >
-      {/* Top-left logo */}
+      {/* Logo */}
       <Box
         component="img"
         src="/logo.png"
@@ -40,23 +40,23 @@ export default function Hero() {
           position: "absolute",
           top: 20,
           left: 20,
-          width: { xs: 40, md: 60 },
+          width: { xs: 60, md: 90 },
           height: "auto",
           zIndex: 100,
         }}
       />
 
-      <Box sx={{ width: "100%", maxWidth: "1200px", py: 2 }}>
+      <Box sx={{ width: "100%", maxWidth: "1200px", py: 1 }}>
         <Box
           sx={{
             display: "flex",
             flexDirection: { xs: "column", md: "row" },
             justifyContent: "space-between",
             alignItems: "center",
-            gap: { xs: 4, md: 6 }, // Reduced gap
+            gap: { xs: 3, md: 5 },
           }}
         >
-          {/* Left Column */}
+          {/* Left */}
           <Box
             sx={{
               flex: 1,
@@ -64,7 +64,7 @@ export default function Hero() {
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
-              gap: 2.5, // Reduced gap
+              gap: 2,
               order: { xs: 2, md: 1 },
             }}
           >
@@ -72,64 +72,48 @@ export default function Hero() {
               variant="h1"
               sx={{
                 fontWeight: 900,
-                fontSize: { xs: "2.5rem", sm: "3rem", md: "3.5rem" }, // Slightly reduced font size
+                fontSize: { xs: "2.2rem", sm: "2.8rem", md: "3.2rem" },
                 letterSpacing: '-0.5px',
                 lineHeight: 1.1,
+                color: "#000000",
               }}
             >
-              <span style={{ 
-                fontWeight: 900, 
-                color: "#000000" // Changed to solid black
-              }}>
-                Finally your <span style={{ color: "#000000", fontWeight: 900 }}>Startup</span>
-              </span>
-              <span
-                style={{
-                  fontWeight: 900,
-                  background: 'linear-gradient(90deg, #993cff, #bb6aff)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  textShadow: '0 4px 30px rgba(153, 60, 255, 0.10)'
-                }}
-              >
-                {" "}can blast off!
-              </span>
+              Finally your <strong>Startup</strong> can blast off!
             </Typography>
 
             <Typography
               variant="body1"
-              sx={{
-                fontSize: "1.15rem",
-                opacity: 0.95,
-                fontWeight: 600, // Increased font weight
-                color: "#000000", // Changed to solid black
-              }}
+              sx={{ fontSize: "1.1rem", fontWeight: 600, opacity: 0.95 }}
             >
-              Stand Out, Get Traction, Go Viral, Hit PMF, Make Money, Secure
-              Funding and{" "}
-              <strong
-                style={{
-                  background: "linear-gradient(90deg, #993cff, #bb6aff)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                }}
-              >
+              <span style={{
+                background: "linear-gradient(90deg, #993cff, #bb6aff)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent"
+              }}>
+                Stand Out, Get Traction, Go Viral, Hit PMF, Make Money, Secure Funding
+              </span> and{" "}
+              <strong style={{
+                background: "linear-gradient(90deg, #993cff, #bb6aff)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent"
+              }}>
                 scale scale scale.
               </strong>
             </Typography>
 
             <Typography
               variant="body1"
-              sx={{
-                fontSize: "1.1rem",
-                opacity: 0.9,
-                color: "#000000", // Changed to solid black
-                fontWeight: 600, // Increased font weight
-              }}
+              sx={{ fontSize: "1rem", fontWeight: 600, opacity: 0.9 }}
             >
-              The World needs to feel your impact.
-              <br />
-              Get the Growth you have always desired.
+              <span style={{
+                background: "linear-gradient(90deg, #993cff, #bb6aff)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent"
+              }}>
+                The World needs to feel your impact.
+                <br />
+                Get the Growth you have always desired.
+              </span>
             </Typography>
 
             <Typography
@@ -140,14 +124,13 @@ export default function Hero() {
                 textAlign: { xs: "center", md: "left" },
                 fontWeight: 600,
                 color: '#7c4cff',
-                letterSpacing: '0.5px',
                 fontSize: { xs: '1rem', md: '1.07rem' },
               }}
             >
               Watch the video below to find out if this is for you.
             </Typography>
 
-            {/* Video Placeholder */}
+            {/* Video thumbnail */}
             <Box
               onClick={handleOpen}
               sx={{
@@ -164,7 +147,7 @@ export default function Hero() {
             >
               <Box
                 component="img"
-                src="/video-thumbnail.png" // Make sure this image exists in public folder
+                src="/video-thumbnail.png"
                 alt="Video Thumbnail"
                 sx={{
                   position: "absolute",
@@ -197,12 +180,12 @@ export default function Hero() {
             </Box>
           </Box>
 
-          {/* Right Column with Image */}
+          {/* Right image */}
           <Box
             sx={{
               flex: 1,
               maxWidth: { xs: "100%", md: "46%" },
-              minHeight: { xs: "200px", md: "320px" },
+              minHeight: { xs: "200px", md: "300px" },
               position: "relative",
               order: { xs: 1, md: 2 },
               display: "flex",
@@ -218,7 +201,7 @@ export default function Hero() {
           >
             <Box
               component="img"
-              src="/hero-image.jpeg" // Make sure this image exists in public folder
+              src="/hero-image.jpeg"
               alt="Hero Visual"
               sx={{
                 width: "100%",
@@ -229,7 +212,7 @@ export default function Hero() {
           </Box>
         </Box>
 
-        {/* Video Dialog */}
+        {/* Video Modal */}
         <Dialog
           open={open}
           onClose={handleClose}
@@ -283,14 +266,14 @@ export default function Hero() {
           </Box>
         </Dialog>
 
-        {/* Scroll Down Indicator - Made more compact */}
+        {/* Scroll Indicator */}
         <Box sx={{
           width: '100%',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          mt: { xs: 4, md: 5 }, // Reduced margin
+          mt: { xs: 3, md: 4 },
           mb: 1,
           pointerEvents: 'none',
         }}>
