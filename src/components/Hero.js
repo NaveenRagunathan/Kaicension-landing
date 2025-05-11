@@ -83,22 +83,6 @@ function Hero() {
       >
         Struggling to stand out, attract funding, or build real traction? We help founders break through the noise and dominate their market.
       </Typography>
-      <Typography
-        sx={{
-          fontFamily: 'Inter, Open Sans, sans-serif',
-          fontWeight: 400,
-          fontSize: { xs: 'clamp(0.99rem, 2.2vw, 1.08rem)', md: 'clamp(1.05rem, 1.5vw, 1.18rem)' },
-          color: '#6B3FA0',
-          textAlign: 'center',
-          maxWidth: 600,
-          mb: { xs: 2, md: 3 },
-          opacity: 0,
-          transform: 'translateY(18px)',
-          animation: 'fadeSlideUp 1.1s 1.1s cubic-bezier(.16,1,.3,1) forwards',
-        }}
-      >
-        We engineer bespoke growth strategies, secure pivotal funding, and build sustainable market dominance for ambitious ventures in the world's most dynamic emerging economies. Your legacy starts here.
-      </Typography>
 
       {/* Video Area */}
       <Box

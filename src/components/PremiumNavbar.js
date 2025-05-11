@@ -71,28 +71,36 @@ function PremiumEliteNavbar({ active = 'Home' }) {
         }}
       >
         {/* Logo Area */}
-        <Box 
-           sx={{ 
-             display: 'flex', 
-             alignItems: 'center', 
-             gap: 1.2,
-             cursor: 'pointer',
-           }}
-           onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
-         >
-           <Box
-             component="img"
-             src="/logo.png"
-             alt="Kaicension Logo"
-             sx={{
-               width: scrolled ? 38 : 42,
-               height: scrolled ? 38 : 42,
-               objectFit: 'contain',
-               borderRadius: '8px',
-               transition: 'all 0.36s cubic-bezier(0.34, 1.56, 0.64, 1)'
-             }}
-           />
-         </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            height: { xs: 40, md: 56 },
+            minWidth: { xs: 44, md: 80 },
+            maxWidth: { xs: 54, md: 90 },
+            px: 0,
+            pl: '3px',
+            pr: { xs: 1, md: 2.5 }, // right margin to nav links
+            mr: { xs: 0.5, md: 2.5 },
+            flex: '0 0 auto',
+            cursor: 'pointer',
+          }}
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        >
+          <Box
+            component="img"
+            src="/logo.png"
+            alt="Kaicension Logo"
+            sx={{
+              width: '100%',
+              height: { xs: 36, md: 48 },
+              maxHeight: '100%',
+              objectFit: 'contain',
+              borderRadius: '8px',
+              display: 'block',
+            }}
+          />
+        </Box>
         
         {/* Desktop Nav Links */}
         <Box sx={{ 
