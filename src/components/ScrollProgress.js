@@ -1,6 +1,6 @@
 import { Box, Tooltip } from '@mui/material';
 import { motion, useScroll, useSpring } from 'framer-motion';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 
 const ScrollProgress = () => {
   const [activeSection, setActiveSection] = useState(0);
@@ -14,8 +14,8 @@ const ScrollProgress = () => {
     restDelta: 0.001
   });
   
-  // Section information
-  const sections = [
+  // Section information - wrapped in useMemo to prevent recreation on each render
+  const sections = useMemo(() => [
     { id: 'hero-section', name: 'Home' },
     { id: 'problem-section', name: 'The Problem' },
     { id: 'solution-section', name: 'Your Escape Plan' },
@@ -23,7 +23,7 @@ const ScrollProgress = () => {
     { id: 'pricing-section', name: 'Pricing' },
     { id: 'testimonials-section', name: 'Success Stories' },
     { id: 'faq-section', name: 'FAQ' }
-  ];
+  ], []);
   
   // Determine which section is currently active based on scroll position, preserving indices
   useEffect(() => {
@@ -41,7 +41,7 @@ const ScrollProgress = () => {
     window.addEventListener('scroll', handleScroll);
     handleScroll(); // Initial check
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [sections]); // Added sections as a dependency
   
   // Scroll to section when indicator is clicked
   const scrollToSection = (id) => {

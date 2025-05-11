@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { motion } from 'framer-motion';
 import React from 'react';
 

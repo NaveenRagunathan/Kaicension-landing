@@ -1,23 +1,12 @@
 import CloseIcon from '@mui/icons-material/Close';
-import { AppBar, Box, Container, IconButton, Toolbar, Typography, useScrollTrigger } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import { AppBar, Box, Button, Container, IconButton, Toolbar, useMediaQuery } from '@mui/material';
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  
-  // 3D Flip animation variants
-  const flipVariants = {
-    front: {
-      rotateY: 0,
-      transition: { duration: 0.6, ease: "easeInOut" }
-    },
-    back: {
-      rotateY: 180,
-      transition: { duration: 0.6, ease: "easeInOut" }
-    }
-  };
 
   const menuItemVariants = {
     hidden: {
@@ -29,15 +18,10 @@ const Header = () => {
       y: 0,
       transition: {
         duration: 0.4,
-        ease: "easeOut"
+        ease: 'easeOut',
       },
     },
   };
-
-  const trigger = useScrollTrigger({
-    disableHysteresis: true,
-    threshold: 100,
-  });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,271 +40,281 @@ const Header = () => {
 
       window.scrollTo({
         top: offsetPosition,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
       setIsMobileMenuOpen(false);
     }
   };
 
   const navItems = [
-    { label: 'About', id: 'problem-section' },
+    { label: 'Problems', id: 'problem-section' },
+    { label: 'Solution', id: 'solution-section' },
     { label: 'Process', id: 'process-section' },
-    { label: 'Pricing', id: 'pricing-section' }
+    { label: 'Pricing', id: 'pricing-section' },
   ];
+
+  const isMobile = useMediaQuery('(max-width:900px)');
 
   return (
     <AnimatePresence>
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
+      <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
         <AppBar
           position="fixed"
           elevation={0}
           sx={{
-            backgroundColor: isScrolled ? 'rgba(255, 255, 255, 0.9)' : 'rgba(138, 79, 255, 0.1)',
-            backdropFilter: 'blur(10px)',
-            boxShadow: isScrolled ? '0 4px 30px rgba(138, 79, 255, 0.1)' : 'none',
-            transition: 'all 0.3s ease',
+            background: '#fff',
+            borderRadius: { xs: 0, md: '24px' },
+            boxShadow: '0 4px 24px 0 rgba(200,162,240,0.08)',
+            px: { xs: 1, md: 3 },
+            py: 1,
+            left: { xs: 0, md: 24 },
+            right: { xs: 0, md: 24 },
+            top: 18,
+            maxWidth: { md: '1100px' },
+            margin: { md: '0 auto' },
+            zIndex: 2000,
+            transition: 'box-shadow 0.3s',
           }}
         >
-          <Container maxWidth="lg">
-            <Toolbar disableGutters>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              >
-                <Typography
-                  variant="h6"
-                  component="div"
-                  sx={{
-                    flexGrow: 1,
-                    fontWeight: 800,
-                    background: 'linear-gradient(135deg, #8A4FFF 0%, #A375FF 100%)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    fontSize: { xs: '1.5rem', sm: '1.8rem' },
-                    cursor: 'pointer',
-                  }}
-                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                >
-                  Kaicension
-                </Typography>
-              </motion.div>
+          <Container maxWidth={false} sx={{ px: { xs: 0.5, md: 2 } }}>
+            <Toolbar disableGutters sx={{ minHeight: '64px', px: 0 }}>
+              <Box
+                component="img"
+                src="/logo.png"
+                alt="Kaicension Logo"
+                sx={{
+                  width: { xs: 52, md: 70 },
+                  height: { xs: 44, md: 56 },
+                  borderRadius: '12px',
+                  boxShadow: '0 2px 16px 0 rgba(153,60,255,0.08)',
+                  border: '1.5px solid #ede3ff',
+                  mr: 3,
+                  cursor: 'pointer',
+                  transition: 'box-shadow 0.4s, transform 0.4s',
+                  '&:hover': {
+                    boxShadow: '0 6px 32px 0 rgba(153,60,255,0.13)',
+                    transform: 'scale(1.04) rotate(-1deg)',
+                  },
+                }}
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              />
 
-              <Box sx={{ flexGrow: 1 }} />
-
-              {/* Desktop Menu */}
-              <Box sx={{ display: 'none' }}>
-                {navItems.map((item) => (
-                  <motion.div
-                    key={item.label}
-                    whileHover={{ y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <motion.button
+              {!isMobile && (
+                <Box sx={{ display: 'flex', gap: 2, flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                  {navItems.map((item) => (
+                    <Button
+                      key={item.label}
                       onClick={() => scrollToSection(item.id)}
-                      style={{
-                        background: 'none',
-                        border: 'none',
-                        cursor: 'pointer',
-                        padding: '8px 16px',
-                        borderRadius: '20px',
-                        color: isScrolled ? '#1A1A1A' : '#8A4FFF',
-                        fontWeight: 600,
-                        fontSize: '1rem',
-                        backgroundColor: isScrolled ? 'transparent' : 'rgba(255, 255, 255, 0.9)',
-                      }}
-                      whileHover={{
-                        backgroundColor: isScrolled ? 'rgba(138, 79, 255, 0.1)' : 'rgba(255, 255, 255, 1)',
+                      sx={{
+                        fontWeight: 700,
+                        fontSize: '1.1rem',
+                        color: '#222',
+                        borderRadius: '18px',
+                        px: 2.5,
+                        py: 1,
+                        textTransform: 'none',
+                        '&:hover': {
+                          background: '#f4edfa',
+                          color: '#bb6aff',
+                          transform: 'scale(1.05)',
+                        },
+                        transition: 'all 0.18s',
                       }}
                     >
                       {item.label}
-                    </motion.button>
-                  </motion.div>
-                ))}
-              </Box>
+                    </Button>
+                  ))}
+                </Box>
+              )}
 
-              {/* Mobile Menu Button */}
-              <IconButton sx={{ display: 'none' }} />
+              {!isMobile && (
+                <Box sx={{ display: 'flex', gap: 1.5, alignItems: 'center', ml: 3 }}>
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      border: '2.5px solid #C8A2F0',
+                      color: '#bb6aff',
+                      fontWeight: 700,
+                      borderRadius: '22px',
+                      px: 3,
+                      py: 1.2,
+                      fontSize: '1.08rem',
+                      background: 'transparent',
+                      boxShadow: 'none',
+                      textTransform: 'none',
+                      transition: 'all 0.18s',
+                      '&:hover': {
+                        background: '#f4edfa',
+                        color: '#a47cff',
+                        borderColor: '#a47cff',
+                        transform: 'scale(1.05)',
+                      },
+                    }}
+                    onClick={() => scrollToSection('solution-section')}
+                  >
+                    Learn More
+                  </Button>
+                  <Button
+                    variant="contained"
+                    sx={{
+                      background: '#111',
+                      color: '#fff',
+                      fontWeight: 800,
+                      borderRadius: '22px',
+                      px: 3.5,
+                      py: 1.2,
+                      fontSize: '1.08rem',
+                      boxShadow: '0 4px 18px 0 rgba(153,60,255,0.07)',
+                      textTransform: 'none',
+                      ml: 1,
+                      transition: 'all 0.18s',
+                      '&:hover': {
+                        background: '#bb6aff',
+                        color: '#fff',
+                        transform: 'scale(1.05)',
+                      },
+                    }}
+                    onClick={() => scrollToSection('pricing-section')}
+                  >
+                    Book Your Slot
+                  </Button>
+                </Box>
+              )}
+
+              {isMobile && (
+                <IconButton
+                  edge="end"
+                  color="inherit"
+                  aria-label="menu"
+                  onClick={() => setIsMobileMenuOpen(true)}
+                  sx={{ ml: 'auto', color: '#bb6aff', fontSize: 32 }}
+                >
+                  <MenuIcon fontSize="large" />
+                </IconButton>
+              )}
             </Toolbar>
           </Container>
         </AppBar>
 
-        {/* 3D Flip Mobile Menu */}
-        <motion.div
-          style={{
-            display: { xs: 'block', md: 'none' },
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100vh',
-            perspective: '1500px',
-            zIndex: 1500,
-            pointerEvents: isMobileMenuOpen ? 'auto' : 'none',
-          }}
-        >
-          <motion.div
-            style={{
-              position: 'relative',
-              width: '100%',
-              height: '100%',
-              transformStyle: 'preserve-3d',
-            }}
-            initial="front"
-            animate={isMobileMenuOpen ? "back" : "front"}
-            variants={flipVariants}
-          >
-            {/* Front face (main content) */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
             <motion.div
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 100 }}
+              transition={{ duration: 0.25 }}
               style={{
-                position: 'absolute',
-                width: '100%',
-                height: '100%',
-                backfaceVisibility: 'hidden',
-                background: 'transparent',
-              }}
-            />
-
-            {/* Back face (menu) */}
-            <motion.div
-              onClick={() => setIsMobileMenuOpen(false)}
-              style={{
-                position: 'absolute',
-                width: '100%',
-                height: '100%',
-                background: 'linear-gradient(135deg, #8A4FFF 0%, #A375FF 100%)',
-                backfaceVisibility: 'hidden',
-                rotateY: 180,
+                position: 'fixed',
+                top: 0,
+                right: 0,
+                width: '100vw',
+                height: '100vh',
+                background: 'rgba(255,255,255,0.96)',
+                zIndex: 3000,
                 display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
                 flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'flex-start',
+                paddingTop: 32,
               }}
             >
-              {/* Menu Content Container - Prevent click propagation */}
-              <motion.div
-                onClick={(e) => e.stopPropagation()}
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: '100%',
-                  height: '100%',
-                }}
+              <IconButton
+                onClick={() => setIsMobileMenuOpen(false)}
+                sx={{ position: 'absolute', top: 22, right: 22, color: '#bb6aff', fontSize: 32 }}
+                aria-label="close menu"
               >
-                {/* Close Button */}
-                <motion.button
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  style={{
-                    position: 'absolute',
-                    top: '20px',
-                    right: '20px',
-                    background: 'none',
-                    border: 'none',
-                    cursor: 'pointer',
-                    color: 'white',
-                    zIndex: 2000,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    padding: '12px',
-                    borderRadius: '50%',
-                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                <CloseIcon fontSize="large" />
+              </IconButton>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, mt: 7, width: '80%' }}>
+                {navItems.map((item) => (
+                  <Button
+                    key={item.label}
+                    onClick={() => {
+                      scrollToSection(item.id);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    sx={{
+                      fontWeight: 700,
+                      fontSize: '1.2rem',
+                      color: '#222',
+                      borderRadius: '18px',
+                      px: 2.5,
+                      py: 1.4,
+                      textTransform: 'none',
+                      width: '100%',
+                      '&:hover': {
+                        background: '#f4edfa',
+                        color: '#bb6aff',
+                        transform: 'scale(1.05)',
+                      },
+                      transition: 'all 0.18s',
+                    }}
+                  >
+                    {item.label}
+                  </Button>
+                ))}
+                <Button
+                  variant="outlined"
+                  sx={{
+                    border: '2.5px solid #C8A2F0',
+                    color: '#bb6aff',
+                    fontWeight: 700,
+                    borderRadius: '22px',
+                    px: 3,
+                    py: 1.2,
+                    fontSize: '1.1rem',
+                    background: 'transparent',
+                    boxShadow: 'none',
+                    textTransform: 'none',
+                    transition: 'all 0.18s',
+                    '&:hover': {
+                      background: '#f4edfa',
+                      color: '#a47cff',
+                      borderColor: '#a47cff',
+                      transform: 'scale(1.05)',
+                    },
                   }}
-                  whileHover={{ 
-                    scale: 1.1,
-                    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                  onClick={() => {
+                    scrollToSection('solution-section');
+                    setIsMobileMenuOpen(false);
                   }}
-                  whileTap={{ scale: 0.95 }}
                 >
-                  <CloseIcon style={{ fontSize: '24px' }} />
-                </motion.button>
-
-                <AnimatePresence>
-                  {isMobileMenuOpen && (
-                    <motion.div
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        gap: '2rem',
-                        marginTop: '60px',
-                      }}
-                    >
-                      {navItems.map((item, index) => (
-                        <motion.div
-                          key={item.label}
-                          variants={menuItemVariants}
-                          initial="hidden"
-                          animate="visible"
-                          exit="hidden"
-                          custom={index}
-                          style={{ perspective: 'none' }}
-                        >
-                          <motion.button
-                            onClick={() => {
-                              scrollToSection(item.id);
-                              setIsMobileMenuOpen(false);
-                            }}
-                            style={{
-                              background: 'none',
-                              border: 'none',
-                              cursor: 'pointer',
-                              padding: '1rem 2rem',
-                              color: 'white',
-                              fontSize: '2rem',
-                              fontWeight: '600',
-                            }}
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.95 }}
-                          >
-                            {item.label}
-                          </motion.button>
-                        </motion.div>
-                      ))}
-                      <motion.div
-                        variants={menuItemVariants}
-                        initial="hidden"
-                        animate="visible"
-                        exit="hidden"
-                        custom={navItems.length}
-                        style={{ perspective: 'none' }}
-                      >
-                        <motion.button
-                          onClick={() => {
-                            scrollToSection('pricing-section');
-                            setIsMobileMenuOpen(false);
-                          }}
-                          style={{
-                            background: 'white',
-                            border: 'none',
-                            cursor: 'pointer',
-                            padding: '1rem 2rem',
-                            borderRadius: '30px',
-                            color: '#8A4FFF',
-                            fontSize: '1.5rem',
-                            fontWeight: '600',
-                          }}
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                        >
-                          Get Started
-                        </motion.button>
-                      </motion.div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
+                  Learn More
+                </Button>
+                <Button
+                  variant="contained"
+                  sx={{
+                    background: '#111',
+                    color: '#fff',
+                    fontWeight: 800,
+                    borderRadius: '22px',
+                    px: 3.5,
+                    py: 1.2,
+                    fontSize: '1.1rem',
+                    boxShadow: '0 4px 18px 0 rgba(153,60,255,0.07)',
+                    textTransform: 'none',
+                    ml: 1,
+                    transition: 'all 0.18s',
+                    '&:hover': {
+                      background: '#bb6aff',
+                      color: '#fff',
+                      transform: 'scale(1.05)',
+                    },
+                  }}
+                  onClick={() => {
+                    scrollToSection('pricing-section');
+                    setIsMobileMenuOpen(false);
+                  }}
+                >
+                  Book Your Slot
+                </Button>
+              </Box>
             </motion.div>
-          </motion.div>
-        </motion.div>
+          )}
+        </AnimatePresence>
       </motion.div>
     </AnimatePresence>
   );
 };
 
-export default Header; 
+export default Header;
