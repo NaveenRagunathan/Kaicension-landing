@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import FAQ from './FAQ';
 import Footer from './Footer';
 import Hero from './Hero.js';
+
 import PricingSection from './PricingSection';
 import ProblemSection from './ProblemSection';
 import ProcessSection from './ProcessSection';
@@ -12,6 +13,7 @@ import SolutionSection from './SolutionSection';
 import Testimonials from './Testimonials';
 
 const LandingPage = () => {
+
   // Add a reveal animation class on scroll
   useEffect(() => {
     // Preload all section transitions when the page loads
@@ -157,6 +159,9 @@ const LandingPage = () => {
         </Box>
       </motion.div>
       
+      {/* Premium Navbar (site-wide) */}
+      
+
       {/* FAQ Section with 3D entry */}
       <motion.div
         id="faq-section"

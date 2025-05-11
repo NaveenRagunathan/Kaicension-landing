@@ -60,7 +60,7 @@ kaicension-landing/
 │   └── ...
 ├── src/
 │   ├── components/
-│   │   ├── Header.js
+│   │   ├── PremiumNavbar.js
 │   │   ├── Hero.js
 │   │   ├── ProblemSection.js
 │   │   ├── SolutionSection.js
