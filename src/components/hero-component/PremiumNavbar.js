@@ -256,7 +256,7 @@ class PremiumNavbar extends React.Component {
                           px: 3,
                           py: 1.8,
                           textTransform: 'none',
-                          justifyContent: 'flex-start',
+                          justifyContent:{ xs: 'center', md: 'flex-start' },
                           background: active === link.label ? 'rgba(107, 63, 160, 0.05)' : 'transparent',
                           letterSpacing: '0.02em',
                           fontFamily: 'Inter, sans-serif',
