@@ -1,66 +1,36 @@
-import React from "react";
-import { Box, Tooltip, IconButton, Typography } from "@mui/material";
 import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
+import { Box, IconButton, Tooltip, Typography } from "@mui/material";
+import React from "react";
 
-/**
- * VideoCard - Cinematic, interactive video card for hero section.
- * - Aspect ratio: 16:9 (switches to 4:3 on mobile)
- * - Glassy, rounded, shadowed, with hover zoom and glow
- * - Centered play button with pulse, accessible, click-to-expand modal handled by parent
- */
+// VideoCard: Glassy, gradient, premium video CTA card for hero section
 const VideoCard = ({
-  thumbnail,
-  alt = "Product demo thumbnail",
   onPlay,
   headline = "Experience the System in Motion",
-  subtitle = "A powerful demo to show how our system turns complexity into clarity—fast, beautiful, and tailored to your growth.",
 }) => {
   return (
     <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      {/* Headline & Subtitle */}
-      <Typography
-        variant="h4"
-        sx={{
-          fontWeight: 700,
-          fontSize: { xs: '1.32rem', md: '2.1rem' },
-          mb: 0.5,
-          textAlign: 'center',
-          letterSpacing: '-0.01em',
-          color: '#3A1C7A',
-        }}
-      >
-        {headline}
-      </Typography>
-      <Typography
-        variant="subtitle1"
-        sx={{
-          fontWeight: 400,
-          fontSize: { xs: '1rem', md: '1.18rem' },
-          mb: 2.2,
-          textAlign: 'center',
-          color: '#5B3FA0',
-          opacity: 0.92,
-        }}
-      >
-        {subtitle}
-      </Typography>
-      {/* Video Card */}
+      {/* Video Card - Glassy, Gradient, Modern */}
       <Box
         sx={{
           position: 'relative',
-          width: { xs: '100%', sm: 360, md: 640, lg: 720 },
-          minWidth: 320,
+          width: { xs: 320, sm: 420, md: 540 },
+          minWidth: 260,
           aspectRatio: { xs: '4/3', md: '16/9' },
           borderRadius: '28px',
           overflow: 'hidden',
-          boxShadow: '0px 4px 16px rgba(0,0,0,0.08)',
-          background: 'linear-gradient(120deg, #c2b6ff 0%, #2d2c7a 100%)',
+          boxShadow: '0px 4px 22px 0px rgba(123,47,242,0.13)',
+          background: 'linear-gradient(120deg, rgba(123,47,242,0.32) 0%, rgba(243,87,168,0.23) 100%)',
+          backdropFilter: 'blur(18px) saturate(1.15)',
+          border: '1.5px solid rgba(123,47,242,0.13)',
           cursor: 'pointer',
           transition: 'box-shadow 0.28s cubic-bezier(.4,2,.6,1), transform 0.26s cubic-bezier(.4,2,.6,1)',
           '&:hover': {
-            boxShadow: '0px 8px 32px 0px rgba(122, 79, 255, 0.18), 0 0 0 4px rgba(186,153,255,0.10) inset',
-            transform: 'scale(1.035)',
+            boxShadow: '0px 8px 36px 0px rgba(122, 79, 255, 0.19), 0 0 0 4px rgba(186,153,255,0.13) inset',
+            transform: 'scale(1.045)',
           },
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
         onClick={onPlay}
         tabIndex={0}
@@ -70,20 +40,42 @@ const VideoCard = ({
           if (e.key === 'Enter' || e.key === ' ') onPlay && onPlay();
         }}
       >
-        {/* Thumbnail */}
+        {/* Headline Overlay */}
+        <Typography
+          sx={{
+            position: 'absolute',
+            top: '14%',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            color: '#fff',
+            fontFamily: 'Montserrat, Inter, Open Sans, sans-serif',
+            fontWeight: 600,
+            fontSize: { xs: '1.08rem', sm: '1.25rem', md: '1.44rem' },
+            letterSpacing: '-0.01em',
+            textShadow: '0 4px 32px rgba(36, 34, 39, 0.75)',
+            textAlign: 'center',
+            zIndex: 2,
+            width: '90%',
+            lineHeight: 1.2,
+            color: '#e6e6e6',
+            pointerEvents: 'none',
+            userSelect: 'none',
+          }}
+        >
+          {headline}
+        </Typography>
+        {/* Sleek Glassy Gradient Visual (no image) */}
         <Box
-          component="img"
-          src={thumbnail}
-          alt={alt}
           sx={{
             width: '100%',
             height: '100%',
-            objectFit: 'cover',
-            borderRadius: 'inherit',
+            background: 'radial-gradient(circle at 60% 40%, rgba(255,255,255,0.22) 0%, rgba(123,47,242,0.08) 100%)',
+            opacity: 0.85,
+            zIndex: 1,
+            position: 'absolute',
+            top: 0,
+            left: 0,
             pointerEvents: 'none',
-            userSelect: 'none',
-            filter: 'brightness(0.97) saturate(1.18)',
-            transition: 'filter 0.4s',
           }}
         />
         {/* Play Button */}
@@ -94,17 +86,17 @@ const VideoCard = ({
               top: '50%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
-              width: 76,
-              height: 76,
-              bgcolor: '#fff',
+              width: 60,
+              height: 60,
+              bgcolor: 'rgba(255,255,255,0.93)',
               color: '#7B2FF2',
               boxShadow: '0 4px 24px rgba(123,47,242,0.13)',
-              border: '4px solid #E6E6FA',
+              border: '3px solid #E6E6FA',
               borderRadius: '50%',
-              zIndex: 2,
+              zIndex: 3,
               transition: 'all 0.22s cubic-bezier(.4,2,.6,1)',
               '&:hover': {
-                bgcolor: '#F357A8',
+                bgcolor: 'rgba(243,87,168,0.42)',
                 color: '#fff',
                 boxShadow: '0 8px 32px rgba(243,87,168,0.18)',
                 borderColor: '#F357A8',
@@ -117,7 +109,7 @@ const VideoCard = ({
             }}
             aria-label="Play demo"
           >
-            <PlayArrowRoundedIcon sx={{ fontSize: 48 }} />
+            <PlayArrowRoundedIcon sx={{ fontSize: 36 }} />
           </IconButton>
         </Tooltip>
         {/* Pulse Animation */}
@@ -127,10 +119,10 @@ const VideoCard = ({
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            width: 90,
-            height: 90,
+            width: 76,
+            height: 76,
             borderRadius: '50%',
-            zIndex: 1,
+            zIndex: 2,
             pointerEvents: 'none',
             animation: 'pulseRing 1.7s infinite cubic-bezier(.65,.05,.36,1)',
             background: 'radial-gradient(circle, #F357A822 50%, transparent 100%)',
@@ -151,5 +143,4 @@ const VideoCard = ({
     </Box>
   );
 };
-
 export default VideoCard;

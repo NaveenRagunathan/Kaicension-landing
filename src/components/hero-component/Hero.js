@@ -1,7 +1,7 @@
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, Button, Dialog, IconButton, Typography } from "@mui/material";
 import React, { useState } from "react";
-import PremiumNavbar from "../PremiumNavbar";
+import PremiumNavbar from "./PremiumNavbar";
 import ScrollDownAnimation from "./ScrollDownAnimation";
 import VideoCard from "./VideoCard";
 
@@ -23,6 +23,8 @@ function Hero() {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
+        pt: { xs: '0.64rem', md: '0.92rem' },
+        pb: { xs: 2, md: 3 },
         position: 'relative',
         overflow: 'hidden',
         background: 'linear-gradient(120deg, #E6E6FA 0%, #FFFFFF 100%)',
@@ -134,7 +136,9 @@ function Hero() {
             animation: 'fadeSlideUp 1.1s 0.35s cubic-bezier(.16,1,.3,1) forwards',
           }}
         >
-          Stand Out, Get Traction, Go Viral, Hit PMF, Make Money, Secure Funding and scale scale scale.
+          <>
+  <Box component="span" sx={{ fontWeight: 600, color: '#7B2FF2', letterSpacing: '0.01em' }}>Stand Out</Box>, Get Traction, <Box component="span" sx={{ fontWeight: 600, color: '#7B2FF2', letterSpacing: '0.01em' }}>Go Viral</Box>, <Box component="span" sx={{ fontWeight: 600, color: '#7B2FF2', letterSpacing: '0.01em' }}>Hit PMF</Box>, <Box component="span" sx={{ fontWeight: 600, color: '#7B2FF2', letterSpacing: '0.01em' }}>Make Money</Box>, Secure Funding and <Box component="span" sx={{ fontWeight: 700, color: '#4B2D7A', fontSize: { xs: '1.22em', md: '1.28em' }, letterSpacing: '0.015em' }}>scale scale scale</Box>.
+</>
         </Typography>
         <VideoCard
           thumbnail={videoThumbnail}
@@ -148,8 +152,8 @@ function Hero() {
             flexDirection: 'row',
             alignItems: 'center',
             gap: 2.5,
-            mt: { xs: 3, md: 4 },
-            mb: { xs: 3, md: 5 },
+            mt: { xs: 4, md: 6 },
+            mb: { xs: 1.5, md: 2 },
             justifyContent: 'center',
           }}
         >
@@ -188,7 +192,7 @@ function Hero() {
             Get Your Competitive Edge
           </Button>
         </Box>
-        <Box sx={{ display: 'flex', justifyContent: 'center', mt: { xs: 0.6, md: 0.8 }, mb: { xs: 0, md: 0 } }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', mt: { xs: 0.1, md: 0.2 }, mb: { xs: 0, md: 0 } }}>
           <ScrollDownAnimation />
         </Box>
       </Box>
