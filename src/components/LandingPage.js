@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import React, { useEffect } from 'react';
 import FAQ from './FAQ';
 import Footer from './Footer';
-import Hero from './Hero.js';
+import Hero from './hero-component/Hero.js';
 
 import PricingSection from './PricingSection';
 import ProblemSection from './ProblemSection';

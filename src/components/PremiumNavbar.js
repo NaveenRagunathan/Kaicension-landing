@@ -1,6 +1,6 @@
 import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Box, Button, Fade, IconButton, Typography } from "@mui/material";
+import { Box, Button, Fade, IconButton } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 // --- Premium Elite Navbar ---
@@ -44,30 +44,31 @@ function PremiumEliteNavbar({ active = 'Home' }) {
   return (
     <Box sx={{
       position: 'fixed',
-      top: scrolled ? 18 : 32,
+      top: scrolled ? 10 : 20,
       left: '50%',
       transform: 'translateX(-50%)',
-      width: { xs: '94%', sm: '86%', md: '74%', lg: '64%' },
+      width: { xs: '93%', sm: '80%', md: '62%', lg: '52%' },
       maxWidth: '1200px',
       zIndex: 2000,
       transition: 'all 0.38s cubic-bezier(0.34, 1.56, 0.64, 1)',
     }}>
       <Box 
         sx={{
-          background: scrolled 
-            ? 'rgba(250, 250, 250, 0.93)' 
-            : 'rgba(250, 250, 250, 0.90)',
-          backdropFilter: 'blur(10px) saturate(160%)',
-          borderRadius: scrolled ? '14px' : '18px',
-          boxShadow: '0 1px 8px rgba(107, 63, 160, 0.04)',
-          border: '1px solid rgba(229, 228, 233, 0.5)',
-          px: { xs: 1.2, md: 2.2 },
-          py: { xs: scrolled ? 0.6 : 0.8, md: scrolled ? 0.8 : 1.1 },
+          background: scrolled
+            ? 'linear-gradient(120deg, rgba(186,153,255,0.36) 0%, rgba(255,255,255,0.68) 60%, rgba(144,202,249,0.22) 100%)'
+            : 'linear-gradient(120deg, rgba(216,191,255,0.42) 0%, rgba(255,255,255,0.82) 60%, rgba(144,202,249,0.32) 100%)',
+          backdropFilter: 'blur(22px) saturate(180%)',
+          borderRadius: scrolled ? '2.5rem' : '2.8rem',
+          boxShadow: '0 4px 24px 0 rgba(137,79,242,0.09)',
+          border: '1.5px solid rgba(200, 180, 255, 0.22)',
+          px: { xs: '1.5rem', md: '2rem' },
+          py: { xs: scrolled ? '0.28rem' : '0.45rem', md: scrolled ? '0.32rem' : '0.62rem' },
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           position: 'relative',
           transition: 'all 0.36s cubic-bezier(0.34, 1.56, 0.64, 1)',
+          minWidth: 0,
         }}
       >
         {/* Logo Area */}
@@ -75,15 +76,13 @@ function PremiumEliteNavbar({ active = 'Home' }) {
           sx={{
             display: 'flex',
             alignItems: 'center',
-            height: { xs: 40, md: 56 },
-            minWidth: { xs: 44, md: 80 },
-            maxWidth: { xs: 54, md: 90 },
-            px: 0,
-            pl: '3px',
-            pr: { xs: 1, md: 2.5 }, // right margin to nav links
-            mr: { xs: 0.5, md: 2.5 },
+            height: { xs: '3.75rem', md: '5rem', lg: '5.625rem' }, // min 60px, max 90px
+            minWidth: { xs: '6.25rem', md: '12.5rem' },
+            maxWidth: { xs: '9.375rem', md: '18.75rem' },
+            px: { xs: '1.5rem', md: '2.5rem' }, // horizontal breathing space
             flex: '0 0 auto',
             cursor: 'pointer',
+            justifyContent: 'center',
           }}
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
@@ -92,12 +91,13 @@ function PremiumEliteNavbar({ active = 'Home' }) {
             src="/logo.png"
             alt="Kaicension Logo"
             sx={{
-              width: '100%',
-              height: { xs: 36, md: 48 },
-              maxHeight: '100%',
+              width: 'auto',
+              height: '100%',
+              minHeight: '3.75rem',
+              maxHeight: '5.625rem',
               objectFit: 'contain',
-              borderRadius: '8px',
               display: 'block',
+              mx: 'auto',
             }}
           />
         </Box>
@@ -126,18 +126,19 @@ function PremiumEliteNavbar({ active = 'Home' }) {
                     ? '#6B3FA0' 
                     : '#0D0D0D',
                 fontWeight: active === link.label ? 700 : 500,
-                fontSize: '0.98rem',
-                px: 2.4,
-                py: 1.4,
-                borderRadius: 18,
+                fontSize: '0.90rem',
+                px: 1.6,
+                py: 0.7,
+                borderRadius: 13,
                 letterSpacing: '0.02em',
                 fontFamily: 'Inter, sans-serif',
-                transition: 'all 0.26s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                transition: 'all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1)',
                 position: 'relative',
                 overflow: 'hidden',
                 '&:hover': {
-                  background: 'rgba(107, 63, 160, 0.05)',
-                  transform: 'translateY(-1px)',
+                  background: 'rgba(107, 63, 160, 0.08)',
+                  boxShadow: '0 2px 8px rgba(107, 63, 160, 0.08)',
+                  transform: 'translateY(-2px) scale(1.03)',
                 },
                 '&::after': active === link.label ? {
                   content: '""',
@@ -161,7 +162,7 @@ function PremiumEliteNavbar({ active = 'Home' }) {
         <Box sx={{ 
           display: { xs: 'none', md: 'flex' }, 
           alignItems: 'center',
-          gap: 2
+          gap: { xs: 1.3, md: '12px' } // minimal gap between logo and nav links
         }}>
           
           <Button
@@ -170,17 +171,17 @@ function PremiumEliteNavbar({ active = 'Home' }) {
                background: 'linear-gradient(135deg, #6B3FA0 0%, #9A6AD6 100%)',
                color: '#FFFFFF',
                fontWeight: 600,
-               borderRadius: '16px',
-               px: 3,
-               py: 1.1,
-               fontSize: '0.92rem',
-               letterSpacing: '0.02em',
-               boxShadow: '0 4px 16px rgba(107, 63, 160, 0.16), 0 1px 0 rgba(255, 255, 255, 0.1) inset',
+               borderRadius: '11px',
+               px: 2.2,
+               py: 0.6,
+               fontSize: '0.88rem',
+               letterSpacing: '0.01em',
+               boxShadow: '0 2px 8px rgba(107, 63, 160, 0.13), 0 1px 0 rgba(255, 255, 255, 0.07) inset',
                textTransform: 'none',
                fontFamily: 'Inter, sans-serif',
                position: 'relative',
                overflow: 'hidden',
-               transition: 'all 0.24s cubic-bezier(0.34, 1.56, 0.64, 1)',
+               transition: 'all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1)',
                '&::before': {
                  content: '""',
                  position: 'absolute',
@@ -188,13 +189,13 @@ function PremiumEliteNavbar({ active = 'Home' }) {
                  left: '-100%',
                  width: '100%',
                  height: '100%',
-                 background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)',
-                 transition: 'left 0.7s ease',
+                 background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent)',
+                 transition: 'left 0.6s ease',
                },
                '&:hover': {
                  background: 'linear-gradient(135deg, #7B4FB5 0%, #9A6AD6 100%)',
-                 transform: 'translateY(-2px)',
-                 boxShadow: '0 6px 20px rgba(107, 63, 160, 0.2), 0 1px 0 rgba(255, 255, 255, 0.15) inset',
+                 boxShadow: '0 4px 14px rgba(107, 63, 160, 0.17), 0 1px 0 rgba(255, 255, 255, 0.12) inset',
+                 transform: 'translateY(-1.5px) scale(1.035)',
                  '&::before': {
                    left: '100%'
                  }

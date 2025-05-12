@@ -4,7 +4,7 @@ import WhatsAppCTA from './WhatsAppCTA';
 
 const Footer = () => {
   return (
-    <Box id="footer-section" sx={{ 
+    <Box id="footer" sx={{ 
       py: 8, 
       bgcolor: 'background.paper',
       background: 'linear-gradient(180deg, #ffffff 0%, rgba(245, 247, 250, 0.8) 100%)',
