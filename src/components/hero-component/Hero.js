@@ -117,16 +117,7 @@ function Hero() {
             textFillColor: 'transparent',
           }}
         >
-          {/* Desktop: single line, Mobile: break before 'off!' */}
-          <Box component="span" sx={{ display: { xs: 'none', md: 'inline' } }}>
-            Finally your Startup can blast off!
-          </Box>
-          <Box component="span" sx={{ display: { xs: 'inline', md: 'none' } }}>
-            Finally your Startup can blast
-            <Box component="span" sx={{ display: 'block', fontSize: '2.1rem', lineHeight: 1.08 }}>
-              off!
-            </Box>
-          </Box>
+          Finally your Startup can blast off!
         </Typography>
         {/* New Subheadline */}
         <Typography
@@ -147,18 +138,8 @@ function Hero() {
         >
           <>
             <Box component="span" sx={{ fontWeight: 600, color: '#7B2FF2', letterSpacing: '0.01em' }}>Stand Out</Box>, <Box component="span" sx={{ fontWeight: 600, color: '#7B2FF2', letterSpacing: '0.01em' }}>Get Traction</Box>, <Box component="span" sx={{ fontWeight: 600, color: '#7B2FF2', letterSpacing: '0.01em' }}>Go Viral</Box>, <Box component="span" sx={{ fontWeight: 600, color: '#7B2FF2', letterSpacing: '0.01em' }}>Hit PMF</Box>, <Box component="span" sx={{ fontWeight: 600, color: '#7B2FF2', letterSpacing: '0.01em' }}>Be Profitable</Box>, <Box component="span" sx={{ fontWeight: 600, color: '#7B2FF2', letterSpacing: '0.01em' }}>Secure Funding</Box> and 
-            {/* Desktop: single line, Mobile: break before last Scale!!! */}
-            <Box component="span" sx={{ fontWeight: 700, color: '#4B2D7A', letterSpacing: '0.015em', display: { xs: 'none', md: 'inline' }, fontSize: { md: '1.28em' } }}>
-              Scale Scale Scale!!!
-            </Box>
-            <Box component="span" sx={{ fontWeight: 700, color: '#4B2D7A', letterSpacing: '0.015em', display: { xs: 'inline', md: 'none' }, fontSize: '1.13em' }}>
-              Scale Scale
-              <Box component="span" sx={{ display: 'block', fontSize: '1.13em' }}>
-                Scale!!!
-              </Box>
-            </Box>.
-  <Box component="span" sx={{ fontWeight: 600, color: '#7B2FF2', letterSpacing: '0.01em' }}>Stand Out</Box>, <Box component="span" sx={{ fontWeight: 600, color: '#7B2FF2', letterSpacing: '0.01em' }}>Get Traction</Box>, <Box component="span" sx={{ fontWeight: 600, color: '#7B2FF2', letterSpacing: '0.01em' }}>Go Viral</Box>, <Box component="span" sx={{ fontWeight: 600, color: '#7B2FF2', letterSpacing: '0.01em' }}>Hit PMF</Box>, <Box component="span" sx={{ fontWeight: 600, color: '#7B2FF2', letterSpacing: '0.01em' }}>Be Profitable</Box>, <Box component="span" sx={{ fontWeight: 600, color: '#7B2FF2', letterSpacing: '0.01em' }}>Secure Funding</Box> and <Box component="span" sx={{ fontWeight: 700, color: '#4B2D7A', fontSize: { xs: '1.22em', md: '1.28em' }, letterSpacing: '0.015em' }}>Scale Scale Scale!!!</Box>.
-</>
+            <Box component="span" sx={{ fontWeight: 700, color: '#4B2D7A', fontSize: { xs: '1.22em', md: '1.28em' }, letterSpacing: '0.015em' }}> Scale Scale Scale!!!</Box>.
+          </>
         </Typography>
         <Typography
           sx={{

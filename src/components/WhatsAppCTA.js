@@ -10,23 +10,29 @@ const CTAButton = styled(Button)`
   background: linear-gradient(90deg, #8a2be2 0%, #4a0082 100%);
   color: white;
   font-weight: 700;
-  padding: ${props => props.$isFinal ? '14px 28px' : '12px 24px'};
+  padding: ${props => (props.$isFinal || props.$testimonial) ? '18px 38px' : '12px 24px'};
   border-radius: 50px;
-  font-size: ${props => props.$isFinal ? '1.1rem' : '1rem'};
+  font-size: ${props => (props.$isFinal || props.$testimonial) ? '1.23rem' : '1rem'};
   text-transform: none;
-  box-shadow: ${props => props.$isFinal ? '0 6px 20px rgba(138, 43, 226, 0.4)' : '0 4px 15px rgba(138, 43, 226, 0.3)'};
-  transition: all 0.3s ease;
-  min-width: ${props => props.$isFinal ? '280px' : '220px'};
-  margin-top: ${props => props.$isFinal ? '24px' : '0'};
+  box-shadow: ${props => (props.$isFinal || props.$testimonial) ? '0 10px 32px 0 rgba(138, 43, 226, 0.45)' : '0 4px 15px rgba(138, 43, 226, 0.3)'};
+  transition: all 0.3s cubic-bezier(.4,2,.6,1);
+  min-width: ${props => (props.$isFinal || props.$testimonial) ? '320px' : '220px'};
+  margin-top: ${props => (props.$isFinal || props.$testimonial) ? '32px' : '0'};
+  animation: ${props => (props.$isFinal || props.$testimonial) ? 'pulseCTA 1.5s infinite cubic-bezier(.4,2,.6,1)' : 'none'};
   
   &:hover {
     background: linear-gradient(90deg, #9945e8 0%, #6c14a4 100%);
-    box-shadow: 0 8px 25px rgba(138, 43, 226, 0.5);
-    transform: translateY(-3px);
+    box-shadow: 0 14px 36px rgba(138, 43, 226, 0.6);
+    transform: translateY(-3px) scale(1.04);
   }
   
   .MuiButton-startIcon {
     margin-right: 8px;
+  }
+
+  @keyframes pulseCTA {
+    0%, 100% { box-shadow: 0 0 0 0 #8A4FFF44; }
+    50% { box-shadow: 0 0 18px 8px #A678F244; }
   }
 `;
 
@@ -118,7 +124,8 @@ const WhatsAppCTA = ({
           variant="contained" 
           startIcon={<WhatsAppIcon />}
           onClick={handleWhatsAppClick}
-          $isFinal={isFinal} /* Use $isFinal instead of isFinal to make it a transient prop */
+          $isFinal={isFinal}
+          $testimonial={section === "testimonial"}
         >
           {text}
         </CTAButton>

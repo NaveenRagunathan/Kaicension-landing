@@ -6,92 +6,48 @@ import WhatsAppCTA from './WhatsAppCTA';
 
 // Styled components for spotlight testimonial
 const TestimonialCard = styled(motion.div)`
-  padding: 3.5rem;
+  padding: 2.2rem 2.1rem;
   border-radius: 24px;
-  background: linear-gradient(145deg, rgba(138,43,226,0.15) 0%, rgba(74,0,130,0.08) 100%);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(138,43,226,0.2);
-  box-shadow: 0 25px 50px rgba(0,0,0,0.15);
-  transition: all 0.5s ease;
+  background: linear-gradient(135deg, rgba(60, 20, 120, 0.92) 0%, rgba(138,43,226,0.16) 100%);
+  border: 1.5px solid #A678F2;
+  box-shadow: 0 10px 38px 0 rgba(90,30,170,0.32), 0 1.5px 12px 0 rgba(80,40,160,0.18);
+  transition: all 0.5s cubic-bezier(.4,2,.6,1);
   position: relative;
   overflow: hidden;
   max-width: 900px;
   margin: 0 auto;
-  
-  &::before {
-    content: '"';
-    position: absolute;
-    top: 15px;
-    left: 25px;
-    font-size: 10rem;
-    font-family: serif;
-    color: rgba(138,43,226,0.15);
-    line-height: 1;
-  }
-  
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 150px;
-    height: 150px;
-    background: radial-gradient(circle, rgba(138,43,226,0.2) 0%, rgba(138,43,226,0) 70%);
-    border-radius: 50%;
-    z-index: 0;
-  }
 `;
 
 const QuoteTitle = styled(Typography)`
-  font-weight: 800;
-  margin-bottom: 1.5rem;
-  color: #8a2be2;
-  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 1.1rem;
+  color: #A678F2;
+  font-size: 1.5rem;
   position: relative;
   text-align: center;
-  
-  @media (max-width: 768px) {
-    font-size: 1.8rem;
-  }
 `;
 
 const QuoteText = styled(Typography)`
-  color: rgba(255,255,255,0.85);
-  line-height: 1.9;
-  font-size: 1.25rem;
+  color: #DDD;
+  line-height: 1.6;
+  font-size: 1rem;
   text-align: center;
   font-weight: 400;
-  letter-spacing: 0.015em;
+  letter-spacing: 0.012em;
   max-width: 800px;
-  margin: 0 auto 2rem;
+  margin: 0 auto 1.2rem;
   position: relative;
   z-index: 2;
-  
-  @media (max-width: 768px) {
-    font-size: 1.1rem;
-    line-height: 1.7;
-  }
 `;
 
 const QuoteAuthor = styled(Typography)`
-  font-weight: 700;
-  color: #8a2be2;
-  margin-top: 2rem;
+  font-weight: 400;
+  color: #AAA;
+  margin-top: 1.1rem;
   position: relative;
   text-align: center;
-  font-size: 1.1rem;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background: linear-gradient(90deg, #8a2be2, #4a0082);
-    border-radius: 3px;
-  }
+  font-size: 0.9rem;
+  font-style: italic;
 `;
 
 const GradientText = styled(Typography)`
@@ -114,7 +70,8 @@ const Testimonials = () => {
     <Box 
       id="testimonials-section"
       sx={{ 
-        py: { xs: 10, md: 16 },
+        pt: { xs: 2.5, md: 5 }, 
+        pb: { xs: 4, md: 7 }, 
         position: 'relative',
         background: 'linear-gradient(180deg, #0a0a18 0%, #14121F 100%)',
         color: 'white',
@@ -169,6 +126,29 @@ const Testimonials = () => {
         text="Start Your 4-Month Transformation Now" 
         section="testimonial"
       />
+      {/* Top and bottom fade overlay for smooth transition */}
+      <Box sx={{
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        width: '100%',
+        height: { xs: 28, md: 38 },
+        pointerEvents: 'none',
+        background: 'linear-gradient(180deg, rgba(245,245,255,0.14) 60%, rgba(20,18,31,0) 100%)',
+        zIndex: 10,
+        transition: 'opacity 0.5s cubic-bezier(.4,2,.6,1)',
+      }} />
+      <Box sx={{
+        position: 'absolute',
+        left: 0,
+        bottom: 0,
+        width: '100%',
+        height: { xs: 34, md: 48 },
+        pointerEvents: 'none',
+        background: 'linear-gradient(0deg, rgba(245,245,255,0.14) 60%, rgba(20,18,31,0) 100%)',
+        zIndex: 10,
+        transition: 'opacity 0.5s cubic-bezier(.4,2,.6,1)',
+      }} />
     </Box>
   );
 };
