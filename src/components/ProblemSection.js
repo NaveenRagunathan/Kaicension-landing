@@ -186,7 +186,7 @@ const ProblemSection = () => {
 
   const nightmares = [
     {
-      title: "The Brutal Truth",
+      title: "Not Enough Distribution & Brand Equity",
       description: `You're facing the twin 
   challenges that kill 90% of startups: Having weak distribution equity and underdeveloped brand equity. Without solving these foundational issues, you'll remain trapped in startup purgatory.`
     },
@@ -198,7 +198,12 @@ const ProblemSection = () => {
     },
     {
       title: "The Cost of Staying Stuck",
-      description: `Your team loses faith as momentum stalls making your stress mentally, physically and financially.\nCompetitors secure funding rounds you deserve and capture your market opportunity.\nYour runway shortens while you're stuck in endless iteration and panicking.\nThe window for category leadership closes a little more each day as you lose brand equity.`
+      description: [
+        "Your team loses faith as momentum stalls making your stress mentally, physically and financially.",
+        "Competitors secure funding rounds you deserve and capture your market opportunity.",
+        "Your runway shortens while you're stuck in endless iteration and panicking.",
+        "The window for category leadership closes a little more each day as you lose brand equity."
+      ]
     }
   ];
 
@@ -293,7 +298,7 @@ const ProblemSection = () => {
               textShadow: '0 2px 10px rgba(0,0,0,0.3)'
             }}
           >
-            The Founder's
+            So What's The
           </Typography>
           <GlowingGradientText
             data-text="Nightmare Scenario"
@@ -307,7 +312,7 @@ const ProblemSection = () => {
               fontSize: { xs: '2.5rem', md: '3.5rem' },
             }}
           >
-            Nightmare Scenario
+            Brutal Truth?
           </GlowingGradientText>
         </motion.div>
 
@@ -339,22 +344,69 @@ const ProblemSection = () => {
                       </CardTitle>
                     </Grid>
                     <Grid item xs={12} md={8}>
-                      <Typography
-                        variant="body1"
-                        sx={{
-                          color: 'rgba(255,255,255,0.9)',
-                          fontSize: '1.1rem',
-                          lineHeight: 1.8,
-                          position: 'relative',
-                          whiteSpace: 'pre-line',
-                          letterSpacing: '0.02em',
-                          fontWeight: 300,
-                          textShadow: '0 1px 2px rgba(0,0,0,0.2)',
-                          fontFamily: "'Montserrat', 'Arial', sans-serif"
-                        }}
-                      >
-                        {nightmare.description}
-                      </Typography>
+                      {Array.isArray(nightmare.description) ? (
+                        <Box component="ul" sx={{
+                          pl: 0,
+                          mb: 0,
+                          listStyle: 'none',
+                        }}>
+                          {nightmare.description.map((point, i) => (
+                            <Box
+                              component="li"
+                              key={i}
+                              sx={{
+                                display: 'flex',
+                                alignItems: 'flex-start',
+                                mb: { xs: 3, md: 1.2 }, // Extra space for mobile
+                              }}
+                            >
+                              <Box
+                                component="span"
+                                sx={{
+                                  color: '#8a2be2',
+                                  fontWeight: 700,
+                                  fontSize: '1.3em',
+                                  mr: 1.2,
+                                  mt: '-2px',
+                                }}
+                              >
+                                -
+                              </Box>
+                              <Typography
+                                variant="body1"
+                                sx={{
+                                  color: 'rgba(255,255,255,0.9)',
+                                  fontSize: '1.1rem',
+                                  lineHeight: 1.8,
+                                  fontWeight: 300,
+                                  textShadow: '0 1px 2px rgba(0,0,0,0.2)',
+                                  fontFamily: "'Montserrat', 'Arial', sans-serif",
+                                }}
+                              >
+                                {point}
+                              </Typography>
+                            </Box>
+                          ))}
+                        </Box>
+                      ) : (
+                        <Typography
+                          variant="body1"
+                          sx={{
+                            color: 'rgba(255,255,255,0.9)',
+                            fontSize: '1.1rem',
+                            lineHeight: 1.8,
+                            position: 'relative',
+                            whiteSpace: 'pre-line',
+                            letterSpacing: '0.02em',
+                            fontWeight: 300,
+                            textShadow: '0 1px 2px rgba(0,0,0,0.2)',
+                            fontFamily: "'Montserrat', 'Arial', sans-serif"
+                          }}
+                        >
+                          {nightmare.description}
+                        </Typography>
+                      )
+                    }
                     </Grid>
                   </Grid>
                 </FloatingCard>

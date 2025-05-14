@@ -9,23 +9,22 @@ const VideoCard = ({
 }) => {
   return (
     <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      {/* Video Card - Glassy, Gradient, Modern */}
+      {/* Video Card - Minimal, Only Play Button */}
       <Box
         sx={{
           position: 'relative',
-          width: { xs: 320, sm: 420, md: 540 },
-          minWidth: 260,
+          width: { xs: 200, sm: 260, md: 320 },
+          minWidth: 120,
           aspectRatio: { xs: '4/3', md: '16/9' },
-          borderRadius: '28px',
+          borderRadius: '22px',
           overflow: 'hidden',
-          boxShadow: '0px 4px 22px 0px rgba(123,47,242,0.13)',
-          background: 'linear-gradient(120deg, rgba(123,47,242,0.32) 0%, rgba(243,87,168,0.23) 100%)',
-          backdropFilter: 'blur(18px) saturate(1.15)',
+          background: `url('https://img.youtube.com/vi/AJC1jbfp-30/hqdefault.jpg') center center / cover no-repeat`,
           border: '1.5px solid rgba(123,47,242,0.13)',
+          boxShadow: '0px 4px 18px 0px rgba(123,47,242,0.10)',
           cursor: 'pointer',
           transition: 'box-shadow 0.28s cubic-bezier(.4,2,.6,1), transform 0.26s cubic-bezier(.4,2,.6,1)',
           '&:hover': {
-            boxShadow: '0px 8px 36px 0px rgba(122, 79, 255, 0.19), 0 0 0 4px rgba(186,153,255,0.13) inset',
+            boxShadow: '0px 8px 24px 0px rgba(122, 79, 255, 0.13), 0 0 0 4px rgba(186,153,255,0.09) inset',
             transform: 'scale(1.045)',
           },
           display: 'flex',
@@ -40,44 +39,6 @@ const VideoCard = ({
           if (e.key === 'Enter' || e.key === ' ') onPlay && onPlay();
         }}
       >
-        {/* Headline Overlay */}
-        <Typography
-          sx={{
-            position: 'absolute',
-            top: '14%',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            color: '#fff',
-            fontFamily: 'Montserrat, Inter, Open Sans, sans-serif',
-            fontWeight: 600,
-            fontSize: { xs: '1.08rem', sm: '1.25rem', md: '1.44rem' },
-            letterSpacing: '-0.01em',
-            textShadow: '0 4px 32px rgba(36, 34, 39, 0.75)',
-            textAlign: 'center',
-            zIndex: 2,
-            width: '90%',
-            lineHeight: 1.2,
-            color: '#e6e6e6',
-            pointerEvents: 'none',
-            userSelect: 'none',
-          }}
-        >
-          {headline}
-        </Typography>
-        {/* Sleek Glassy Gradient Visual (no image) */}
-        <Box
-          sx={{
-            width: '100%',
-            height: '100%',
-            background: 'radial-gradient(circle at 60% 40%, rgba(255,255,255,0.22) 0%, rgba(123,47,242,0.08) 100%)',
-            opacity: 0.85,
-            zIndex: 1,
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            pointerEvents: 'none',
-          }}
-        />
         {/* Play Button */}
         <Tooltip title="Play demo video" placement="top">
           <IconButton

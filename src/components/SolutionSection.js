@@ -186,7 +186,7 @@ const SolutionSection = () => {
               textAlign: 'center'
             }}
           >
-            All you have to do is Fix the Foundations, Ignite Growth, Secure Funding.
+            All you have to do is Fix the Foundations, Ignite Growth and Secure Funding!*
           </GradientText>
         </motion.div>
 

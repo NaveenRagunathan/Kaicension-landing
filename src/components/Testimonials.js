@@ -144,19 +144,6 @@ const Testimonials = () => {
           >
             Founder Success Stories
           </Typography>
-          <GradientText 
-            variant="h2" 
-            component="span" 
-            align="center" 
-            sx={{ 
-              display: 'block', 
-              mb: { xs: 6, md: 10 },
-              textAlign: 'center',
-              fontSize: { xs: '2.5rem', md: '3.5rem' }
-            }}
-          >
-            (Relatability + Hope)
-          </GradientText>
         </motion.div>
         
         <motion.div

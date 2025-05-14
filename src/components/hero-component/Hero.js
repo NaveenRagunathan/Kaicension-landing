@@ -12,7 +12,7 @@ function Hero() {
   // Placeholder video thumbnail
   const videoThumbnail = "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80";
   // Replace with your actual video embed URL
-  const videoEmbedUrl = "https://www.youtube.com/embed/xZqT3E3-POk?si=tSscDApO7P2S6dx4&autoplay=1";
+  const videoEmbedUrl = "https://www.youtube.com/embed/AJC1jbfp-30?si=tY3RZxK3riWYc7mD";
 
   return (
     <Box
@@ -117,7 +117,16 @@ function Hero() {
             textFillColor: 'transparent',
           }}
         >
-          Finally your Startup can blast off!
+          {/* Desktop: single line, Mobile: break before 'off!' */}
+          <Box component="span" sx={{ display: { xs: 'none', md: 'inline' } }}>
+            Finally your Startup can blast off!
+          </Box>
+          <Box component="span" sx={{ display: { xs: 'inline', md: 'none' } }}>
+            Finally your Startup can blast
+            <Box component="span" sx={{ display: 'block', fontSize: '2.1rem', lineHeight: 1.08 }}>
+              off!
+            </Box>
+          </Box>
         </Typography>
         {/* New Subheadline */}
         <Typography
@@ -137,12 +146,35 @@ function Hero() {
           }}
         >
           <>
-  <Box component="span" sx={{ fontWeight: 600, color: '#7B2FF2', letterSpacing: '0.01em' }}>Stand Out</Box>, Get Traction, <Box component="span" sx={{ fontWeight: 600, color: '#7B2FF2', letterSpacing: '0.01em' }}>Go Viral</Box>, <Box component="span" sx={{ fontWeight: 600, color: '#7B2FF2', letterSpacing: '0.01em' }}>Hit PMF</Box>, <Box component="span" sx={{ fontWeight: 600, color: '#7B2FF2', letterSpacing: '0.01em' }}>Make Money</Box>, Secure Funding and <Box component="span" sx={{ fontWeight: 700, color: '#4B2D7A', fontSize: { xs: '1.22em', md: '1.28em' }, letterSpacing: '0.015em' }}>scale scale scale</Box>.
+            <Box component="span" sx={{ fontWeight: 600, color: '#7B2FF2', letterSpacing: '0.01em' }}>Stand Out</Box>, <Box component="span" sx={{ fontWeight: 600, color: '#7B2FF2', letterSpacing: '0.01em' }}>Get Traction</Box>, <Box component="span" sx={{ fontWeight: 600, color: '#7B2FF2', letterSpacing: '0.01em' }}>Go Viral</Box>, <Box component="span" sx={{ fontWeight: 600, color: '#7B2FF2', letterSpacing: '0.01em' }}>Hit PMF</Box>, <Box component="span" sx={{ fontWeight: 600, color: '#7B2FF2', letterSpacing: '0.01em' }}>Be Profitable</Box>, <Box component="span" sx={{ fontWeight: 600, color: '#7B2FF2', letterSpacing: '0.01em' }}>Secure Funding</Box> and 
+            {/* Desktop: single line, Mobile: break before last Scale!!! */}
+            <Box component="span" sx={{ fontWeight: 700, color: '#4B2D7A', letterSpacing: '0.015em', display: { xs: 'none', md: 'inline' }, fontSize: { md: '1.28em' } }}>
+              Scale Scale Scale!!!
+            </Box>
+            <Box component="span" sx={{ fontWeight: 700, color: '#4B2D7A', letterSpacing: '0.015em', display: { xs: 'inline', md: 'none' }, fontSize: '1.13em' }}>
+              Scale Scale
+              <Box component="span" sx={{ display: 'block', fontSize: '1.13em' }}>
+                Scale!!!
+              </Box>
+            </Box>.
+  <Box component="span" sx={{ fontWeight: 600, color: '#7B2FF2', letterSpacing: '0.01em' }}>Stand Out</Box>, <Box component="span" sx={{ fontWeight: 600, color: '#7B2FF2', letterSpacing: '0.01em' }}>Get Traction</Box>, <Box component="span" sx={{ fontWeight: 600, color: '#7B2FF2', letterSpacing: '0.01em' }}>Go Viral</Box>, <Box component="span" sx={{ fontWeight: 600, color: '#7B2FF2', letterSpacing: '0.01em' }}>Hit PMF</Box>, <Box component="span" sx={{ fontWeight: 600, color: '#7B2FF2', letterSpacing: '0.01em' }}>Be Profitable</Box>, <Box component="span" sx={{ fontWeight: 600, color: '#7B2FF2', letterSpacing: '0.01em' }}>Secure Funding</Box> and <Box component="span" sx={{ fontWeight: 700, color: '#4B2D7A', fontSize: { xs: '1.22em', md: '1.28em' }, letterSpacing: '0.015em' }}>Scale Scale Scale!!!</Box>.
 </>
         </Typography>
+        <Typography
+          sx={{
+            fontFamily: 'Montserrat, Inter, Open Sans, sans-serif',
+            fontWeight: 600,
+            fontSize: { xs: '1.07rem', sm: '1.19rem', md: '1.28rem' },
+            color: '#4B2D7A',
+            textAlign: 'center',
+            mb: '0.4rem',
+            mt: 0,
+            letterSpacing: '-0.01em',
+          }}
+        >
+          Experience the System in Motion
+        </Typography>
         <VideoCard
-          thumbnail={videoThumbnail}
-          alt="Product demo thumbnail"
           onPlay={() => setVideoOpen(true)}
         />
         {/* CTA Row */}
@@ -189,7 +221,7 @@ function Hero() {
               }
             }}
           >
-            Get Your Competitive Edge
+            Blast off your startup ASAP
           </Button>
         </Box>
         <Box sx={{ display: 'flex', justifyContent: 'center', mt: { xs: 0.1, md: 0.2 }, mb: { xs: 0, md: 0 } }}>
