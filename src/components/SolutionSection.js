@@ -119,7 +119,7 @@ const SolutionSection = () => {
       subtitle: "Get the Investor Magnetism your Startup deserves",
       items: [
         "*Pitch Decks and Data Rooms that Make VCs Eager*: You will confidently say to VCs \"We're not another story\" → We're the solution to a $1B+ market opportunity, here is Data to back our claims.",
-        "*Metrics and Data Room That Scream \"10x Returns\"*: \"Traction\" isn't just users—it's compelling LTV:CAC ratios, expanding margins, and consistent MoM growth that shows you're investment-ready. Professionally arranged Data Room to show all these."
+        "*Metrics and Data Room That Scream \"10x Returns\"*: \"Traction\" isn't just users—it's compelling LTV:CAC ratios, expanding margins, and consistent MoM growth that shows you're investment-ready. Professionally arranged Data Rooms."
       ]
     }
   ];
